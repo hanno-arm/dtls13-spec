@@ -6,9 +6,9 @@ TLS                                                          E. Rescorla
 Internet-Draft                                                RTFM, Inc.
 Obsoletes: 6347 (if approved)                              H. Tschofenig
 Intended status: Standards Track                             ARM Limited
-Expires: May 28, 2018                                        N. Modadugu
+Expires: June 2, 2018                                        N. Modadugu
                                                             Google, Inc.
-                                                       November 24, 2017
+                                                       November 29, 2017
 
 
    The Datagram Transport Layer Security (DTLS) Protocol Version 1.3
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 28, 2018.
+   This Internet-Draft will expire on June 2, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 1]
+Rescorla, et al.          Expires June 2, 2018                  [Page 1]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 2]
+Rescorla, et al.          Expires June 2, 2018                  [Page 2]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 3]
+Rescorla, et al.          Expires June 2, 2018                  [Page 3]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 4]
+Rescorla, et al.          Expires June 2, 2018                  [Page 4]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 5]
+Rescorla, et al.          Expires June 2, 2018                  [Page 5]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -333,7 +333,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 6]
+Rescorla, et al.          Expires June 2, 2018                  [Page 6]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 7]
+Rescorla, et al.          Expires June 2, 2018                  [Page 7]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 8]
+Rescorla, et al.          Expires June 2, 2018                  [Page 8]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                  [Page 9]
+Rescorla, et al.          Expires June 2, 2018                  [Page 9]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 10]
+Rescorla, et al.          Expires June 2, 2018                 [Page 10]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -613,7 +613,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 11]
+Rescorla, et al.          Expires June 2, 2018                 [Page 11]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -669,7 +669,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 12]
+Rescorla, et al.          Expires June 2, 2018                 [Page 12]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -725,7 +725,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 13]
+Rescorla, et al.          Expires June 2, 2018                 [Page 13]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -781,7 +781,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 14]
+Rescorla, et al.          Expires June 2, 2018                 [Page 14]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -837,7 +837,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 15]
+Rescorla, et al.          Expires June 2, 2018                 [Page 15]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -893,7 +893,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 16]
+Rescorla, et al.          Expires June 2, 2018                 [Page 16]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -949,7 +949,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 17]
+Rescorla, et al.          Expires June 2, 2018                 [Page 17]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 18]
+Rescorla, et al.          Expires June 2, 2018                 [Page 18]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 19]
+Rescorla, et al.          Expires June 2, 2018                 [Page 19]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 20]
+Rescorla, et al.          Expires June 2, 2018                 [Page 20]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 21]
+Rescorla, et al.          Expires June 2, 2018                 [Page 21]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1229,7 +1229,7 @@ ClientHello                                                 +----------+
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 22]
+Rescorla, et al.          Expires June 2, 2018                 [Page 22]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 23]
+Rescorla, et al.          Expires June 2, 2018                 [Page 23]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 24]
+Rescorla, et al.          Expires June 2, 2018                 [Page 24]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 25]
+Rescorla, et al.          Expires June 2, 2018                 [Page 25]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 26]
+Rescorla, et al.          Expires June 2, 2018                 [Page 26]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 27]
+Rescorla, et al.          Expires June 2, 2018                 [Page 27]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 28]
+Rescorla, et al.          Expires June 2, 2018                 [Page 28]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 29]
+Rescorla, et al.          Expires June 2, 2018                 [Page 29]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 30]
+Rescorla, et al.          Expires June 2, 2018                 [Page 30]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1733,7 +1733,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 31]
+Rescorla, et al.          Expires June 2, 2018                 [Page 31]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 32]
+Rescorla, et al.          Expires June 2, 2018                 [Page 32]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 33]
+Rescorla, et al.          Expires June 2, 2018                 [Page 33]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 34]
+Rescorla, et al.          Expires June 2, 2018                 [Page 34]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 35]
+Rescorla, et al.          Expires June 2, 2018                 [Page 35]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2013,7 +2013,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 36]
+Rescorla, et al.          Expires June 2, 2018                 [Page 36]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 37]
+Rescorla, et al.          Expires June 2, 2018                 [Page 37]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2125,7 +2125,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 38]
+Rescorla, et al.          Expires June 2, 2018                 [Page 38]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2181,7 +2181,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 39]
+Rescorla, et al.          Expires June 2, 2018                 [Page 39]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2237,7 +2237,7 @@ Appendix C.  Contributors
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 40]
+Rescorla, et al.          Expires June 2, 2018                 [Page 40]
 
 Internet-Draft                  DTLS 1.3                   November 2017
 
@@ -2293,4 +2293,4 @@ Authors' Addresses
 
 
 
-Rescorla, et al.          Expires May 28, 2018                 [Page 41]
+Rescorla, et al.          Expires June 2, 2018                 [Page 41]
