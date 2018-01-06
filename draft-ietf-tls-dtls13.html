@@ -19,7 +19,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  ul.toc, #rfc\.toc {
+  body>ul.toc, body>#rfc\.toc {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -30,10 +30,12 @@
   #rfc\.toc {
     top: 15px;
   }
-  ul.toc {
-    top: 80px;
+  ul.toc, nav#rfc\.toc {
     overflow: auto;
     overscroll-behavior: contain;
+  }
+  body>ul.toc {
+    top: 80px;
   }
 
   body {
@@ -323,12 +325,12 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.8.3 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Rescorla, E., Tschofenig, H., and N. Modadugu" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-tls-dtls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-11-29" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-06" />
   <meta name="dct.abstract" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
   <meta name="description" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
 
@@ -356,7 +358,7 @@ address {
 <td class="right">ARM Limited</td>
 </tr>
 <tr>
-<td class="left">Expires: June 2, 2018</td>
+<td class="left">Expires: July 10, 2018</td>
 <td class="right">N. Modadugu</td>
 </tr>
 <tr>
@@ -365,7 +367,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">November 29, 2017</td>
+<td class="right">January 06, 2018</td>
 </tr>
 
     	
@@ -382,9 +384,9 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on June 2, 2018.</p>
+<p>This Internet-Draft will expire on July 10, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
-<p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 <p>This document may contain material from IETF Documents or IETF Contributions published or made publicly available before November 10, 2008.  The person(s) controlling the copyright in some of this material may not have granted the IETF Trust the right to allow modifications of such material outside the IETF Standards Process. Without obtaining an adequate license from the person(s) controlling the copyright in such materials, this document may not be modified outside the IETF Standards Process, and derivative works of it may not be created outside the IETF Standards Process, except to format it for publication as an RFC or to translate it into languages other than English.</p>
 
@@ -761,7 +763,7 @@ address {
 
       [Rest of handshake]
 </pre>
-<p class="figure">Figure 2: DTLS Exchange with HelloRetryRequest contain the Cookie Extension</p>
+<p class="figure">Figure 2: DTLS Exchange with HelloRetryRequest containing the Cookie Extension</p>
 <p id="rfc.section.5.1.p.6">The cookie extension is defined in Section 4.2.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>. When sending the initial ClientHello, the client does not have a cookie yet. In this case, the cookie extension is omitted and the legacy_cookie field in the ClientHello message SHOULD be set to a zero length vector (i.e., a single zero byte length field) and MUST be ignored by a server negotiating DTLS 1.3.</p>
 <p id="rfc.section.5.1.p.7">When responding to a HelloRetryRequest, the client MUST create a new ClientHello message following the description in Section 4.1.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
 <p id="rfc.section.5.1.p.8">If the HelloRetryRequest message is used, the initial ClientHello and the HelloRetryRequest are included in the calculation of the handshake_messages (for the CertificateVerify message) and verify_data (for the Finished message).  However, the computation of the message hash for the HelloRetryRequest is done according to the description in Section 4.4.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>

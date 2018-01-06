@@ -6,9 +6,9 @@ TLS                                                          E. Rescorla
 Internet-Draft                                                RTFM, Inc.
 Obsoletes: 6347 (if approved)                              H. Tschofenig
 Intended status: Standards Track                             ARM Limited
-Expires: June 2, 2018                                        N. Modadugu
+Expires: July 10, 2018                                       N. Modadugu
                                                             Google, Inc.
-                                                       November 29, 2017
+                                                        January 06, 2018
 
 
    The Datagram Transport Layer Security (DTLS) Protocol Version 1.3
@@ -41,11 +41,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 2, 2018.
+   This Internet-Draft will expire on July 10, 2018.
 
 Copyright Notice
 
-   Copyright (c) 2017 IETF Trust and the persons identified as the
+   Copyright (c) 2018 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 1]
+Rescorla, et al.          Expires July 10, 2018                 [Page 1]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    (https://trustee.ietf.org/license-info) in effect on the date of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 2]
+Rescorla, et al.          Expires July 10, 2018                 [Page 2]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
      5.8.  Alert Messages  . . . . . . . . . . . . . . . . . . . . .  28
@@ -165,9 +165,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 3]
+Rescorla, et al.          Expires July 10, 2018                 [Page 3]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    specification describes the most current version of the DTLS protocol
@@ -221,9 +221,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 4]
+Rescorla, et al.          Expires July 10, 2018                 [Page 4]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    -  '+' indicates noteworthy extensions sent in the previously noted
@@ -277,9 +277,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 5]
+Rescorla, et al.          Expires July 10, 2018                 [Page 5]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    5.  Datagram transport protocols, like UDP, are susceptible to
@@ -333,9 +333,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 6]
+Rescorla, et al.          Expires July 10, 2018                 [Page 6]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    queues it for future handling once all previous messages have been
@@ -389,9 +389,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 7]
+Rescorla, et al.          Expires July 10, 2018                 [Page 7]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
      struct {
@@ -445,9 +445,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 8]
+Rescorla, et al.          Expires July 10, 2018                 [Page 8]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    -  The first three bits are set to 001 in order to allow multiplexing
@@ -501,9 +501,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                  [Page 9]
+Rescorla, et al.          Expires July 10, 2018                 [Page 9]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    that the system TCP stack is using.)  Until the handshake has
@@ -557,9 +557,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 10]
+Rescorla, et al.          Expires July 10, 2018                [Page 10]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    If the epoch bits match those of the current epoch, then
@@ -613,9 +613,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 11]
+Rescorla, et al.          Expires July 10, 2018                [Page 11]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    defines a mapping of DTLS to DCCP that takes these issues into
@@ -669,9 +669,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 12]
+Rescorla, et al.          Expires July 10, 2018                [Page 12]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    -  Where allowed by the underlying transport protocol, the upper
@@ -725,9 +725,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 13]
+Rescorla, et al.          Expires July 10, 2018                [Page 13]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    text describes the functionality that the implementation must
@@ -781,9 +781,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 14]
+Rescorla, et al.          Expires July 10, 2018                [Page 14]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    1.  To handle message loss, reordering, and fragmentation
@@ -837,9 +837,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 15]
+Rescorla, et al.          Expires July 10, 2018                [Page 15]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    The DTLS 1.3 specification changes the way how cookies are exchanged
@@ -868,7 +868,7 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
          [Rest of handshake]
 
-     Figure 2: DTLS Exchange with HelloRetryRequest contain the Cookie
+   Figure 2: DTLS Exchange with HelloRetryRequest containing the Cookie
                                  Extension
 
    The cookie extension is defined in Section 4.2.2 of
@@ -893,9 +893,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 16]
+Rescorla, et al.          Expires July 10, 2018                [Page 16]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    The handshake transcript is not reset with the second ClientHello and
@@ -949,9 +949,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 17]
+Rescorla, et al.          Expires July 10, 2018                [Page 17]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    HelloRetryRequest which was sent in the same connection (i.e., where
@@ -1005,9 +1005,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 18]
+Rescorla, et al.          Expires July 10, 2018                [Page 18]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
      enum {
@@ -1061,9 +1061,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 19]
+Rescorla, et al.          Expires July 10, 2018                [Page 19]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    retransmission is a new record.  This record will have a new
@@ -1117,9 +1117,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 20]
+Rescorla, et al.          Expires July 10, 2018                [Page 20]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
       [I-D.ietf-tls-tls13]) and the legacy_version field MUST be set to
@@ -1173,9 +1173,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 21]
+Rescorla, et al.          Expires July 10, 2018                [Page 21]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 5.5.  DTLS Handshake Flights
@@ -1229,9 +1229,9 @@ ClientHello                                                 +----------+
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 22]
+Rescorla, et al.          Expires July 10, 2018                [Page 22]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    ClientHello                                              +----------+
@@ -1285,9 +1285,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 23]
+Rescorla, et al.          Expires July 10, 2018                [Page 23]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
   Client                                            Server
@@ -1341,9 +1341,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 24]
+Rescorla, et al.          Expires July 10, 2018                [Page 24]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 5.6.  Timeout and Retransmission
@@ -1397,9 +1397,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 25]
+Rescorla, et al.          Expires July 10, 2018                [Page 25]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
                |           |
@@ -1453,9 +1453,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 26]
+Rescorla, et al.          Expires July 10, 2018                [Page 26]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
        peer and therefore suggests that part of one's previous flight
@@ -1509,9 +1509,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 27]
+Rescorla, et al.          Expires July 10, 2018                [Page 27]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    reset to the initial value.  After a long period of idleness, no less
@@ -1565,9 +1565,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 28]
+Rescorla, et al.          Expires July 10, 2018                [Page 28]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    handshake, abandons the connection, and then immediately starts a new
@@ -1621,9 +1621,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 29]
+Rescorla, et al.          Expires July 10, 2018                [Page 29]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    Client                                                Server
@@ -1677,9 +1677,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 30]
+Rescorla, et al.          Expires July 10, 2018                [Page 30]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 6.1.  Epoch Values and Rekeying
@@ -1733,9 +1733,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 31]
+Rescorla, et al.          Expires July 10, 2018                [Page 31]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    exchange.  A server will not be able to compute the appropriate keys
@@ -1789,9 +1789,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 32]
+Rescorla, et al.          Expires July 10, 2018                [Page 32]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
                                <--------      [Application Data]
@@ -1845,9 +1845,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 33]
+Rescorla, et al.          Expires July 10, 2018                [Page 33]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 7.1.  Sending ACKs
@@ -1901,9 +1901,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 34]
+Rescorla, et al.          Expires July 10, 2018                [Page 34]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 7.2.  Receiving ACKs
@@ -1957,9 +1957,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 35]
+Rescorla, et al.          Expires July 10, 2018                [Page 35]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 10.  Security Considerations
@@ -2013,9 +2013,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 36]
+Rescorla, et al.          Expires July 10, 2018                [Page 36]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    -  Removed support for weaker and older cryptographic algorithms
@@ -2069,9 +2069,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 37]
+Rescorla, et al.          Expires July 10, 2018                [Page 37]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    [RFC6298]  Paxson, V., Allman, M., Chu, J., and M. Sargent,
@@ -2125,9 +2125,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 38]
+Rescorla, et al.          Expires July 10, 2018                [Page 38]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    [RFC5996]  Kaufman, C., Hoffman, P., Nir, Y., and P. Eronen,
@@ -2181,9 +2181,9 @@ Internet-Draft                  DTLS 1.3                   November 2017
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 39]
+Rescorla, et al.          Expires July 10, 2018                [Page 39]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
 Appendix A.  History
@@ -2237,9 +2237,9 @@ Appendix C.  Contributors
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 40]
+Rescorla, et al.          Expires July 10, 2018                [Page 40]
 
-Internet-Draft                  DTLS 1.3                   November 2017
+Internet-Draft                  DTLS 1.3                    January 2018
 
 
    * Ilari Liusvaara
@@ -2293,4 +2293,4 @@ Authors' Addresses
 
 
 
-Rescorla, et al.          Expires June 2, 2018                 [Page 41]
+Rescorla, et al.          Expires July 10, 2018                [Page 41]
