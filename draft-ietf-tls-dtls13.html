@@ -23,19 +23,21 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    right: calc(50vw - 525px);
+    right: calc(50vw - 550px);
     width: 300px;
     z-index: 1;
   }
   #rfc\.toc {
-    top: 15px;
+    top: 55px;
+    overflow: auto;
+    overscroll-behavior: contain;
   }
-  ul.toc, nav#rfc\.toc {
+  ul.toc, #rfc\.toc {
     overflow: auto;
     overscroll-behavior: contain;
   }
   body>ul.toc {
-    top: 80px;
+    top: 140px;
   }
 
   body {
@@ -44,11 +46,11 @@
 }
 
 body {
-  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 16px "Helvetica Neue",Helvetica,Arial,sans-serif;
   color: #333;
   font-size-adjust: 0.5;
-  line-height: 130%;
-  margin: 25px auto;
+  line-height: 24px;
+  margin: 75px auto;
   max-width: 724px;
 }
 
@@ -61,7 +63,7 @@ body {
   margin: 0.8em 0 0.3em;
 }
 .title { font-size: 36px; }
-h1 { font-size: 30px; }
+h1 { font-size: 36px; }
 h2 { font-size: 24px; }
 h3, h4 { font-size: 18px; }
 h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
@@ -124,10 +126,9 @@ table.header td {
   height: auto;
   line-height: 100%;
 }
-#rfc\.abstract+p {
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 130%;
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 18px;
+  line-height: 27px%;
 }
 
 samp, tt, code, pre {
@@ -195,6 +196,9 @@ ul.empty li {
 hr {
   border: 0;
   border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
 }
 
 a {
@@ -325,12 +329,12 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.8.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.8.5 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Rescorla, E., Tschofenig, H., and N. Modadugu" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-tls-dtls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-06" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-2-10" />
   <meta name="dct.abstract" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
   <meta name="description" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
 
@@ -358,7 +362,7 @@ address {
 <td class="right">ARM Limited</td>
 </tr>
 <tr>
-<td class="left">Expires: July 10, 2018</td>
+<td class="left">Expires: August 14, 2018</td>
 <td class="right">N. Modadugu</td>
 </tr>
 <tr>
@@ -367,7 +371,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">January 06, 2018</td>
+<td class="right">February 10, 2018</td>
 </tr>
 
     	
@@ -384,7 +388,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 10, 2018.</p>
+<p>This Internet-Draft will expire on August 14, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -653,7 +657,7 @@ address {
 <a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#determining-the-header-format" id="determining-the-header-format">Determining the Header Format</a>
 </h3>
 <p id="rfc.section.4.1.1.p.1">Implementations can distinguish the three header formats by examining the first byte, which in the DTLSPlaintext and DTLSCiphertext header represents the content type. If the first byte is alert(21), handshake(22), or ack(25), the record MUST be interpreted as a DTLSPlaintext record. If the first byte is application_data(23) then the record MUST be interpreted handled as DTLSCiphertext; the true content type will be inside the protected portion.</p>
-<p id="rfc.section.4.1.1.p.2">If the first byte is any other other value, then receivers MUST check to see if the leading bits of the first byte are 001. If so, they MUST process the record as DTLSShortCiphertext.  Otherwise, the record MUST be rejected as if it had failed deprotection.</p>
+<p id="rfc.section.4.1.1.p.2">If the first byte is any other other value, then receivers MUST check to see if the leading bits of the first byte are 001. If so, they MUST process the record as DTLSShortCiphertext.  Otherwise, the record MUST be rejected as if it had failed deprotection, as described in <a href="#handling-invalid-records" class="xref">Section 4.4.2</a>.</p>
 <h3 id="rfc.section.4.1.2">
 <a href="#rfc.section.4.1.2">4.1.2.</a> <a href="#reconstructing" id="reconstructing">Reconstructing the Sequence Number and Epoch</a>
 </h3>
@@ -666,7 +670,7 @@ address {
 </h2>
 <p id="rfc.section.4.2.p.1">Each DTLS record MUST fit within a single datagram.  In order to avoid IP fragmentation, clients of the DTLS record layer SHOULD attempt to size records so that they fit within any PMTU estimates obtained from the record layer.</p>
 <p id="rfc.section.4.2.p.2">Note that unlike IPsec, DTLS records do not contain any association identifiers.  Applications must arrange to multiplex between associations.  With UDP, the host/port number is used to look up the appropriate security association for incoming records.</p>
-<p id="rfc.section.4.2.p.3">Multiple DTLS records may be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload must be the beginning of a record.  Records may not span datagrams.</p>
+<p id="rfc.section.4.2.p.3">Multiple DTLS records MAY be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload MUST be the beginning of a record.  Records MUST NOT span datagrams.</p>
 <p id="rfc.section.4.2.p.4">Some transports, such as DCCP <a href="#RFC4340" class="xref">[RFC4340]</a>, provide their own sequence numbers.  When carried over those transports, both the DTLS and the transport sequence numbers will be present.  Although this introduces a small amount of inefficiency, the transport layer and DTLS sequence numbers serve different purposes; therefore, for conceptual simplicity, it is superior to use both sequence numbers.</p>
 <p id="rfc.section.4.2.p.5">Some transports provide congestion control for traffic carried over them.  If the congestion window is sufficiently narrow, DTLS handshake retransmissions may be held rather than transmitted immediately, potentially leading to timeouts and spurious retransmission.  When DTLS is used over such transports, care should be taken not to overrun the likely congestion window. <a href="#RFC5238" class="xref">[RFC5238]</a> defines a mapping of DTLS to DCCP that takes these issues into account.</p>
 <h2 id="rfc.section.4.3">
@@ -696,7 +700,7 @@ address {
 
 <ul>
 <li>Where allowed by the underlying transport protocol, the upper layer protocol SHOULD be allowed to set the state of the DF bit (in IPv4) or prohibit local fragmentation (in IPv6).</li>
-<li>If the underlying transport protocol allows the application to request PMTU probing (e.g., DCCP), the DTLS record layer should honor this request.</li>
+<li>If the underlying transport protocol allows the application to request PMTU probing (e.g., DCCP), the DTLS record layer SHOULD honor this request.</li>
 </ul>
 <p id="rfc.section.4.3.p.10">The final issue is the DTLS handshake protocol.  From the perspective of the DTLS record layer, this is merely another upper layer protocol.  However, DTLS handshakes occur infrequently and involve only a few round trips; therefore, the handshake protocol PMTU handling places a premium on rapid completion over accurate PMTU discovery.  In order to allow connections under these circumstances, DTLS implementations SHOULD follow the following rules:</p>
 <p></p>
@@ -766,7 +770,7 @@ address {
 <p class="figure">Figure 2: DTLS Exchange with HelloRetryRequest containing the Cookie Extension</p>
 <p id="rfc.section.5.1.p.6">The cookie extension is defined in Section 4.2.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>. When sending the initial ClientHello, the client does not have a cookie yet. In this case, the cookie extension is omitted and the legacy_cookie field in the ClientHello message SHOULD be set to a zero length vector (i.e., a single zero byte length field) and MUST be ignored by a server negotiating DTLS 1.3.</p>
 <p id="rfc.section.5.1.p.7">When responding to a HelloRetryRequest, the client MUST create a new ClientHello message following the description in Section 4.1.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
-<p id="rfc.section.5.1.p.8">If the HelloRetryRequest message is used, the initial ClientHello and the HelloRetryRequest are included in the calculation of the handshake_messages (for the CertificateVerify message) and verify_data (for the Finished message).  However, the computation of the message hash for the HelloRetryRequest is done according to the description in Section 4.4.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
+<p id="rfc.section.5.1.p.8">If the HelloRetryRequest message is used, the initial ClientHello and the HelloRetryRequest are included in the calculation of the Transcript-Hash. The computation of the message hash for the HelloRetryRequest is done according to the description in Section 4.4.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
 <p id="rfc.section.5.1.p.9">The handshake transcript is not reset with the second ClientHello and a stateless server-cookie implementation requires the transcript of the HelloRetryRequest to be stored in the cookie or the internal state of the hash algorithm, since only the hash of the transcript is required for the handshake to complete.</p>
 <p id="rfc.section.5.1.p.10">When the second ClientHello is received, the server can verify that the cookie is valid and that the client can receive packets at the given IP address. If the client&#8217;s apparent IP address is embedded in the cookie, this prevents an attacker from generating an acceptable ClientHello apparently from another user.</p>
 <p id="rfc.section.5.1.p.11">One potential attack on this scheme is for the attacker to collect a number of cookies from different addresses where it controls endpoints and then reuse them to attack the server.  The server can defend against this attack by changing the secret value frequently, thus invalidating those cookies. If the server wishes that legitimate clients be able to handshake through the transition (e.g., they received a cookie with Secret 1 and then sent the second ClientHello after the server has changed to Secret 2), the server can have a limited window during which it accepts both secrets.  <a href="#RFC5996" class="xref">[RFC5996]</a> suggests adding a key identifier to cookies to detect this case. An alternative approach is simply to try verifying with both secrets. It is RECOMMENDED that servers implement a key rotation scheme that allows the server to manage keys with overlapping lifetime.</p>
@@ -785,7 +789,7 @@ address {
       hello_verify_request_RESERVED(3),
       new_session_ticket(4),
       end_of_early_data(5),
-      hello_retry_request(6),
+      hello_retry_request_RESRVED(13),
       encrypted_extensions(8),
       certificate(11),
       server_key_exchange_RESERVED(12),
@@ -809,7 +813,6 @@ address {
           case client_hello:          ClientHello;
           case server_hello:          ServerHello;
           case end_of_early_data:     EndOfEarlyData;
-          case hello_retry_request:   HelloRetryRequest;
           case encrypted_extensions:  EncryptedExtensions;
           case certificate_request:   CertificateRequest;
           case certificate:           Certificate;
@@ -1497,6 +1500,5 @@ struct {
   </address>
 </div>
 
-  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/tlswg/dtls13-spec">Fork me on GitHub</a></div></div>
 </body>
 </html>
