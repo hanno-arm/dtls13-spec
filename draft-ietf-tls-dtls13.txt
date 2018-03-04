@@ -309,7 +309,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
             ClientHello           ------>
             (retransmit)
 
-                  Figure 1: DTLS Retransmission Example.
+                   Figure 1: DTLS retransmission example
 
    Once the client has transmitted the ClientHello message, it expects
    to see a HelloRetryRequest or a ServerHello from the server.
@@ -377,7 +377,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    major changes:
 
    1.  The DTLSCiphertext structure omits the superfluous version number
-       field
+       field.
 
    2.  DTLS adds an explicit epoch and sequence number in the record
        header.  This sequence number allows the recipient to correctly
@@ -910,8 +910,8 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
          [Rest of handshake]
 
-   Figure 2: DTLS Exchange with HelloRetryRequest containing the Cookie
-                                 Extension
+       Figure 2: DTLS exchange with HelloRetryRequest containing the
+                            "cookie" extension
 
    The cookie extension is defined in Section 4.2.2 of
    [I-D.ietf-tls-tls13].  When sending the initial ClientHello, the
@@ -1122,18 +1122,18 @@ Rescorla, et al.        Expires September 5, 2018              [Page 20]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
-   random:  Same as for TLS 1.3
+   random:  Same as for TLS 1.3.
 
-   legacy_session_id:  Same as for TLS 1.3
+   legacy_session_id:  Same as for TLS 1.3.
 
    legacy_cookie:  A DTLS 1.3-only client MUST set the legacy_cookie
       field to zero length.
 
-   cipher_suites:  Same as for TLS 1.3
+   cipher_suites:  Same as for TLS 1.3.
 
-   legacy_compression_methods:  Same as for TLS 1.3
+   legacy_compression_methods:  Same as for TLS 1.3.
 
-   extensions:  Same as for TLS 1.3
+   extensions:  Same as for TLS 1.3.
 
 5.4.  Handshake Message Fragmentation and Reassembly
 
@@ -1216,13 +1216,13 @@ ClientHello                                                 +----------+
  [Application Data]
 
                                                             +----------+
-                        <--------                    [Ack]  | Flight 6 |
+                        <--------                    [ACK]  | Flight 6 |
                                        [Application Data*]  +----------+
 
  [Application Data]     <------->      [Application Data]
 
-      Figure 3: Message Flights for full DTLS Handshake (with Cookie
-                                 Exchange)
+     Figure 3: Message flights for a full DTLS Handshake (with cookie
+                                 exchange)
 
 
 
@@ -1250,13 +1250,13 @@ Internet-Draft                  DTLS 1.3                      March 2018
    [Application Data*]                                      +----------+
 
                                                             +----------+
-                         <--------                   [Ack]  | Flight 4 |
+                         <--------                   [ACK]  | Flight 4 |
                                        [Application Data*]  +----------+
 
    [Application Data]    <------->      [Application Data]
 
-    Figure 4: Message Flights for Resumption and PSK Handshake (without
-                             Cookie Exchange)
+    Figure 4: Message flights for resumption and PSK handshake (without
+                             cookie exchange)
 
 
 
@@ -1312,12 +1312,12 @@ Internet-Draft                  DTLS 1.3                      March 2018
    {Finished}            -------->                          +----------+
    [Application Data*]
                                                             +----------+
-                         <--------                   [Ack]  | Flight 4 |
+                         <--------                   [ACK]  | Flight 4 |
                                        [Application Data*]  +----------+
 
    [Application Data]    <------->      [Application Data]
 
-           Figure 5: Message Flights for the Zero-RTT Handshake
+           Figure 5: Message flights for the Zero-RTT handshake
 
   Client                                            Server
 
@@ -1326,10 +1326,10 @@ Internet-Draft                  DTLS 1.3                      March 2018
                                                             +----------+
 
                                                             +----------+
-  [Ack]                  -------->                          | Flight 2 |
+  [ACK]                  -------->                          | Flight 2 |
                                                             +----------+
 
-         Figure 6: Message Flights for New Session Ticket Message
+       Figure 6: Message flights for the new session ticket message
 
    Note: The application data sent by the client is not included in the
    timeout and retransmission calculation.
@@ -1412,7 +1412,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
              Server read retransmit
                  Retransmit ACK
 
-          Figure 7: DTLS Timeout and Retransmission State Machine
+          Figure 7: DTLS timeout and retransmission state machine
 
    The state machine has four basic states: PREPARING, SENDING, WAITING,
    and FINISHED.
@@ -1673,7 +1673,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
                                                        ACK [2]
 
 
-         Figure 8: Example DTLS Exchange illustrating Message Loss
+         Figure 8: Example DTLS exchange illustrating message loss
 
 
 
@@ -1780,7 +1780,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
     {Finished}
     (epoch=2)
 
-                               <--------                   [Ack]
+                               <--------                   [ACK]
                                                        (epoch=3)
 
     [Application Data]         -------->
@@ -1803,7 +1803,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
                                <--------      [NewSessionTicket]
                                                        (epoch=3)
 
-    [Ack]                      -------->
+    [ACK]                      -------->
     (epoch=3)
 
                             Some time later ...
@@ -1814,7 +1814,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
     [Application Data]         -------->
     (epoch=4)
 
-          Figure 9: Example DTLS Exchange with Epoch Information
+          Figure 9: Example DTLS exchange with epoch information
 
 7.  ACK Message
 

@@ -563,7 +563,7 @@ address {
          ClientHello           ------&gt;
          (retransmit)
 </pre>
-<p class="figure">Figure 1: DTLS Retransmission Example.</p>
+<p class="figure">Figure 1: DTLS retransmission example</p>
 <p id="rfc.section.3.1.p.2">Once the client has transmitted the ClientHello message, it expects to see a HelloRetryRequest or a ServerHello from the server. However, if the server&#8217;s message is lost, the client knows that either the ClientHello or the response from the server has been lost and retransmits.  When the server receives the retransmission, it knows to retransmit.</p>
 <p id="rfc.section.3.1.p.3">The server also maintains a retransmission timer and retransmits when that timer expires.</p>
 <p id="rfc.section.3.1.p.4">Note that timeout and retransmission do not apply to the HelloRetryRequest since this would require creating state on the server.  The HelloRetryRequest is designed to be small enough that it will not itself be fragmented, thus avoiding concerns about interleaving multiple HelloRetryRequests.</p>
@@ -586,7 +586,7 @@ address {
 <p></p>
 
 <ol>
-<li>The DTLSCiphertext structure omits the superfluous version number field</li>
+<li>The DTLSCiphertext structure omits the superfluous version number field.</li>
 <li>DTLS adds an explicit epoch and sequence number in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
 <li>DTLS adds a short header format (DTLSShortCiphertext) that can be used to reduce overhead once the handshake is complete.</li>
 </ol>
@@ -767,7 +767,7 @@ address {
 
       [Rest of handshake]
 </pre>
-<p class="figure">Figure 2: DTLS Exchange with HelloRetryRequest containing the Cookie Extension</p>
+<p class="figure">Figure 2: DTLS exchange with HelloRetryRequest containing the "cookie" extension</p>
 <p id="rfc.section.5.1.p.6">The cookie extension is defined in Section 4.2.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>. When sending the initial ClientHello, the client does not have a cookie yet. In this case, the cookie extension is omitted and the legacy_cookie field in the ClientHello message SHOULD be set to a zero length vector (i.e., a single zero byte length field) and MUST be ignored by a server negotiating DTLS 1.3.</p>
 <p id="rfc.section.5.1.p.7">When responding to a HelloRetryRequest, the client MUST create a new ClientHello message following the description in Section 4.1.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
 <p id="rfc.section.5.1.p.8">If the HelloRetryRequest message is used, the initial ClientHello and the HelloRetryRequest are included in the calculation of the Transcript-Hash. The computation of the message hash for the HelloRetryRequest is done according to the description in Section 4.4.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
@@ -852,17 +852,17 @@ address {
 <dt>legacy_version:</dt>
 <dd style="margin-left: 8">In previous versions of DTLS, this field was used for version negotiation and represented the highest version number supported by the client. Experience has shown that many servers do not properly implement version negotiation, leading to &#8220;version intolerance&#8221; in which the server rejects an otherwise acceptable ClientHello with a version number higher than it supports. In DTLS 1.3, the client indicates its version preferences in the &#8220;supported_versions&#8221; extension (see Section 4.2.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>) and the legacy_version field MUST be set to {254, 253}, which was the version number for DTLS 1.2.</dd>
 <dt>random:</dt>
-<dd style="margin-left: 8">Same as for TLS 1.3</dd>
+<dd style="margin-left: 8">Same as for TLS 1.3.</dd>
 <dt>legacy_session_id:</dt>
-<dd style="margin-left: 8">Same as for TLS 1.3</dd>
+<dd style="margin-left: 8">Same as for TLS 1.3.</dd>
 <dt>legacy_cookie:</dt>
 <dd style="margin-left: 8">A DTLS 1.3-only client MUST set the legacy_cookie field to zero length.</dd>
 <dt>cipher_suites:</dt>
-<dd style="margin-left: 8">Same as for TLS 1.3</dd>
+<dd style="margin-left: 8">Same as for TLS 1.3.</dd>
 <dt>legacy_compression_methods:</dt>
-<dd style="margin-left: 8">Same as for TLS 1.3</dd>
+<dd style="margin-left: 8">Same as for TLS 1.3.</dd>
 <dt>extensions:</dt>
-<dd style="margin-left: 8">Same as for TLS 1.3</dd>
+<dd style="margin-left: 8">Same as for TLS 1.3.</dd>
 </dl>
 <h2 id="rfc.section.5.4">
 <a href="#rfc.section.5.4">5.4.</a> <a href="#handshake-message-fragmentation-and-reassembly" id="handshake-message-fragmentation-and-reassembly">Handshake Message Fragmentation and Reassembly</a>
@@ -911,12 +911,12 @@ ClientHello                                                 +----------+
  [Application Data]
 
                                                             +----------+
-                        &lt;--------                    [Ack]  | Flight 6 |
+                        &lt;--------                    [ACK]  | Flight 6 |
                                        [Application Data*]  +----------+
 
  [Application Data]     &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 3: Message Flights for full DTLS Handshake (with Cookie Exchange)</p>
+<p class="figure">Figure 3: Message flights for a full DTLS Handshake (with cookie exchange)</p>
 <div id="rfc.figure.4"></div>
 <div id="dtls-psk"></div>
 <pre>
@@ -936,12 +936,12 @@ ClientHello                                                 +----------+
  [Application Data*]                                      +----------+
 
                                                           +----------+
-                       &lt;--------                   [Ack]  | Flight 4 |
+                       &lt;--------                   [ACK]  | Flight 4 |
                                      [Application Data*]  +----------+
 
  [Application Data]    &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 4: Message Flights for Resumption and PSK Handshake (without Cookie Exchange)</p>
+<p class="figure">Figure 4: Message flights for resumption and PSK handshake (without cookie exchange)</p>
 <div id="rfc.figure.5"></div>
 <div id="dtls-zero-rtt"></div>
 <pre>
@@ -967,12 +967,12 @@ Client                                            Server
  {Finished}            --------&gt;                          +----------+
  [Application Data*]
                                                           +----------+
-                       &lt;--------                   [Ack]  | Flight 4 |
+                       &lt;--------                   [ACK]  | Flight 4 |
                                      [Application Data*]  +----------+
 
  [Application Data]    &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 5: Message Flights for the Zero-RTT Handshake</p>
+<p class="figure">Figure 5: Message flights for the Zero-RTT handshake</p>
 <div id="rfc.figure.6"></div>
 <div id="dtls-post-handshake-ticket"></div>
 <pre>
@@ -983,10 +983,10 @@ Client                                            Server
                                                           +----------+
 
                                                           +----------+
-[Ack]                  --------&gt;                          | Flight 2 |
+[ACK]                  --------&gt;                          | Flight 2 |
                                                           +----------+
 </pre>
-<p class="figure">Figure 6: Message Flights for New Session Ticket Message</p>
+<p class="figure">Figure 6: Message flights for the new session ticket message</p>
 <p id="rfc.section.5.5.p.2">Note: The application data sent by the client is not included in the timeout and retransmission calculation.</p>
 <h2 id="rfc.section.5.6">
 <a href="#rfc.section.5.6">5.6.</a> <a href="#timeout-and-retransmission" id="timeout-and-retransmission">Timeout and Retransmission</a>
@@ -1046,7 +1046,7 @@ Client                                            Server
           Server read retransmit
               Retransmit ACK
 </pre>
-<p class="figure">Figure 7: DTLS Timeout and Retransmission State Machine</p>
+<p class="figure">Figure 7: DTLS timeout and retransmission state machine</p>
 <p id="rfc.section.5.6.1.p.2">The state machine has four basic states: PREPARING, SENDING, WAITING, and FINISHED.</p>
 <p id="rfc.section.5.6.1.p.3">In the PREPARING state, the implementation does whatever computations are necessary to prepare the next flight of messages.  It then buffers them up for transmission (emptying the buffer first) and enters the SENDING state.</p>
 <p id="rfc.section.5.6.1.p.4">In the SENDING state, the implementation transmits the buffered flight of messages. If the implementation has received one or more ACKs (see <a href="#ack-msg" class="xref">Section 7</a>) from the peer, then it SHOULD omit any messages or message fragments which have already been ACKed. Once the messages have been sent, the implementation then enters the FINISHED state if this is the last flight in the handshake.  Or, if the implementation expects to receive more messages, it sets a retransmit timer and then enters the WAITING state.</p>
@@ -1134,7 +1134,7 @@ Client                                                Server
                                                     ACK [2]
 
 </pre>
-<p class="figure">Figure 8: Example DTLS Exchange illustrating Message Loss</p>
+<p class="figure">Figure 8: Example DTLS exchange illustrating message loss</p>
 <h2 id="rfc.section.6.1">
 <a href="#rfc.section.6.1">6.1.</a> <a href="#dtls-epoch" id="dtls-epoch">Epoch Values and Rekeying</a>
 </h2>
@@ -1187,7 +1187,7 @@ Client                                             Server
  {Finished}
  (epoch=2)
 
-                            &lt;--------                   [Ack]
+                            &lt;--------                   [ACK]
                                                     (epoch=3)
 
  [Application Data]         --------&gt;
@@ -1202,7 +1202,7 @@ Client                                             Server
                             &lt;--------      [NewSessionTicket]
                                                     (epoch=3)
 
- [Ack]                      --------&gt;
+ [ACK]                      --------&gt;
  (epoch=3)
 
                          Some time later ...
@@ -1213,7 +1213,7 @@ Client                                             Server
  [Application Data]         --------&gt;
  (epoch=4)
 </pre>
-<p class="figure">Figure 9: Example DTLS Exchange with Epoch Information</p>
+<p class="figure">Figure 9: Example DTLS exchange with epoch information</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#ack-msg" id="ack-msg">ACK Message</a>
 </h1>
