@@ -828,7 +828,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
        Certificate message.
 
    In order to counter both of these attacks, DTLS borrows the stateless
-   cookie technique used by Photuris [RFC2522] and IKE [RFC5996].  When
+   cookie technique used by Photuris [RFC2522] and IKE [RFC7296].  When
    the client sends its ClientHello message to the server, the server
    MAY respond with a HelloRetryRequest message.  The HelloRetryRequest
    message, as well as the cookie extension, is defined in TLS 1.3.  The
@@ -925,7 +925,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    they received a cookie with Secret 1 and then sent the second
    ClientHello after the server has changed to Secret 2), the server can
    have a limited window during which it accepts both secrets.
-   [RFC5996] suggests adding a key identifier to cookies to detect this
+   [RFC7296] suggests adding a key identifier to cookies to detect this
    case.  An alternative approach is simply to try verifying with both
    secrets.  It is RECOMMENDED that servers implement a key rotation
    scheme that allows the server to manage keys with overlapping
@@ -2119,9 +2119,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
               DOI 10.17487/RFC5246, August 2008,
               <https://www.rfc-editor.org/info/rfc5246>.
 
-
-
-
+   [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
+              Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
+              January 2012, <https://www.rfc-editor.org/info/rfc6347>.
 
 
 
@@ -2130,14 +2130,10 @@ Rescorla, et al.        Expires September 5, 2018              [Page 38]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
-   [RFC5996]  Kaufman, C., Hoffman, P., Nir, Y., and P. Eronen,
-              "Internet Key Exchange Protocol Version 2 (IKEv2)",
-              RFC 5996, DOI 10.17487/RFC5996, September 2010,
-              <https://www.rfc-editor.org/info/rfc5996>.
-
-   [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
-              Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
-              January 2012, <https://www.rfc-editor.org/info/rfc6347>.
+   [RFC7296]  Kaufman, C., Hoffman, P., Nir, Y., Eronen, P., and T.
+              Kivinen, "Internet Key Exchange Protocol Version 2
+              (IKEv2)", STD 79, RFC 7296, DOI 10.17487/RFC7296, October
+              2014, <https://www.rfc-editor.org/info/rfc7296>.
 
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -2158,6 +2154,10 @@ Internet-Draft                  DTLS 1.3                      March 2018
    [2] https://www1.ietf.org/mailman/listinfo/tls
 
    [3] https://www.ietf.org/mail-archive/web/tls/current/index.html
+
+
+
+
 
 
 
