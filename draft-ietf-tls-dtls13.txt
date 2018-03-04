@@ -90,14 +90,14 @@ Table of Contents
    4.  The DTLS Record Layer . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Sequence Number Handling  . . . . . . . . . . . . . . . .   9
        4.1.1.  Determining the Header Format . . . . . . . . . . . .  10
-       4.1.2.  Reconstructing the Sequence Number and Epoch  . . . .  10
+       4.1.2.  Reconstructing the Sequence Number and Epoch  . . . .  11
      4.2.  Transport Layer Mapping . . . . . . . . . . . . . . . . .  11
      4.3.  PMTU Issues . . . . . . . . . . . . . . . . . . . . . . .  12
-     4.4.  Record Payload Protection . . . . . . . . . . . . . . . .  13
+     4.4.  Record Payload Protection . . . . . . . . . . . . . . . .  14
        4.4.1.  Anti-Replay . . . . . . . . . . . . . . . . . . . . .  14
        4.4.2.  Handling Invalid Records  . . . . . . . . . . . . . .  14
    5.  The DTLS Handshake Protocol . . . . . . . . . . . . . . . . .  15
-     5.1.  Denial-of-Service Countermeasures . . . . . . . . . . . .  15
+     5.1.  Denial-of-Service Countermeasures . . . . . . . . . . . .  16
      5.2.  DTLS Handshake Message Format . . . . . . . . . . . . . .  18
      5.3.  ClientHello Message . . . . . . . . . . . . . . . . . . .  20
      5.4.  Handshake Message Fragmentation and Reassembly  . . . . .  21
@@ -511,9 +511,10 @@ Internet-Draft                  DTLS 1.3                      March 2018
    retain keying material from previous epochs for up to the default MSL
    specified for TCP [RFC0793] to allow for packet reordering.  (Note
    that the intention here is that implementers use the current guidance
-   from the IETF for MSL, not that they attempt to interrogate the MSL
-   that the system TCP stack is using.)  Until the handshake has
-   completed, implementations MUST accept packets from the old epoch.
+   from the IETF for MSL, as specified in [RFC0793] or successors not
+   that they attempt to interrogate the MSL that the system TCP stack is
+   using.)  Until the handshake has completed, implementations MUST
+   accept packets from the old epoch.
 
    Conversely, it is possible for records that are protected with the
    new epoch to be received prior to the completion of a handshake.  For
@@ -549,11 +550,10 @@ Internet-Draft                  DTLS 1.3                      March 2018
    record MUST be rejected as if it had failed deprotection, as
    described in Section 4.4.2.
 
-4.1.2.  Reconstructing the Sequence Number and Epoch
 
-   When receiving protected DTLS records message, the recipient does not
-   have a full epoch or sequence number value and so there is some
-   opportunity for ambiguity.  Because the full epoch and sequence
+
+
+
 
 
 
@@ -562,6 +562,11 @@ Rescorla, et al.        Expires September 5, 2018              [Page 10]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
+4.1.2.  Reconstructing the Sequence Number and Epoch
+
+   When receiving protected DTLS records message, the recipient does not
+   have a full epoch or sequence number value and so there is some
+   opportunity for ambiguity.  Because the full epoch and sequence
    number are used to compute the per-record nonce, failure to
    reconstruct these values leads to failure to deprotect the record,
    and so implementations MAY use a mechanism of their choice to
@@ -604,12 +609,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    between associations.  With UDP, the host/port number is used to look
    up the appropriate security association for incoming records.
    However, the Connection ID extension defined in
-   [I-D.ietf-tls-dtls-connection-id] adds an association identifier to
-   DTLS records.
 
-   Some transports, such as DCCP [RFC4340], provide their own sequence
-   numbers.  When carried over those transports, both the DTLS and the
-   transport sequence numbers will be present.  Although this introduces
 
 
 
@@ -618,6 +618,12 @@ Rescorla, et al.        Expires September 5, 2018              [Page 11]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
+   [I-D.ietf-tls-dtls-connection-id] adds an association identifier to
+   DTLS records.
+
+   Some transports, such as DCCP [RFC4340], provide their own sequence
+   numbers.  When carried over those transports, both the DTLS and the
+   transport sequence numbers will be present.  Although this introduces
    a small amount of inefficiency, the transport layer and DTLS sequence
    numbers serve different purposes; therefore, for conceptual
    simplicity, it is superior to use both sequence numbers.
@@ -660,12 +666,6 @@ Internet-Draft                  DTLS 1.3                      March 2018
    -  For DTLS over DCCP, the upper layer protocol SHOULD be allowed to
       obtain the current estimate of the PMTU.
 
-   -  For DTLS over TCP or SCTP, which automatically fragment and
-      reassemble datagrams, there is no PMTU limitation.  However, the
-      upper layer protocol MUST NOT write any record that exceeds the
-      maximum record size of 2^14 bytes.
-
-
 
 
 
@@ -673,6 +673,11 @@ Rescorla, et al.        Expires September 5, 2018              [Page 12]
 
 Internet-Draft                  DTLS 1.3                      March 2018
 
+
+   -  For DTLS over TCP or SCTP, which automatically fragment and
+      reassemble datagrams, there is no PMTU limitation.  However, the
+      upper layer protocol MUST NOT write any record that exceeds the
+      maximum record size of 2^14 bytes.
 
    The DTLS record layer SHOULD allow the upper layer protocol to
    discover the amount of record expansion expected by the DTLS
@@ -713,11 +718,6 @@ Internet-Draft                  DTLS 1.3                      March 2018
       retransmits to attempt before backing off, but 2-3 seems
       appropriate.
 
-4.4.  Record Payload Protection
-
-   Like TLS, DTLS transmits data as a series of protected records.  The
-   rest of this section describes the details of that format.
-
 
 
 
@@ -729,6 +729,11 @@ Rescorla, et al.        Expires September 5, 2018              [Page 13]
 
 Internet-Draft                  DTLS 1.3                      March 2018
 
+
+4.4.  Record Payload Protection
+
+   Like TLS, DTLS transmits data as a series of protected records.  The
+   rest of this section describes the details of that format.
 
 4.4.1.  Anti-Replay
 
@@ -773,11 +778,6 @@ Internet-Draft                  DTLS 1.3                      March 2018
    Unlike TLS, DTLS is resilient in the face of invalid records (e.g.,
    invalid formatting, length, MAC, etc.).  In general, invalid records
    SHOULD be silently discarded, thus preserving the association;
-   however, an error MAY be logged for diagnostic purposes.
-   Implementations which choose to generate an alert instead, MUST
-   generate error alerts to avoid attacks where the attacker repeatedly
-   probes the implementation to see how it responds to various types of
-   error.  Note that if DTLS is run over UDP, then any implementation
 
 
 
@@ -786,6 +786,11 @@ Rescorla, et al.        Expires September 5, 2018              [Page 14]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
+   however, an error MAY be logged for diagnostic purposes.
+   Implementations which choose to generate an alert instead, MUST
+   generate error alerts to avoid attacks where the attacker repeatedly
+   probes the implementation to see how it responds to various types of
+   error.  Note that if DTLS is run over UDP, then any implementation
    which does this will be extremely susceptible to denial-of-service
    (DoS) attacks because UDP forgery is so easy.  Thus, this practice is
    NOT RECOMMENDED for such transports, both to increase the reliability
@@ -826,13 +831,8 @@ Internet-Draft                  DTLS 1.3                      March 2018
    messages received during the handshake and at all other times SHOULD
    treat them as if they had failed to deprotect.
 
-5.1.  Denial-of-Service Countermeasures
 
-   Datagram security protocols are extremely susceptible to a variety of
-   DoS attacks.  Two attacks are of particular concern:
 
-   1.  An attacker can consume excessive resources on the server by
-       transmitting a series of handshake initiation requests, causing
 
 
 
@@ -842,6 +842,13 @@ Rescorla, et al.        Expires September 5, 2018              [Page 15]
 Internet-Draft                  DTLS 1.3                      March 2018
 
 
+5.1.  Denial-of-Service Countermeasures
+
+   Datagram security protocols are extremely susceptible to a variety of
+   DoS attacks.  Two attacks are of particular concern:
+
+   1.  An attacker can consume excessive resources on the server by
+       transmitting a series of handshake initiation requests, causing
        the server to allocate state and potentially to perform expensive
        cryptographic operations.
 
@@ -879,13 +886,6 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
    The exchange is shown in Figure 2.  Note that the figure focuses on
    the cookie exchange; all other extensions are omitted.
-
-
-
-
-
-
-
 
 
 
