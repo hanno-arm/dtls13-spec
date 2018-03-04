@@ -587,7 +587,7 @@ address {
 
 <ol>
 <li>The DTLSCiphertext structure omits the superfluous version number field</li>
-<li>DTLS adds an explicit epoch and sequence numbers in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
+<li>DTLS adds an explicit epoch and sequence number in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
 <li>DTLS adds a short header format (DTLSShortCiphertext) that can be used to reduce overhead once the handshake is complete.</li>
 </ol>
 <p id="rfc.section.4.p.3">The DTLS record formats are shown below.  DTLSPlaintext records are used to send unprotected records and DTLSCiphertext or DTLSShortCiphertext are used to send protected records.</p>
