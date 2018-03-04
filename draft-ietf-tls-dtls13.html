@@ -359,7 +359,7 @@ address {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">ARM Limited</td>
+<td class="right">Arm Limited</td>
 </tr>
 <tr>
 <td class="left">Expires: September 5, 2018</td>
@@ -520,7 +520,7 @@ address {
 <li>session: An association between a client and a server resulting from a handshake.</li>
 <li>server: The endpoint which did not initiate the DTLS connection.</li>
 </ul>
-<p id="rfc.section.2.p.4">The reader is assumed to be familiar with the TLS 1.3 specification since this document is defined as a delta from TLS 1.3.</p>
+<p id="rfc.section.2.p.4">The reader is assumed to be familiar with the TLS 1.3 specification since this document is defined as a delta from TLS 1.3. As in TLS 1.3 the HelloRetryRequest has the same format as a ServerHello message but for convenience we use the term HelloRetryRequest throughout this document as if it were a distinct message.</p>
 <p id="rfc.section.2.p.5">Figures in this document illustrate various combinations of the DTLS protocol exchanges and the symbols have the following meaning:</p>
 <p></p>
 
@@ -564,7 +564,7 @@ address {
          (retransmit)
 </pre>
 <p class="figure">Figure 1: DTLS Retransmission Example.</p>
-<p id="rfc.section.3.1.p.2">Once the client has transmitted the ClientHello message, it expects to see a HelloRetryRequest from the server.  However, if the server&#8217;s message is lost, the client knows that either the ClientHello or the HelloRetryRequest has been lost and retransmits.  When the server receives the retransmission, it knows to retransmit.</p>
+<p id="rfc.section.3.1.p.2">Once the client has transmitted the ClientHello message, it expects to see a HelloRetryRequest or a ServerHello from the server. However, if the server&#8217;s message is lost, the client knows that either the ClientHello or the response from the server has been lost and retransmits.  When the server receives the retransmission, it knows to retransmit.</p>
 <p id="rfc.section.3.1.p.3">The server also maintains a retransmission timer and retransmits when that timer expires.</p>
 <p id="rfc.section.3.1.p.4">Note that timeout and retransmission do not apply to the HelloRetryRequest since this would require creating state on the server.  The HelloRetryRequest is designed to be small enough that it will not itself be fragmented, thus avoiding concerns about interleaving multiple HelloRetryRequests.</p>
 <h3 id="rfc.section.3.1.1">
@@ -668,9 +668,9 @@ address {
 <h2 id="rfc.section.4.2">
 <a href="#rfc.section.4.2">4.2.</a> <a href="#transport-layer-mapping" id="transport-layer-mapping">Transport Layer Mapping</a>
 </h2>
-<p id="rfc.section.4.2.p.1">Each DTLS record MUST fit within a single datagram.  In order to avoid IP fragmentation, clients of the DTLS record layer SHOULD attempt to size records so that they fit within any PMTU estimates obtained from the record layer.</p>
-<p id="rfc.section.4.2.p.2">Note that unlike IPsec, DTLS records do not contain any association identifiers.  Applications must arrange to multiplex between associations.  With UDP, the host/port number is used to look up the appropriate security association for incoming records.</p>
-<p id="rfc.section.4.2.p.3">Multiple DTLS records MAY be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload MUST be the beginning of a record.  Records MUST NOT span datagrams.</p>
+<p id="rfc.section.4.2.p.1">DTLS messages MAY be fragmentmented into multiple DTLS records.  Each DTLS record MUST fit within a single datagram.  In order to avoid IP fragmentation, clients of the DTLS record layer SHOULD attempt to size records so that they fit within any PMTU estimates obtained from the record layer.</p>
+<p id="rfc.section.4.2.p.2">Multiple DTLS records MAY be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload MUST be the beginning of a record.  Records MUST NOT span datagrams.</p>
+<p id="rfc.section.4.2.p.3">DTLS records, as defined in this document, do not contain any association identifiers and applications must arrange to multiplex between associations.  With UDP, the host/port number is used to look up the appropriate security association for incoming records. However, the Connection ID extension defined in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a> adds an association identifier to DTLS records.</p>
 <p id="rfc.section.4.2.p.4">Some transports, such as DCCP <a href="#RFC4340" class="xref">[RFC4340]</a>, provide their own sequence numbers.  When carried over those transports, both the DTLS and the transport sequence numbers will be present.  Although this introduces a small amount of inefficiency, the transport layer and DTLS sequence numbers serve different purposes; therefore, for conceptual simplicity, it is superior to use both sequence numbers.</p>
 <p id="rfc.section.4.2.p.5">Some transports provide congestion control for traffic carried over them.  If the congestion window is sufficiently narrow, DTLS handshake retransmissions may be held rather than transmitted immediately, potentially leading to timeouts and spurious retransmission.  When DTLS is used over such transports, care should be taken not to overrun the likely congestion window. <a href="#RFC5238" class="xref">[RFC5238]</a> defines a mapping of DTLS to DCCP that takes these issues into account.</p>
 <h2 id="rfc.section.4.3">
@@ -1340,6 +1340,11 @@ struct {
 <a href="#rfc.references.2">13.2.</a> Informative References</h2>
 <table><tbody>
 <tr>
+<td class="reference"><b id="I-D.ietf-tls-dtls-connection-id">[I-D.ietf-tls-dtls-connection-id]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, <a>Tschofenig, H.</a>, <a>Fossati, T.</a> and <a>T. Gondrom</a>, "<a href="https://tools.ietf.org/html/draft-ietf-tls-dtls-connection-id-00">The Datagram Transport Layer Security (DTLS) Connection Identifier</a>", Internet-Draft draft-ietf-tls-dtls-connection-id-00, December 2017.</td>
+</tr>
+<tr>
 <td class="reference"><b id="I-D.rescorla-tls-dtls-connection-id">[I-D.rescorla-tls-dtls-connection-id]</b></td>
 <td class="top">
 <a>Rescorla, E.</a>, <a>Tschofenig, H.</a>, <a>Fossati, T.</a> and <a>T. Gondrom</a>, "<a href="https://tools.ietf.org/html/draft-rescorla-tls-dtls-connection-id-02">The Datagram Transport Layer Security (DTLS) Connection Identifier</a>", Internet-Draft draft-rescorla-tls-dtls-connection-id-02, November 2017.</td>
@@ -1474,7 +1479,7 @@ struct {
 		<span class="family-name">Tschofenig</span>
 	  </span>
 	</span>
-	<span class="org vcardline">ARM Limited</span>
+	<span class="org vcardline">Arm Limited</span>
 	<span class="adr">
 	  
 	  <span class="vcardline">
