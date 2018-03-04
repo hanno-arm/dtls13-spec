@@ -1,4 +1,57 @@
 [
+
+  {
+    "url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/43",
+    "repository_url": "https://api.github.com/repos/tlswg/dtls13-spec",
+    "labels_url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/43/labels{/name}",
+    "comments_url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/43/comments",
+    "events_url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/43/events",
+    "html_url": "https://github.com/tlswg/dtls13-spec/pull/43",
+    "id": 302097513,
+    "number": 43,
+    "title": "HelloRetryRequest message clarified",
+    "user": {
+      "login": "hannestschofenig",
+      "id": 1016643,
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1016643?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/hannestschofenig",
+      "html_url": "https://github.com/hannestschofenig",
+      "followers_url": "https://api.github.com/users/hannestschofenig/followers",
+      "following_url": "https://api.github.com/users/hannestschofenig/following{/other_user}",
+      "gists_url": "https://api.github.com/users/hannestschofenig/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/hannestschofenig/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/hannestschofenig/subscriptions",
+      "organizations_url": "https://api.github.com/users/hannestschofenig/orgs",
+      "repos_url": "https://api.github.com/users/hannestschofenig/repos",
+      "events_url": "https://api.github.com/users/hannestschofenig/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/hannestschofenig/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2018-03-04T16:05:12Z",
+    "updated_at": "2018-03-04T16:07:34Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/43",
+      "html_url": "https://github.com/tlswg/dtls13-spec/pull/43",
+      "diff_url": "https://github.com/tlswg/dtls13-spec/pull/43.diff",
+      "patch_url": "https://github.com/tlswg/dtls13-spec/pull/43.patch"
+    },
+    "body": ""
+  },
   {
     "url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/42",
     "repository_url": "https://api.github.com/repos/tlswg/dtls13-spec",
@@ -42,7 +95,7 @@
     "created_at": "2018-02-10T20:44:54Z",
     "updated_at": "2018-02-10T20:45:00Z",
     "closed_at": "2018-02-10T20:45:00Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/42",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/42",
@@ -94,7 +147,7 @@
     "created_at": "2018-02-06T20:27:13Z",
     "updated_at": "2018-02-06T20:27:13Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/41",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/41",
@@ -146,7 +199,7 @@
     "created_at": "2018-02-06T18:51:30Z",
     "updated_at": "2018-02-06T18:51:30Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "body": "Seems like it makes sense to have an Appendix B similar to the one in TLS1.3 to collect all of the syntax."
   },
   {
@@ -192,7 +245,7 @@
     "created_at": "2018-02-06T17:32:22Z",
     "updated_at": "2018-02-06T20:30:31Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "body": "RFC6437 s3.1 introduced the concept of a \"cryptographic context\", which makes sense when reading the following in s4.1:\r\n\r\n    Conversely, it is possible for records that are protected\r\n    by the newly negotiated context to be received prior to\r\n    the completion of a handshake.\r\n\r\nBut, in this version s3.1 is gone so \"context\" in s4.1 kind of jumps out of nowhere.  Does it make sense to replace \"context\" with \"server_handshake_traffic_secret value\"?"
   },
   {
@@ -238,7 +291,7 @@
     "created_at": "2018-02-06T17:27:37Z",
     "updated_at": "2018-02-06T17:27:37Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "body": "s4.1 includes the following:\r\n\r\n    (Note that the intention here is that implementers\r\n     use the current guidance from the IETF for MSL,\r\n     not that they attempt to interrogate the MSL that\r\n     the system TCP stack is using.)\r\n\r\nI think we need a reference to that IETF guidance.\r\n\r\n(being pedantic) Also, who is the \"they\" in this sentence is it implementers/implementations or the IETF?"
   },
   {
@@ -284,7 +337,7 @@
     "created_at": "2018-02-06T16:16:54Z",
     "updated_at": "2018-02-06T20:31:05Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "body": "These may have all been addressed by wanted to make sure that we explicit addressed them:\r\nhttps://www.rfc-editor.org/errata_search.php?rfc=6347"
   },
   {
@@ -330,7 +383,7 @@
     "created_at": "2018-01-22T04:41:59Z",
     "updated_at": "2018-01-22T04:41:59Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/36",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/36",
@@ -382,7 +435,7 @@
     "created_at": "2018-01-22T04:33:04Z",
     "updated_at": "2018-01-22T04:33:04Z",
     "closed_at": null,
-    "author_association": "NONE",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/35",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/35",
@@ -579,7 +632,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -588,9 +641,9 @@
     "milestone": null,
     "comments": 0,
     "created_at": "2017-11-24T17:15:09Z",
-    "updated_at": "2017-11-24T17:15:09Z",
-    "closed_at": null,
-    "author_association": "COLLABORATOR",
+    "updated_at": "2018-03-04T19:04:56Z",
+    "closed_at": "2018-03-04T19:04:56Z",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/31",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/31",
@@ -642,7 +695,7 @@
     "created_at": "2017-11-24T17:00:39Z",
     "updated_at": "2017-11-24T17:00:39Z",
     "closed_at": null,
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/30",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/30",
@@ -683,7 +736,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": null,
     "assignees": [
@@ -692,9 +745,9 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2017-11-22T10:35:58Z",
-    "updated_at": "2017-11-22T10:36:54Z",
-    "closed_at": null,
-    "author_association": "CONTRIBUTOR",
+    "updated_at": "2018-03-04T19:04:57Z",
+    "closed_at": "2018-03-04T19:04:57Z",
+    "author_association": "MEMBER",
     "body": "Right now, my NSS patch for compatibility mode in TLS also includes changes to DTLS.  Those changes include the ServerHello format changes, but NSS will ignore the session_id and never send a ChangeCipherSpec from either client or server."
   },
   {
@@ -740,7 +793,7 @@
     "created_at": "2017-11-01T05:36:15Z",
     "updated_at": "2017-11-24T16:42:31Z",
     "closed_at": "2017-11-24T16:42:31Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/28",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/28",
@@ -792,7 +845,7 @@
     "created_at": "2017-11-01T05:33:12Z",
     "updated_at": "2017-11-24T16:42:55Z",
     "closed_at": "2017-11-24T16:42:55Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/27",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/27",
@@ -844,7 +897,7 @@
     "created_at": "2017-11-01T05:31:29Z",
     "updated_at": "2017-11-24T17:00:58Z",
     "closed_at": "2017-11-24T17:00:58Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "body": "The logical way to implement these is to reuse the same retransmission and ACK logic and timers as you use during the handshake.  Having multiple concurrent exchanges in progress is possible in theory, and it might even be possible to retain the same timers by delaying responses to a transaction, but it would be easier to implement if you only had to worry about one at a time."
   },
   {
@@ -890,7 +943,7 @@
     "created_at": "2017-11-01T05:28:17Z",
     "updated_at": "2017-11-24T16:43:07Z",
     "closed_at": "2017-11-24T16:43:07Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "body": "Using the TLS process for KeyUpdate - as the current draft does - leads to a suboptimal set of choices in implementations.\r\n\r\nSending KeyUpdate followed immediately by a key change means that KeyUpdate isn't a reliable indicator of a key change at the receiver.  If the record containing the KeyUpdate is lost, then the receiver will be unable to decrypt anything sent after it unless it looks at the epoch and tries the new keys.  That suggests a design much closer to the one in QUIC, where the KEY_PHASE bit (here, the low bit of the epoch) is the only signal of a key update.\r\n\r\nThe receiver could buffer those records, but I don't see why it would choose head-of-line blocking and a potentially-large memory commitment over trialing the new epoch.\r\n\r\nI would prefer a different design, even if it diverges from the TLS design.  \r\n\r\n1. That could be the same design as QUIC uses, with the epoch bit signaling intent.  The cost there is that you need to use the bit as an acknowledgment of a key update, so you end up having to keep key updates in lock step, even if no update is needed.  If there are asymmetric sending patterns, this isn't ideal.\r\n\r\n2. Wait until the KeyUpdate is acknowledged before installing new keys.  When KeyUpdate is received, the receiver installs new keys, but retains old keys on a timer (the holddown timer would do).  The sender waits for the ACK and starts using new keys when it sees it.  The cost here is that switching keys can't be immediate and it requires hooks into the ACK handling logic, neither of which is ideal."
   },
   {
@@ -936,7 +989,7 @@
     "created_at": "2017-11-01T05:26:33Z",
     "updated_at": "2017-11-24T17:33:52Z",
     "closed_at": "2017-11-24T17:33:52Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "body": "The draft there is well out of date and it does more harm than good having it there."
   },
   {
@@ -982,7 +1035,7 @@
     "created_at": "2017-10-29T21:09:34Z",
     "updated_at": "2017-10-29T21:48:49Z",
     "closed_at": "2017-10-29T21:48:49Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": ""
   },
   {
@@ -1028,7 +1081,7 @@
     "created_at": "2017-10-28T13:56:00Z",
     "updated_at": "2017-10-29T21:49:04Z",
     "closed_at": "2017-10-29T21:49:04Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "And extend 2MSL rule to key changes."
   },
   {
@@ -1074,7 +1127,7 @@
     "created_at": "2017-10-27T15:10:47Z",
     "updated_at": "2017-10-29T21:07:13Z",
     "closed_at": "2017-10-29T21:07:13Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/21",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/21",
@@ -1126,7 +1179,7 @@
     "created_at": "2017-10-26T23:20:11Z",
     "updated_at": "2017-10-29T21:02:53Z",
     "closed_at": "2017-10-29T21:02:53Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/20",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/20",
@@ -1178,7 +1231,7 @@
     "created_at": "2017-10-26T20:46:53Z",
     "updated_at": "2017-10-27T21:34:03Z",
     "closed_at": "2017-10-27T21:34:03Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/19",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/19",
@@ -1230,7 +1283,7 @@
     "created_at": "2017-10-26T17:55:15Z",
     "updated_at": "2017-10-27T21:34:17Z",
     "closed_at": "2017-10-27T21:34:17Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "(2MSL, etc.)"
   },
   {
@@ -1328,7 +1381,7 @@
     "created_at": "2017-10-26T15:59:39Z",
     "updated_at": "2017-10-29T21:00:47Z",
     "closed_at": "2017-10-29T21:00:47Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/16",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/16",
@@ -1432,7 +1485,7 @@
     "created_at": "2017-10-06T18:23:21Z",
     "updated_at": "2017-10-26T14:23:47Z",
     "closed_at": "2017-10-26T14:23:47Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/14",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/14",
@@ -1440,7 +1493,10 @@
       "patch_url": "https://github.com/tlswg/dtls13-spec/pull/14.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/13",
     "repository_url": "https://api.github.com/repos/tlswg/dtls13-spec",
@@ -1484,10 +1540,9 @@
     "created_at": "2017-08-09T01:24:33Z",
     "updated_at": "2017-10-29T21:09:27Z",
     "closed_at": "2017-10-29T21:09:27Z",
-    "author_association": "CONTRIBUTOR",
+    "author_association": "MEMBER",
     "body": "If we keep version numbers in the record header, which seems unlikely, we should at least converge on using the same version as in TLS 1.3.  TLS 1.3 mandates 0x0301 (TLS version 1.0).  That version has no meaning in DTLS, so we use 0x0302 (TLS 1.1) in NSS, which just ends up being disgusting."
-  }
-,
+  },
   {
     "url": "https://api.github.com/repos/tlswg/dtls13-spec/issues/12",
     "repository_url": "https://api.github.com/repos/tlswg/dtls13-spec",
@@ -1687,7 +1742,7 @@
     "created_at": "2017-06-24T14:53:31Z",
     "updated_at": "2017-07-03T17:29:20Z",
     "closed_at": "2017-07-03T17:29:20Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "pull_request": {
       "url": "https://api.github.com/repos/tlswg/dtls13-spec/pulls/9",
       "html_url": "https://github.com/tlswg/dtls13-spec/pull/9",
@@ -1739,7 +1794,7 @@
     "created_at": "2017-06-23T19:26:09Z",
     "updated_at": "2017-07-03T17:29:29Z",
     "closed_at": "2017-07-03T17:29:29Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "https://github.com/ekr/dtls13-spec/issues/2"
   },
   {
@@ -1785,7 +1840,7 @@
     "created_at": "2017-06-23T19:25:47Z",
     "updated_at": "2017-10-29T21:09:27Z",
     "closed_at": "2017-10-29T21:09:27Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "https://github.com/ekr/dtls13-spec/issues/5"
   },
   {
@@ -1831,7 +1886,7 @@
     "created_at": "2017-06-23T19:25:30Z",
     "updated_at": "2017-10-27T21:34:35Z",
     "closed_at": "2017-10-27T21:34:35Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "https://github.com/ekr/dtls13-spec/issues/6"
   },
   {
@@ -1877,7 +1932,7 @@
     "created_at": "2017-06-23T19:25:13Z",
     "updated_at": "2017-07-06T21:10:46Z",
     "closed_at": "2017-07-06T21:10:46Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "Copied from EKR's repo. https://github.com/ekr/dtls13-spec/issues/12\r\nMT writees:\r\n\r\n\"The server SHOULD use information received in the ClientHello to generate its cookie,such as version, random, ciphersuites. \"\r\n\r\nThis isn't really an interoperability requirement, or even a security one, since the handshake hash includes these. I think that this can be dropped.\r\n\r\n(Also in the same paragraph, the client can now double-check the cipher suite as well as the version.)\r\n"
   },
   {
@@ -1923,7 +1978,7 @@
     "created_at": "2017-06-23T19:24:38Z",
     "updated_at": "2017-07-06T21:13:31Z",
     "closed_at": "2017-07-06T21:13:31Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "Copied from EKR's repo.\r\n\r\nMT writes:\r\n\r\n\"One potential attack on this scheme is for the attacker to collect a\r\nnumber of cookies from different addresses and then reuse them to\r\nattack the server. \"\r\n\r\nThis assumes that the attacker can read packets on those paths.\r\n\r\nThe mitigation doesn't mention including source address information in the cookie. It should, because that makes the cookies less mobile. An extra note that this requires additional complexity if DTLS operates over a multipath substrate - SCTP and ICE spring to mind - but those generally have their own address validation.\r\n\r\nThe mitigation for this jumps through a lot of hoops in dealing with time-limiting these. But then it recommends a timestamp, which is far more elegant."
   },
   {
@@ -1969,7 +2024,7 @@
     "created_at": "2017-06-23T19:23:59Z",
     "updated_at": "2017-10-27T21:34:47Z",
     "closed_at": "2017-10-27T21:34:47Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "Copied from EKR's repo\r\n\r\nBen Kaduk wrote:\r\n\r\n\"We talk in a couple places about datagram protocols being “vulnerable” or “susceptible” to DoS attacks, which leads me to at least partially read that as meaning that the protocol’s own service will be disrupted; as we know, this is not the whole story, as the reflection/amplification part can facilitate DoS attacks targeted at other services/networks. So perhaps some rewording is in order.\r\n\""
   },
   {
@@ -2015,7 +2070,7 @@
     "created_at": "2017-06-23T19:23:28Z",
     "updated_at": "2017-07-06T21:08:42Z",
     "closed_at": "2017-07-06T21:08:42Z",
-    "author_association": "COLLABORATOR",
+    "author_association": "OWNER",
     "body": "Copied from ekr's repo:\r\nBen wrote:\r\n\r\nOn page 20, second paragraph, please be clear that it is the\r\nmessage_seq vs. the record sequence_number that must match\r\nnext_receive_seq.\r\nThe text in the document says:\r\n\r\nDTLS implementations maintain (at least notionally) a\r\nnext_receive_seq counter. This counter is initially set to zero.\r\nWhen a message is received, if its sequence number matches\r\nnext_receive_seq, next_receive_seq is incremented and the message is\r\nprocessed. If the sequence number is less than next_receive_seq, the\r\nmessage MUST be discarded. If the sequence number is greater than\r\nnext_receive_seq, the implementation SHOULD queue the message but MAY\r\ndiscard it. (This is a simple space/bandwidth tradeoff).\r\n"
   },
   {
@@ -2070,4 +2125,5 @@
     },
     "body": "Add references to \r\n* RFC 768: UDP\r\n* RFC 4347: DTLS 1.0\r\n* RFC 4346: TLS 1.1\r\n* RFC 6347: DTLS 1.2\r\n* RFC 5246: TLS 1.2 \r\n\r\nin the Introduction section. Currently they are mentioned but with no citations."
   }
+
 ]
