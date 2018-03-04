@@ -515,16 +515,16 @@ Internet-Draft                  DTLS 1.3                      March 2018
    that the system TCP stack is using.)  Until the handshake has
    completed, implementations MUST accept packets from the old epoch.
 
-   Conversely, it is possible for records that are protected by the
-   newly negotiated context to be received prior to the completion of a
-   handshake.  For instance, the server may send its Finished message
-   and then start transmitting data.  Implementations MAY either buffer
-   or discard such packets, though when DTLS is used over reliable
-   transports (e.g., SCTP [RFC4960]), they SHOULD be buffered and
-   processed once the handshake completes.  Note that TLS's restrictions
-   on when packets may be sent still apply, and the receiver treats the
-   packets as if they were sent in the right order.  In particular, it
-   is still impermissible to send data prior to completion of the first
+   Conversely, it is possible for records that are protected with the
+   new epoch to be received prior to the completion of a handshake.  For
+   instance, the server may send its Finished message and then start
+   transmitting data.  Implementations MAY either buffer or discard such
+   packets, though when DTLS is used over reliable transports (e.g.,
+   SCTP [RFC4960]), they SHOULD be buffered and processed once the
+   handshake completes.  Note that TLS's restrictions on when packets
+   may be sent still apply, and the receiver treats the packets as if
+   they were sent in the right order.  In particular, it is still
+   impermissible to send data prior to completion of the first
    handshake.
 
    Implementations MUST either abandon an association or re-key prior to
