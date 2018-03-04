@@ -587,7 +587,7 @@ address {
 
 <ol>
 <li>The DTLSCiphertext structure omits the superfluous version number field</li>
-<li>DTLS adds an explicit epoch and sequence number in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
+<li>DTLS adds an explicit epoch and sequence numbers in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
 <li>DTLS adds a short header format (DTLSShortCiphertext) that can be used to reduce overhead once the handshake is complete.</li>
 </ol>
 <p id="rfc.section.4.p.3">The DTLS record formats are shown below.  DTLSPlaintext records are used to send unprotected records and DTLSCiphertext or DTLSShortCiphertext are used to send protected records.</p>
@@ -716,10 +716,10 @@ address {
 <h3 id="rfc.section.4.4.1">
 <a href="#rfc.section.4.4.1">4.4.1.</a> <a href="#anti-replay" id="anti-replay">Anti-Replay</a>
 </h3>
-<p id="rfc.section.4.4.1.p.1">DTLS records contain a sequence number to provide replay protection.  Sequence number verification SHOULD be performed using the following sliding window procedure, borrowed from Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
-<p id="rfc.section.4.4.1.p.2">The receiver packet counter for this session MUST be initialized to zero when the session is established.  For each received record, the receiver MUST verify that the record contains a sequence number that does not duplicate the sequence number of any other record received during the life of this session.  This SHOULD be the first check applied to a packet after it has been matched to a session, to speed rejection of duplicate records.</p>
+<p id="rfc.section.4.4.1.p.1">Each DTLS record contains a sequence number to provide replay protection.  Sequence number verification SHOULD be performed using the following sliding window procedure, borrowed from Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
+<p id="rfc.section.4.4.1.p.2">The received packet counter for a session MUST be initialized to zero when that session is established. For each received record, the receiver MUST verify that the record contains a sequence number that does not duplicate the sequence number of any other record received during the lifetime of the session. This SHOULD be the first check applied to a packet after it has been matched to a session, to speed up the rejection of duplicate records.</p>
 <p id="rfc.section.4.4.1.p.3">Duplicates are rejected through the use of a sliding receive window.  (How the window is implemented is a local matter, but the following text describes the functionality that the implementation must exhibit.)  A minimum window size of 32 MUST be supported, but a window size of 64 is preferred and SHOULD be employed as the default.  Another window size (larger than the minimum) MAY be chosen by the receiver.  (The receiver does not notify the sender of the window size.)</p>
-<p id="rfc.section.4.4.1.p.4">The &#8220;right&#8221; edge of the window represents the highest validated sequence number value received on this session.  Records that contain sequence numbers lower than the &#8220;left&#8221; edge of the window are rejected.  Packets falling within the window are checked against a list of received packets within the window.  An efficient means for performing this check, based on the use of a bit mask, is described in Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
+<p id="rfc.section.4.4.1.p.4">The &#8220;right&#8221; edge of the window represents the highest validated sequence number value received on the session.  Records that contain sequence numbers lower than the &#8220;left&#8221; edge of the window are rejected.  Packets falling within the window are checked against a list of received packets within the window.  An efficient means for performing this check, based on the use of a bit mask, is described in Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
 <p id="rfc.section.4.4.1.p.5">If the received record falls within the window and is new, or if the packet is to the right of the window, then the receiver proceeds to MAC verification.  If the MAC validation fails, the receiver MUST discard the received record as invalid.  The receive window is updated only if the MAC verification succeeds.</p>
 <h3 id="rfc.section.4.4.2">
 <a href="#rfc.section.4.4.2">4.4.2.</a> <a href="#handling-invalid-records" id="handling-invalid-records">Handling Invalid Records</a>
