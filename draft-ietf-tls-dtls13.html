@@ -520,7 +520,7 @@ address {
 <li>session: An association between a client and a server resulting from a handshake.</li>
 <li>server: The endpoint which did not initiate the DTLS connection.</li>
 </ul>
-<p id="rfc.section.2.p.4">The reader is assumed to be familiar with the TLS 1.3 specification since this document defined as a delta from TLS 1.3.</p>
+<p id="rfc.section.2.p.4">The reader is assumed to be familiar with the TLS 1.3 specification since this document is defined as a delta from TLS 1.3.</p>
 <p id="rfc.section.2.p.5">Figures in this document illustrate various combinations of the DTLS protocol exchanges and the symbols have the following meaning:</p>
 <p></p>
 
@@ -594,7 +594,7 @@ address {
 <pre>
   struct {
       ContentType type;
-      ProtocolVersion version;
+      ProtocolVersion legacy_record_version;
       uint16 epoch = 0                                 // DTLS field
       uint48 sequence_number;                          // DTLS field
       uint16 length;
@@ -617,8 +617,8 @@ address {
 <p></p>
 
 <dl>
-<dt>type:</dt>
-<dd style="margin-left: 8">The content type of the record.</dd>
+<dt>opaque_type:</dt>
+<dd style="margin-left: 8">Identical to the opaque_type field in a TLS 1.3 record.</dd>
 <dt>epoch_and_sequence:</dt>
 <dd style="margin-left: 8">The low order two bits of the epoch and the low order 30 bits of the sequence number, laid out as a 32 bit integer.  The first 2 bits hold the low order bits from the epoch and the remaining 30 bits hold the low order bits from the sequence number (see <a href="#reconstructing" class="xref">Section 4.1.2</a> for how to use this value).</dd>
 <dt>length:</dt>
@@ -643,20 +643,20 @@ address {
 <li>The remaining bits contain the low order 12 bits of the sequence number.</li>
 </ul>
 <p id="rfc.section.4.p.9">In this format, the length field is omitted and therefore the record consumes the entire rest of the datagram in the lower level transport. It is not possible to have multiple DTLSShortCiphertext format records in the same datagram.</p>
-<p id="rfc.section.4.p.10">DTLSShortCiphertext MUST only be used for data which is protected with one of the application_traffic_secret values, and not for either handshake or early data. When using an application_traffic_secret for message protection, Implementations MAY use either DTLSCiphertext or DTLSShortCiphertext at their discretion.</p>
+<p id="rfc.section.4.p.10">DTLSShortCiphertext MUST only be used for data which is protected with one of the application_traffic_secret values, and not for messages protected with either [sender]_handshake_traffic_sercret or [sender]_early_traffic_secret values. When using an [sender]_application_traffic_secret for message protection, Implementations MAY use either DTLSCiphertext or DTLSShortCiphertext at their discretion.</p>
 <h2 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#sequence-number-handling" id="sequence-number-handling">Sequence Number Handling</a>
 </h2>
 <p id="rfc.section.4.1.p.1">DTLS uses an explicit sequence number, rather than an implicit one, carried in the sequence_number field of the record.  Sequence numbers are maintained separately for each epoch, with each sequence_number initially being 0 for each epoch.  For instance, if a handshake message from epoch 0 is retransmitted, it might have a sequence number after a message from epoch 1, even if the message from epoch 1 was transmitted first.  Note that some care needs to be taken during the handshake to ensure that retransmitted messages use the right epoch and keying material.</p>
 <p id="rfc.section.4.1.p.2">The epoch number is initially zero and is incremented each time keying material changes and a sender aims to rekey.  More details are provided in <a href="#dtls-epoch" class="xref">Section 6.1</a>. In order to ensure that any given sequence/epoch pair is unique, implementations MUST NOT allow the same epoch value to be reused within two times the TCP maximum segment lifetime (MSL).</p>
-<p id="rfc.section.4.1.p.3">Note that because DTLS records may be reordered, a record from epoch 1 may be received after epoch 2 has begun.  In general, implementations SHOULD discard packets from earlier epochs, but if packet loss causes noticeable problems they MAY choose to retain keying material from previous epochs for up to the default MSL specified for TCP <a href="#RFC0793" class="xref">[RFC0793]</a> to allow for packet reordering.  (Note that the intention here is that implementers use the current guidance from the IETF for MSL, not that they attempt to interrogate the MSL that the system TCP stack is using.)  Until the handshake has completed, implementations MUST accept packets from the old epoch.</p>
-<p id="rfc.section.4.1.p.4">Conversely, it is possible for records that are protected by the newly negotiated context to be received prior to the completion of a handshake.  For instance, the server may send its Finished message and then start transmitting data.  Implementations MAY either buffer or discard such packets, though when DTLS is used over reliable transports (e.g., SCTP), they SHOULD be buffered and processed once the handshake completes.  Note that TLS&#8217;s restrictions on when packets may be sent still apply, and the receiver treats the packets as if they were sent in the right order.  In particular, it is still impermissible to send data prior to completion of the first handshake.</p>
+<p id="rfc.section.4.1.p.3">Note that because DTLS records may be reordered, a record from epoch 1 may be received after epoch 2 has begun.  In general, implementations SHOULD discard packets from earlier epochs, but if packet loss causes noticeable problems implementations MAY choose to retain keying material from previous epochs for up to the default MSL specified for TCP <a href="#RFC0793" class="xref">[RFC0793]</a> to allow for packet reordering.  (Note that the intention here is that implementers use the current guidance from the IETF for MSL, not that they attempt to interrogate the MSL that the system TCP stack is using.)  Until the handshake has completed, implementations MUST accept packets from the old epoch.</p>
+<p id="rfc.section.4.1.p.4">Conversely, it is possible for records that are protected by the newly negotiated context to be received prior to the completion of a handshake.  For instance, the server may send its Finished message and then start transmitting data.  Implementations MAY either buffer or discard such packets, though when DTLS is used over reliable transports (e.g., SCTP <a href="#RFC4960" class="xref">[RFC4960]</a>), they SHOULD be buffered and processed once the handshake completes.  Note that TLS&#8217;s restrictions on when packets may be sent still apply, and the receiver treats the packets as if they were sent in the right order.  In particular, it is still impermissible to send data prior to completion of the first handshake.</p>
 <p id="rfc.section.4.1.p.5">Implementations MUST either abandon an association or re-key prior to allowing the sequence number to wrap.</p>
 <p id="rfc.section.4.1.p.6">Implementations MUST NOT allow the epoch to wrap, but instead MUST establish a new association, terminating the old association.</p>
 <h3 id="rfc.section.4.1.1">
 <a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#determining-the-header-format" id="determining-the-header-format">Determining the Header Format</a>
 </h3>
-<p id="rfc.section.4.1.1.p.1">Implementations can distinguish the three header formats by examining the first byte, which in the DTLSPlaintext and DTLSCiphertext header represents the content type. If the first byte is alert(21), handshake(22), or ack(25), the record MUST be interpreted as a DTLSPlaintext record. If the first byte is application_data(23) then the record MUST be interpreted handled as DTLSCiphertext; the true content type will be inside the protected portion.</p>
+<p id="rfc.section.4.1.1.p.1">Implementations can distinguish the three header formats by examining the first byte, which in the DTLSPlaintext and DTLSCiphertext header represents the content type. If the first byte is alert(21), handshake(22), or ack(proposed, 25), the record MUST be interpreted as a DTLSPlaintext record. If the first byte is application_data(23) then the record MUST be interpreted handled as DTLSCiphertext; the true content type will be inside the protected portion.</p>
 <p id="rfc.section.4.1.1.p.2">If the first byte is any other other value, then receivers MUST check to see if the leading bits of the first byte are 001. If so, they MUST process the record as DTLSShortCiphertext.  Otherwise, the record MUST be rejected as if it had failed deprotection, as described in <a href="#handling-invalid-records" class="xref">Section 4.4.2</a>.</p>
 <h3 id="rfc.section.4.1.2">
 <a href="#rfc.section.4.1.2">4.1.2.</a> <a href="#reconstructing" id="reconstructing">Reconstructing the Sequence Number and Epoch</a>
@@ -737,7 +737,7 @@ address {
 <li>Retransmission timers are introduced to handle message loss.</li>
 <li>A new ACK content type has been added for reliable message delivery of handshake messages.</li>
 </ol>
-<p id="rfc.section.5.p.3">Note that TLS 1.3 already supports a cookie extension, which used to prevent denial-of-service attacks. This DoS prevention mechanism is described in more detail below since UDP-based protocols are more vulnerable to amplification attacks than a connection-oriented transport like TCP that performs return-routability checks as part of the connection establishment.</p>
+<p id="rfc.section.5.p.3">Note that TLS 1.3 already supports a cookie extension, which is used to prevent denial-of-service attacks. This DoS prevention mechanism is described in more detail below since UDP-based protocols are more vulnerable to amplification attacks than a connection-oriented transport like TCP that performs return-routability checks as part of the connection establishment.</p>
 <p id="rfc.section.5.p.4">With these exceptions, the DTLS message formats, flows, and logic are the same as those of TLS 1.3. DTLS implementations SHOULD not use the TLS 1.3 &#8220;compatibility mode&#8221; described in <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>, Section D.4 and DTLS servers SHOULD ignore the &#8220;session_id&#8221; value generated by the client rather than sending ChangeCipherSpec messages. Implementations MUST still ignore ChangeCipherSpec messages received during the handshake and at all other times SHOULD treat them as if they had failed to deprotect.</p>
 <h2 id="rfc.section.5.1">
 <a href="#rfc.section.5.1">5.1.</a> <a href="#dos" id="dos">Denial-of-Service Countermeasures</a>
@@ -776,7 +776,7 @@ address {
 <p id="rfc.section.5.1.p.11">One potential attack on this scheme is for the attacker to collect a number of cookies from different addresses where it controls endpoints and then reuse them to attack the server.  The server can defend against this attack by changing the secret value frequently, thus invalidating those cookies. If the server wishes that legitimate clients be able to handshake through the transition (e.g., they received a cookie with Secret 1 and then sent the second ClientHello after the server has changed to Secret 2), the server can have a limited window during which it accepts both secrets.  <a href="#RFC7296" class="xref">[RFC7296]</a> suggests adding a key identifier to cookies to detect this case. An alternative approach is simply to try verifying with both secrets. It is RECOMMENDED that servers implement a key rotation scheme that allows the server to manage keys with overlapping lifetime.</p>
 <p id="rfc.section.5.1.p.12">Alternatively, the server can store timestamps in the cookie and reject those cookies that were not generated within a certain amount of time.</p>
 <p id="rfc.section.5.1.p.13">DTLS servers SHOULD perform a cookie exchange whenever a new handshake is being performed.  If the server is being operated in an environment where amplification is not a problem, the server MAY be configured not to perform a cookie exchange.  The default SHOULD be that the exchange is performed, however.  In addition, the server MAY choose not to do a cookie exchange when a session is resumed.  Clients MUST be prepared to do a cookie exchange with every handshake.</p>
-<p id="rfc.section.5.1.p.14">If a server receives a ClientHello with an invalid cookie, it MUST NOT respond with a HelloRetryRequest. Restarting the handshake from scratch, without a cookie, allows the client to recover from a situation where it obtained a cookie that cannot be verified by the server.  As described in Section 4.1.4 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>,clients SHOULD also abort the handshake with an &#8220;unexpected_message&#8221; alert in response to any second HelloRetryRequest which was sent in the same connection (i.e., where the ClientHello was itself in response to a HelloRetryRequest).</p>
+<p id="rfc.section.5.1.p.14">If a server receives a ClientHello with an invalid cookie, it MUST NOT respond with a HelloRetryRequest. Restarting the handshake from scratch, without a cookie, allows the client to recover from a situation where it obtained a cookie that cannot be verified by the server.  As described in Section 4.1.4 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>, clients SHOULD also abort the handshake with an &#8220;unexpected_message&#8221; alert in response to any second HelloRetryRequest which was sent in the same connection (i.e., where the ClientHello was itself in response to a HelloRetryRequest).</p>
 <h2 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#dtls-handshake-message-format" id="dtls-handshake-message-format">DTLS Handshake Message Format</a>
 </h2>
@@ -789,7 +789,7 @@ address {
       hello_verify_request_RESERVED(3),
       new_session_ticket(4),
       end_of_early_data(5),
-      hello_retry_request_RESRVED(13),
+      hello_retry_request_RESERVED(6),
       encrypted_extensions(8),
       certificate(11),
       server_key_exchange_RESERVED(12),
@@ -843,7 +843,7 @@ address {
        opaque legacy_cookie&lt;0..2^8-1&gt;;                  // DTLS
        CipherSuite cipher_suites&lt;2..2^16-2&gt;;
        opaque legacy_compression_methods&lt;1..2^8-1&gt;;
-       Extension extensions&lt;0..2^16-1&gt;;
+       Extension extensions&lt;8..2^16-1&gt;;
    } ClientHello;
 </pre>
 <p></p>
@@ -1047,15 +1047,15 @@ Client                                            Server
               Retransmit ACK
 </pre>
 <p class="figure">Figure 7: DTLS Timeout and Retransmission State Machine</p>
-<p id="rfc.section.5.6.1.p.2">The state machine has three basic states.</p>
+<p id="rfc.section.5.6.1.p.2">The state machine has four basic states: PREPARING, SENDING, WAITING, and FINISHED.</p>
 <p id="rfc.section.5.6.1.p.3">In the PREPARING state, the implementation does whatever computations are necessary to prepare the next flight of messages.  It then buffers them up for transmission (emptying the buffer first) and enters the SENDING state.</p>
-<p id="rfc.section.5.6.1.p.4">In the SENDING state, the implementation transmits the buffered flight of messages. If the implementation has received one or more ACKs <a href="#ack-msg" class="xref">Section 7</a> from the peer, then it SHOULD omit any messages or message fragments which have already been ACKed. Once the messages have been sent, the implementation then enters the FINISHED state if this is the last flight in the handshake.  Or, if the implementation expects to receive more messages, it sets a retransmit timer and then enters the WAITING state.</p>
+<p id="rfc.section.5.6.1.p.4">In the SENDING state, the implementation transmits the buffered flight of messages. If the implementation has received one or more ACKs (see <a href="#ack-msg" class="xref">Section 7</a>) from the peer, then it SHOULD omit any messages or message fragments which have already been ACKed. Once the messages have been sent, the implementation then enters the FINISHED state if this is the last flight in the handshake.  Or, if the implementation expects to receive more messages, it sets a retransmit timer and then enters the WAITING state.</p>
 <p id="rfc.section.5.6.1.p.5">There are four ways to exit the WAITING state:</p>
 <p></p>
 
 <ol>
 <li>The retransmit timer expires: the implementation transitions to the SENDING state, where it retransmits the flight, resets the retransmit timer, and returns to the WAITING state.</li>
-<li>The implementation reads a ACK from the peer: upon receiving an ACK for a partial flight (as mentioned in <a href="#sending-acks" class="xref">Section 7.1</a>, the implementation transitions to the SENDING state, where it retransmits the unacked portion of the flight, resets the retransmit timer, and returns to the WAITING state. Upon receiving an ACK for a complete flight, the implementation cancels all retransmissions and either remains in WAITING, or, if the ACK was for the final flight, transitions to FINISHED.</li>
+<li>The implementation reads a ACK from the peer: upon receiving an ACK for a partial flight (as mentioned in <a href="#sending-acks" class="xref">Section 7.1</a>), the implementation transitions to the SENDING state, where it retransmits the unacked portion of the flight, resets the retransmit timer, and returns to the WAITING state. Upon receiving an ACK for a complete flight, the implementation cancels all retransmissions and either remains in WAITING, or, if the ACK was for the final flight, transitions to FINISHED.</li>
 <li>The implementation reads a retransmitted flight from the peer: the implementation transitions to the SENDING state, where it retransmits the flight, resets the retransmit timer, and returns to the WAITING state.  The rationale here is that the receipt of a duplicate message is the likely result of timer expiry on the peer and therefore suggests that part of one&#8217;s previous flight was lost.</li>
 <li>The implementation receives some or all next flight of messages: if this is the final flight of messages, the implementation transitions to FINISHED.  If the implementation needs to send a new flight, it transitions to the PREPARING state. Partial reads (whether partial messages or only some of the messages in the flight) may also trigger the implementation to send an ACK, as described in <a href="#sending-acks" class="xref">Section 7.1</a>.</li>
 </ol>
@@ -1065,7 +1065,7 @@ Client                                            Server
 <h3 id="rfc.section.5.6.2">
 <a href="#rfc.section.5.6.2">5.6.2.</a> <a href="#timer-values" id="timer-values">Timer Values</a>
 </h3>
-<p id="rfc.section.5.6.2.p.1">Though timer values are the choice of the implementation, mishandling of the timer can lead to serious congestion problems; for example, if many instances of a DTLS time out early and retransmit too quickly on a congested link.  Implementations SHOULD use an initial timer value of 100 msec (the minimum defined in RFC 6298 <a href="#RFC6298" class="xref">[RFC6298]</a>) and double the value at each retransmission, up to no less than the RFC 6298 maximum of 60 seconds. Application specific profiles, such as those used for the Internet of Things environment, may recommend longer timer values. Note that we recommend a 100 msec timer rather than the 3-second RFC 6298 default in order to improve latency for time-sensitive applications.  Because DTLS only uses retransmission for handshake and not dataflow, the effect on congestion should be minimal.</p>
+<p id="rfc.section.5.6.2.p.1">Though timer values are the choice of the implementation, mishandling of the timer can lead to serious congestion problems; for example, if many instances of a DTLS time out early and retransmit too quickly on a congested link.  Implementations SHOULD use an initial timer value of 100 msec (the minimum defined in RFC 6298 <a href="#RFC6298" class="xref">[RFC6298]</a>) and double the value at each retransmission, up to no less than the RFC 6298 maximum of 60 seconds. Application specific profiles, such as those used for the Internet of Things environment, may recommend longer timer values. Note that a 100 msec timer is recommend rather than the 3-second RFC 6298 default in order to improve latency for time-sensitive applications.  Because DTLS only uses retransmission for handshake and not dataflow, the effect on congestion should be minimal.</p>
 <p id="rfc.section.5.6.2.p.2">Implementations SHOULD retain the current timer value until a transmission without loss occurs, at which time the value may be reset to the initial value.  After a long period of idleness, no less than 10 times the current timer value, implementations may reset the timer to the initial value.  One situation where this might occur is when a rehandshake is used after substantial data transfer.</p>
 <h2 id="rfc.section.5.7">
 <a href="#rfc.section.5.7">5.7.</a> <a href="#certificateverify-and-finished-messages" id="certificateverify-and-finished-messages">CertificateVerify and Finished Messages</a>
@@ -1144,8 +1144,8 @@ Client                                                Server
 
 <ul>
 <li>epoch value (0) is used with unencrypted messages. There are three unencrypted messages in DTLS, namely ClientHello, ServerHello, and HelloRetryRequest.</li>
-<li>epoch value (1) is used for messages protected using keys derived from early_traffic_secret. This includes early data sent by the client and the EndOfEarlyData message.</li>
-<li>epoch value (2) is used for messages protected using keys derived from the handshake_traffic_secret. Messages transmitted during the initial handshake, such as EncryptedExtensions, CertificateRequest, Certificate, CertificateVerify, and Finished belong to this category. Note, however, post-handshake are protected under the appropriate application traffic key and are not included in this category.</li>
+<li>epoch value (1) is used for messages protected using keys derived from client_early_traffic_secret. This includes early data sent by the client and the EndOfEarlyData message.</li>
+<li>epoch value (2) is used for messages protected using keys derived from [sender]_handshake_traffic_secret. Messages transmitted during the initial handshake, such as EncryptedExtensions, CertificateRequest, Certificate, CertificateVerify, and Finished belong to this category. Note, however, post-handshake are protected under the appropriate application traffic key and are not included in this category.</li>
 <li>epoch value (3) is used for payloads protected using keys derived from the initial traffic_secret_0. This may include handshake messages, such as post-handshake messages (e.g., a NewSessionTicket message).</li>
 <li>epoch value (4 to 2^16-1) is used for payloads protected using keys from the traffic_secret_N (N&gt;0).</li>
 </ul>
@@ -1368,6 +1368,11 @@ struct {
 <td class="reference"><b id="RFC4347">[RFC4347]</b></td>
 <td class="top">
 <a>Rescorla, E.</a> and <a>N. Modadugu</a>, "<a href="https://tools.ietf.org/html/rfc4347">Datagram Transport Layer Security</a>", RFC 4347, DOI 10.17487/RFC4347, April 2006.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4960">[RFC4960]</b></td>
+<td class="top">
+<a>Stewart, R.</a>, "<a href="https://tools.ietf.org/html/rfc4960">Stream Control Transmission Protocol</a>", RFC 4960, DOI 10.17487/RFC4960, September 2007.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC5238">[RFC5238]</b></td>
