@@ -9,80 +9,30 @@
 
   
 <style type="text/css">/*<![CDATA[*/
-@viewport {
-  zoom: 1.0;
-  width: extend-to-zoom;
-}
-@-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
-}
-
-@media screen and (min-width: 1024px) {
-  body>ul.toc, body>#rfc\.toc {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 550px);
-    width: 300px;
-    z-index: 1;
-  }
-  #rfc\.toc {
-    top: 55px;
-    overflow: auto;
-    overscroll-behavior: contain;
-  }
-  ul.toc, #rfc\.toc {
-    overflow: auto;
-    overscroll-behavior: contain;
-  }
-  body>ul.toc {
-    top: 140px;
-  }
-
-  body {
-    padding-right: 350px;
-  }
-}
 
 body {
-  font: 16px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   color: #333;
   font-size-adjust: 0.5;
   line-height: 24px;
   margin: 75px auto;
-  max-width: 724px;
+  max-width: 624px;
+  padding: 0 5px;
 }
 
-.title, .filename, h1, h2, h3, h4 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   font-size-adjust: 0.5;
-  font-weight: 500;
+  font-weight: bold;
   color: #333;
   line-height: 100%;
   margin: 0.8em 0 0.3em;
 }
-.title { font-size: 36px; }
-h1 { font-size: 36px; }
-h2 { font-size: 24px; }
-h3, h4 { font-size: 18px; }
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
 h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
   color: #333;
-}
-
-ul.toc li {
-  list-style: none;
-  text-indent: -2.5em;
-  padding-left: 2.5em;
-  padding-bottom: 5px;
-  margin: 0;
-}
-ul.toc ul {
-  margin: 0;
-}
-/* xml2rfc nests ul directly inside ul which messes with the style badly */
-ul.toc, ul.toc>ul, ul.toc ul>ul {
-  margin: 0 0 0 1.5em;
 }
 
 table {
@@ -111,28 +61,30 @@ td.reference {
 }
 
 
-table.header {
+table.header, table#rfc\.headerblock {
   width: 100%;
 }
-table.header td {
+table.header td, table#rfc\.headerblock td {
   border: none;
   background-color: transparent;
   color: black;
+  padding: 0;
 }
 .filename {
+  display: block;
   color: rgb(119, 119, 119);
-  font-size: 23px;
+  font-size: 20px;
   font-weight: normal;
-  height: auto;
   line-height: 100%;
+  margin: 10px 0 32px;
 }
 #rfc\.abstract+p, #rfc\.abstract p {
-  font-size: 18px;
-  line-height: 27px%;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 samp, tt, code, pre {
-  font: 11pt consolas, monospace;
+  font: 15px Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -142,13 +94,15 @@ pre {
   padding: 5px;
   margin: 5px;
 }
-.figure {
+.figure, caption {
   font-style: italic;
   margin: 0 1.5em;
+  text-align: left;
 }
 
 address {
-  margin: 10px 0 0;
+  margin: 16px 2px;
+  line-height: 20px;
 }
 .vcard {
   font-style: normal;
@@ -156,8 +110,8 @@ address {
 .vcardline {
   display: block;
 }
-.vcardline .fn {
-  font-weight: bold;
+.vcardline .fn, address b {
+  font-weight: normal;
 }
 .vcardline .hidden {
   display: none;
@@ -222,6 +176,45 @@ address {
   font-style: normal;
 }
 
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
 .github-fork-ribbon-wrapper {
   display: none;
 }
@@ -279,6 +272,7 @@ address {
     position: fixed;
   }
   /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
 
 
   <link href="#rfc.toc" rel="Contents">
@@ -290,14 +284,15 @@ address {
 <link href="#rfc.section.3.1.2" rel="Chapter" title="3.1.2 Message Size">
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 Replay Detection">
 <link href="#rfc.section.4" rel="Chapter" title="4 The DTLS Record Layer">
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Sequence Number Handling">
-<link href="#rfc.section.4.1.1" rel="Chapter" title="4.1.1 Determining the Header Format">
-<link href="#rfc.section.4.1.2" rel="Chapter" title="4.1.2 Reconstructing the Sequence Number and Epoch">
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Transport Layer Mapping">
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 PMTU Issues">
-<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Record Payload Protection">
-<link href="#rfc.section.4.4.1" rel="Chapter" title="4.4.1 Anti-Replay">
-<link href="#rfc.section.4.4.2" rel="Chapter" title="4.4.2 Handling Invalid Records">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Determining the Header Format">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Sequence Number and Epoch">
+<link href="#rfc.section.4.2.1" rel="Chapter" title="4.2.1 Processing Guidlines">
+<link href="#rfc.section.4.2.2" rel="Chapter" title="4.2.2 Reconstructing the Sequence Number and Epoch">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Transport Layer Mapping">
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 PMTU Issues">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 Record Payload Protection">
+<link href="#rfc.section.4.5.1" rel="Chapter" title="4.5.1 Anti-Replay">
+<link href="#rfc.section.4.5.2" rel="Chapter" title="4.5.2 Handling Invalid Records">
 <link href="#rfc.section.5" rel="Chapter" title="5 The DTLS Handshake Protocol">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 Denial-of-Service Countermeasures">
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 DTLS Handshake Message Format">
@@ -316,25 +311,27 @@ address {
 <link href="#rfc.section.7.1" rel="Chapter" title="7.1 Sending ACKs">
 <link href="#rfc.section.7.2" rel="Chapter" title="7.2 Receiving ACKs">
 <link href="#rfc.section.8" rel="Chapter" title="8 Key Updates">
-<link href="#rfc.section.9" rel="Chapter" title="9 Application Data Protocol">
-<link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations">
-<link href="#rfc.section.11" rel="Chapter" title="11 Changes to DTLS 1.2">
-<link href="#rfc.section.12" rel="Chapter" title="12 IANA Considerations">
-<link href="#rfc.references" rel="Chapter" title="13 References">
-<link href="#rfc.references.1" rel="Chapter" title="13.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="13.2 Informative References">
+<link href="#rfc.section.9" rel="Chapter" title="9 Connection ID Updates">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 ID Example">
+<link href="#rfc.section.10" rel="Chapter" title="10 Application Data Protocol">
+<link href="#rfc.section.11" rel="Chapter" title="11 Security Considerations">
+<link href="#rfc.section.12" rel="Chapter" title="12 Changes to DTLS 1.2">
+<link href="#rfc.section.13" rel="Chapter" title="13 IANA Considerations">
+<link href="#rfc.references" rel="Chapter" title="14 References">
+<link href="#rfc.references.1" rel="Chapter" title="14.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="14.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A History">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Working Group Information">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Contributors">
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.9.6 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.9.9 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Rescorla, E., Tschofenig, H., and N. Modadugu" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-tls-dtls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-03-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-07-02" />
   <meta name="dct.abstract" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
   <meta name="description" content="This document specifies Version 1.3 of the Datagram Transport Layer Security (DTLS) protocol. DTLS 1.3 allows client/server applications to communicate over the Internet in a way that is designed to prevent eavesdropping, tampering, and message forgery." />
 
@@ -362,7 +359,7 @@ address {
 <td class="right">Arm Limited</td>
 </tr>
 <tr>
-<td class="left">Expires: September 5, 2018</td>
+<td class="left">Expires: January 3, 2019</td>
 <td class="right">N. Modadugu</td>
 </tr>
 <tr>
@@ -371,7 +368,7 @@ address {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">March 04, 2018</td>
+<td class="right">July 02, 2018</td>
 </tr>
 
     	
@@ -388,7 +385,7 @@ address {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 5, 2018.</p>
+<p>This Internet-Draft will expire on January 3, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -415,21 +412,23 @@ address {
 </li>
 </ul><li>4.   <a href="#rfc.section.4">The DTLS Record Layer</a>
 </li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">Sequence Number Handling</a>
+<ul><li>4.1.   <a href="#rfc.section.4.1">Determining the Header Format</a>
 </li>
-<ul><li>4.1.1.   <a href="#rfc.section.4.1.1">Determining the Header Format</a>
+<li>4.2.   <a href="#rfc.section.4.2">Sequence Number and Epoch</a>
 </li>
-<li>4.1.2.   <a href="#rfc.section.4.1.2">Reconstructing the Sequence Number and Epoch</a>
+<ul><li>4.2.1.   <a href="#rfc.section.4.2.1">Processing Guidlines</a>
 </li>
-</ul><li>4.2.   <a href="#rfc.section.4.2">Transport Layer Mapping</a>
+<li>4.2.2.   <a href="#rfc.section.4.2.2">Reconstructing the Sequence Number and Epoch</a>
 </li>
-<li>4.3.   <a href="#rfc.section.4.3">PMTU Issues</a>
+</ul><li>4.3.   <a href="#rfc.section.4.3">Transport Layer Mapping</a>
 </li>
-<li>4.4.   <a href="#rfc.section.4.4">Record Payload Protection</a>
+<li>4.4.   <a href="#rfc.section.4.4">PMTU Issues</a>
 </li>
-<ul><li>4.4.1.   <a href="#rfc.section.4.4.1">Anti-Replay</a>
+<li>4.5.   <a href="#rfc.section.4.5">Record Payload Protection</a>
 </li>
-<li>4.4.2.   <a href="#rfc.section.4.4.2">Handling Invalid Records</a>
+<ul><li>4.5.1.   <a href="#rfc.section.4.5.1">Anti-Replay</a>
+</li>
+<li>4.5.2.   <a href="#rfc.section.4.5.2">Handling Invalid Records</a>
 </li>
 </ul></ul><li>5.   <a href="#rfc.section.5">The DTLS Handshake Protocol</a>
 </li>
@@ -467,19 +466,23 @@ address {
 </li>
 </ul><li>8.   <a href="#rfc.section.8">Key Updates</a>
 </li>
-<li>9.   <a href="#rfc.section.9">Application Data Protocol</a>
+<li>9.   <a href="#rfc.section.9">Connection ID Updates</a>
 </li>
-<li>10.   <a href="#rfc.section.10">Security Considerations</a>
+<ul><li>9.1.   <a href="#rfc.section.9.1">ID Example</a>
 </li>
-<li>11.   <a href="#rfc.section.11">Changes to DTLS 1.2</a>
+</ul><li>10.   <a href="#rfc.section.10">Application Data Protocol</a>
 </li>
-<li>12.   <a href="#rfc.section.12">IANA Considerations</a>
+<li>11.   <a href="#rfc.section.11">Security Considerations</a>
 </li>
-<li>13.   <a href="#rfc.references">References</a>
+<li>12.   <a href="#rfc.section.12">Changes to DTLS 1.2</a>
 </li>
-<ul><li>13.1.   <a href="#rfc.references.1">Normative References</a>
+<li>13.   <a href="#rfc.section.13">IANA Considerations</a>
 </li>
-<li>13.2.   <a href="#rfc.references.2">Informative References</a>
+<li>14.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>14.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>14.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">History</a>
 </li>
@@ -582,15 +585,19 @@ address {
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#the-dtls-record-layer" id="the-dtls-record-layer">The DTLS Record Layer</a>
 </h1>
-<p id="rfc.section.4.p.1">The DTLS record layer is similar to that of TLS 1.3.  There are three major changes:</p>
+<p id="rfc.section.4.p.1">The DTLS record layer is different from the TLS 1.3 record layer.</p>
 <p></p>
 
 <ol>
-<li>The DTLSCiphertext structure omits the superfluous version number field.</li>
-<li>DTLS adds an explicit epoch and sequence number in the record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.</li>
-<li>DTLS adds a short header format (DTLSShortCiphertext) that can be used to reduce overhead once the handshake is complete.</li>
+<li>The DTLSCiphertext structure omits the superfluous version number and type fields.</li>
+<li>DTLS adds an explicit epoch and sequence number to the TLS record header.  This sequence number allows the recipient to correctly verify the DTLS MAC.  However, the number of bits used for the epoch and sequence number fields in the DTLSCiphertext structure have been reduced.</li>
+<li>The DTLSCiphertext structure has a variable length header.</li>
 </ol>
-<p id="rfc.section.4.p.3">The DTLS record formats are shown below.  DTLSPlaintext records are used to send unprotected records and DTLSCiphertext or DTLSShortCiphertext are used to send protected records.</p>
+<p id="rfc.section.4.p.3">Note that the DTLS 1.3 record layer is different from the DTLS 1.2 record layer.</p>
+<p id="rfc.section.4.p.4">DTLSPlaintext records are used to send unprotected records and DTLSCiphertext records are used to send protected records.</p>
+<p id="rfc.section.4.p.5">The DTLS record formats are shown below. Unless explicitly stated the meaning of the fields is unchanged from previous TLS / DTLS versions.</p>
+<div id="rfc.figure.2"></div>
+<div id="dtls-record"></div>
 <pre>
   struct {
       ContentType type;
@@ -608,75 +615,133 @@ address {
   } DTLSInnerPlaintext;
 
   struct {
-      ContentType opaque_type = 23; /* application_data */
-      uint32 epoch_and_sequence;
-      uint16 length;
+      opaque unified_hdr[variable];
       opaque encrypted_record[length];
   } DTLSCiphertext;
+  [[OPEN ISSUE: Should we try to find some way to render this?]]
 </pre>
+<p class="figure">Figure 2: DTLS 1.3 Record Format</p>
 <p></p>
 
 <dl>
-<dt>opaque_type:</dt>
-<dd style="margin-left: 8">Identical to the opaque_type field in a TLS 1.3 record.</dd>
-<dt>epoch_and_sequence:</dt>
-<dd style="margin-left: 8">The low order two bits of the epoch and the low order 30 bits of the sequence number, laid out as a 32 bit integer.  The first 2 bits hold the low order bits from the epoch and the remaining 30 bits hold the low order bits from the sequence number (see <a href="#reconstructing" class="xref">Section 4.1.2</a> for how to use this value).</dd>
-<dt>length:</dt>
-<dd style="margin-left: 8">Identical to the length field in a TLS 1.3 record.</dd>
+<dt>unified_hdr:</dt>
+<dd style="margin-left: 8">The unified_hdr is a field of variable length, as shown in <a href="#cid_hdr" class="xref">Figure 3</a>.</dd>
 <dt>encrypted_record:</dt>
 <dd style="margin-left: 8">Identical to the encrypted_record field in a TLS 1.3 record.</dd>
 </dl>
-<p id="rfc.section.4.p.5">As with previous versions of DTLS, multiple DTLSPlaintext and DTLSCiphertext records can be included in the same underlying transport datagram.</p>
-<p id="rfc.section.4.p.6">The short DTLS header format is:</p>
+<p id="rfc.section.4.p.7">The DTLSCiphertext header is tightly bit-packed, as shown below:</p>
+<div id="rfc.figure.3"></div>
+<div id="cid_hdr"></div>
 <pre>
-    struct {
-      uint16 short_epoch_and_sequence;  // 001ESSSS SSSSSSSS
-      opaque encrypted_record[remainder_of_datagram];
-    } DTLSShortCiphertext;
+  0 1 2 3 4 5 6 7
+ +-+-+-+-+-+-+-+-+
+ |0|0|1|C|L|X|X|X|
+ +-+-+-+-+-+-+-+-+
+ |Ep.| 14 bit    |   Legend:
+ +-+-+           |
+ |Sequence Number|   Ep. - Epoch
+ +-+-+-+-+-+-+-+-+   C   - CID present
+ | Connection ID |   L   - Length present
+ | (if any,      |   X   - Reserved
+ /  length as    /
+ |  negotiated)  |
+ +-+-+-+-+-+-+-+-+
+ | 16 bit Length |
+ | (if present)  |
+ +-+-+-+-+-+-+-+-+
 </pre>
-<p id="rfc.section.4.p.7">The short_epoch_and_sequence document contains the epoch and sequence packed into a 16 bit integer as follows:</p>
+<p class="figure">Figure 3: DTLS 1.3 CipherText Header</p>
+<p></p>
+
+<dl>
+<dt>Ep.</dt>
+<dd style="margin-left: 8">The low order two bits of the epoch.</dd>
+<dt>sequence number:</dt>
+<dd style="margin-left: 8">The low order 14 bits of the record sequence number.</dd>
+<dt>length:</dt>
+<dd style="margin-left: 8">Identical to the length field in a TLS 1.3 record.</dd>
+<dt>connection ID:</dt>
+<dd style="margin-left: 8">Variable length connection ID. The connection ID concept is described in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a>. An example can be found in <a href="#connection-id-example" class="xref">Section 9.1</a>.</dd>
+</dl>
+<p id="rfc.section.4.p.9">As with previous versions of DTLS, multiple DTLSPlaintext and DTLSCiphertext records can be included in the same underlying transport datagram.</p>
+<p><a href="#hdr_examples" class="xref">Figure 4</a> illustrates different record layer header types.</p>
+<div id="rfc.figure.4"></div>
+<div id="hdr_examples"></div>
+<pre>
+ 0 1 2 3 4 5 6 7       0 1 2 3 4 5 6 7        0 1 2 3 4 5 6 7
++-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+| Content Type  |     |0|0|1|C|L|X|X|X|     |0|0|1|0|0|X|X|X|
++-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+|   16 bit      |     |E|E| 14 bit    |     |E|E| 14 bit    |
+|   Version     |     +-+-+           |     +-+-+           |
++-+-+-+-+-+-+-+-+     |Sequence Number|     |Sequence Number|
+|   16 bit      |     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+|    Epoch      |     |               |     |               |
++-+-+-+-+-+-+-+-+     / Connection ID /     |   Encrypted   |
+|               |     |               |     /   Record      /
+|               |     +-+-+-+-+-+-+-+-+     |               |
+|   48 bit      |     |   16 bit      |     +-+-+-+-+-+-+-+-+
+|Sequence Number|     |   Length      |
+|               |     +-+-+-+-+-+-+-+-+       DTLSCiphertext
+|               |     |               |         Structure
++-+-+-+-+-+-+-+-+     |  Encrypted    |         (minimal)
+|    16 bit     |     /  Record       /
+|    Length     |     |               |
++-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+|               |
+|               |      DTLSCiphertext
+/   Fragment    /        Structure
+|               |          (full)
++-+-+-+-+-+-+-+-+
+
+ DTLSPlaintext
+   Structure
+</pre>
+<p class="figure">Figure 4: Header Examples</p>
+<p id="rfc.section.4.p.11">The length field may be omitted and therefore the record consumes the entire rest of the datagram in the lower level transport. In this case it is not possible to have multiple DTLSCiphertext format records without length fields in the same datagram.</p>
+<p id="rfc.section.4.p.12">Omitting the length field MUST only be used for data which is protected with one of the application_traffic_secret values, and not for messages protected with either [sender]_handshake_traffic_sercret or [sender]_early_traffic_secret values. When using an [sender]_application_traffic_secret for message protection, Implementations MAY include the length field at their discretion.</p>
+<h2 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#determining-the-header-format" id="determining-the-header-format">Determining the Header Format</a>
+</h2>
+<p id="rfc.section.4.1.p.1">Implementations can distinguish the two header formats by examining the first byte:</p>
 <p></p>
 
 <ul>
-<li>The first three bits are set to 001 in order to allow multiplexing between DTLS and VoIP protocols (STUN, RTP/RTCP, etc.) <a href="#RFC7983" class="xref">[RFC7983]</a> and distinguish the short from long header formats.</li>
-<li>The fourth bit is the low order bit of the epoch value.</li>
-<li>The remaining bits contain the low order 12 bits of the sequence number.</li>
+<li>If the first byte is alert(21), handshake(22), or ack(proposed, 25), the record MUST be interpreted as a DTLSPlaintext record.</li>
+<li>If the first byte is any other other value, then receivers MUST check to see if the leading bits of the first byte are 001. If so, the implementation MUST process the record as DTLSCiphertext; the true content type will be inside the protected portion.</li>
+<li>Otherwise, the record MUST be rejected as if it had failed deprotection, as described in <a href="#handling-invalid-records" class="xref">Section 4.5.2</a>.</li>
 </ul>
-<p id="rfc.section.4.p.9">In this format, the length field is omitted and therefore the record consumes the entire rest of the datagram in the lower level transport. It is not possible to have multiple DTLSShortCiphertext format records in the same datagram.</p>
-<p id="rfc.section.4.p.10">DTLSShortCiphertext MUST only be used for data which is protected with one of the application_traffic_secret values, and not for messages protected with either [sender]_handshake_traffic_sercret or [sender]_early_traffic_secret values. When using an [sender]_application_traffic_secret for message protection, Implementations MAY use either DTLSCiphertext or DTLSShortCiphertext at their discretion.</p>
-<h2 id="rfc.section.4.1">
-<a href="#rfc.section.4.1">4.1.</a> <a href="#sequence-number-handling" id="sequence-number-handling">Sequence Number Handling</a>
-</h2>
-<p id="rfc.section.4.1.p.1">DTLS uses an explicit sequence number, rather than an implicit one, carried in the sequence_number field of the record.  Sequence numbers are maintained separately for each epoch, with each sequence_number initially being 0 for each epoch.  For instance, if a handshake message from epoch 0 is retransmitted, it might have a sequence number after a message from epoch 1, even if the message from epoch 1 was transmitted first.  Note that some care needs to be taken during the handshake to ensure that retransmitted messages use the right epoch and keying material.</p>
-<p id="rfc.section.4.1.p.2">The epoch number is initially zero and is incremented each time keying material changes and a sender aims to rekey.  More details are provided in <a href="#dtls-epoch" class="xref">Section 6.1</a>.</p>
-<p id="rfc.section.4.1.p.3">Note that because DTLS records may be reordered, a record from epoch 1 may be received after epoch 2 has begun.  In general, implementations SHOULD discard packets from earlier epochs, but if packet loss causes noticeable problems implementations MAY choose to retain keying material from previous epochs for up to the default MSL specified for TCP <a href="#RFC0793" class="xref">[RFC0793]</a> to allow for packet reordering.  (Note that the intention here is that implementers use the current guidance from the IETF for MSL, as specified in <a href="#RFC0793" class="xref">[RFC0793]</a> or successors not that they attempt to interrogate the MSL that the system TCP stack is using.)  Until the handshake has completed, implementations MUST accept packets from the old epoch.</p>
-<p id="rfc.section.4.1.p.4">Conversely, it is possible for records that are protected with the new epoch to be received prior to the completion of a handshake.  For instance, the server may send its Finished message and then start transmitting data.  Implementations MAY either buffer or discard such packets, though when DTLS is used over reliable transports (e.g., SCTP <a href="#RFC4960" class="xref">[RFC4960]</a>), they SHOULD be buffered and processed once the handshake completes.  Note that TLS&#8217;s restrictions on when packets may be sent still apply, and the receiver treats the packets as if they were sent in the right order.  In particular, it is still impermissible to send data prior to completion of the first handshake.</p>
-<p id="rfc.section.4.1.p.5">Implementations MUST either abandon an association or re-key prior to allowing the sequence number to wrap.</p>
-<p id="rfc.section.4.1.p.6">Implementations MUST NOT allow the epoch to wrap, but instead MUST establish a new association, terminating the old association.</p>
-<h3 id="rfc.section.4.1.1">
-<a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#determining-the-header-format" id="determining-the-header-format">Determining the Header Format</a>
-</h3>
-<p id="rfc.section.4.1.1.p.1">Implementations can distinguish the three header formats by examining the first byte, which in the DTLSPlaintext and DTLSCiphertext header represents the content type. If the first byte is alert(21), handshake(22), or ack(proposed, 25), the record MUST be interpreted as a DTLSPlaintext record. If the first byte is application_data(23) then the record MUST be interpreted handled as DTLSCiphertext; the true content type will be inside the protected portion.</p>
-<p id="rfc.section.4.1.1.p.2">If the first byte is any other other value, then receivers MUST check to see if the leading bits of the first byte are 001. If so, they MUST process the record as DTLSShortCiphertext.  Otherwise, the record MUST be rejected as if it had failed deprotection, as described in <a href="#handling-invalid-records" class="xref">Section 4.4.2</a>.</p>
-<h3 id="rfc.section.4.1.2">
-<a href="#rfc.section.4.1.2">4.1.2.</a> <a href="#reconstructing" id="reconstructing">Reconstructing the Sequence Number and Epoch</a>
-</h3>
-<p id="rfc.section.4.1.2.p.1">When receiving protected DTLS records message, the recipient does not have a full epoch or sequence number value and so there is some opportunity for ambiguity.  Because the full epoch and sequence number are used to compute the per-record nonce, failure to reconstruct these values leads to failure to deprotect the record, and so implementations MAY use a mechanism of their choice to determine the full values.  This section provides an algorithm which is comparatively simple and which implementations are RECOMMENDED to follow.</p>
-<p id="rfc.section.4.1.2.p.2">If the epoch bits match those of the current epoch, then implementations SHOULD reconstruct the sequence number by computing the full sequence number which is numerically closest to one plus the sequence number of the highest successfully deprotected record.</p>
-<p id="rfc.section.4.1.2.p.3">During the handshake phase, the epoch bits unambiguously indicate the correct key to use. After the handshake is complete, if the epoch bits do not match those from the current epoch implementations SHOULD use the most recent past epoch which has matching bits, and then reconstruct the sequence number as described above.</p>
-<p id="rfc.section.4.1.2.p.4">Note: the DTLSShortCiphertext format does not allow for easy reconstruction of sequence numbers if ~2000 datagrams in sequence are lost. Implementations which may encounter this situation SHOULD use the DTLSCiphertext format.</p>
 <h2 id="rfc.section.4.2">
-<a href="#rfc.section.4.2">4.2.</a> <a href="#transport-layer-mapping" id="transport-layer-mapping">Transport Layer Mapping</a>
+<a href="#rfc.section.4.2">4.2.</a> <a href="#sequence-number-and-epoch" id="sequence-number-and-epoch">Sequence Number and Epoch</a>
 </h2>
-<p id="rfc.section.4.2.p.1">DTLS messages MAY be fragmentmented into multiple DTLS records.  Each DTLS record MUST fit within a single datagram.  In order to avoid IP fragmentation, clients of the DTLS record layer SHOULD attempt to size records so that they fit within any PMTU estimates obtained from the record layer.</p>
-<p id="rfc.section.4.2.p.2">Multiple DTLS records MAY be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload MUST be the beginning of a record.  Records MUST NOT span datagrams.</p>
-<p id="rfc.section.4.2.p.3">DTLS records, as defined in this document, do not contain any association identifiers and applications must arrange to multiplex between associations.  With UDP, the host/port number is used to look up the appropriate security association for incoming records. However, the Connection ID extension defined in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a> adds an association identifier to DTLS records.</p>
-<p id="rfc.section.4.2.p.4">Some transports, such as DCCP <a href="#RFC4340" class="xref">[RFC4340]</a>, provide their own sequence numbers.  When carried over those transports, both the DTLS and the transport sequence numbers will be present.  Although this introduces a small amount of inefficiency, the transport layer and DTLS sequence numbers serve different purposes; therefore, for conceptual simplicity, it is superior to use both sequence numbers.</p>
-<p id="rfc.section.4.2.p.5">Some transports provide congestion control for traffic carried over them.  If the congestion window is sufficiently narrow, DTLS handshake retransmissions may be held rather than transmitted immediately, potentially leading to timeouts and spurious retransmission.  When DTLS is used over such transports, care should be taken not to overrun the likely congestion window. <a href="#RFC5238" class="xref">[RFC5238]</a> defines a mapping of DTLS to DCCP that takes these issues into account.</p>
+<h3 id="rfc.section.4.2.1">
+<a href="#rfc.section.4.2.1">4.2.1.</a> <a href="#processing-guidlines" id="processing-guidlines">Processing Guidlines</a>
+</h3>
+<p id="rfc.section.4.2.1.p.1">DTLS uses an explicit sequence number, rather than an implicit one, carried in the sequence_number field of the record.  Sequence numbers are maintained separately for each epoch, with each sequence_number initially being 0 for each epoch.</p>
+<p id="rfc.section.4.2.1.p.2">The epoch number is initially zero and is incremented each time keying material changes and a sender aims to rekey. More details are provided in <a href="#dtls-epoch" class="xref">Section 6.1</a>.</p>
+<p id="rfc.section.4.2.1.p.3">Because DTLS records may be reordered, a record from epoch 1 may be received after epoch 2 has begun.  In general, implementations SHOULD discard packets from earlier epochs, but if packet loss causes noticeable problems implementations MAY choose to retain keying material from previous epochs for up to the default MSL specified for TCP <a href="#RFC0793" class="xref">[RFC0793]</a> to allow for packet reordering.  (Note that the intention here is that implementers use the current guidance from the IETF for MSL, as specified in <a href="#RFC0793" class="xref">[RFC0793]</a> or successors not that they attempt to interrogate the MSL that the system TCP stack is using.)  Until the handshake has completed, implementations MUST accept packets from the old epoch.</p>
+<p id="rfc.section.4.2.1.p.4">Conversely, it is possible for records that are protected with the new epoch to be received prior to the completion of a handshake.  For instance, the server may send its Finished message and then start transmitting data.  Implementations MAY either buffer or discard such packets, though when DTLS is used over reliable transports (e.g., SCTP <a href="#RFC4960" class="xref">[RFC4960]</a>), they SHOULD be buffered and processed once the handshake completes.  Note that TLS&#8217;s restrictions on when packets may be sent still apply, and the receiver treats the packets as if they were sent in the right order.  In particular, it is still impermissible to send data prior to completion of the first handshake.</p>
+<p id="rfc.section.4.2.1.p.5">Note that some care needs to be taken during the handshake to ensure that retransmitted messages use the right epoch and keying material.</p>
+<p id="rfc.section.4.2.1.p.6">Implementations MUST either abandon an association or re-key prior to allowing the sequence number to wrap.</p>
+<p id="rfc.section.4.2.1.p.7">Implementations MUST NOT allow the epoch to wrap, but instead MUST establish a new association, terminating the old association.</p>
+<h3 id="rfc.section.4.2.2">
+<a href="#rfc.section.4.2.2">4.2.2.</a> <a href="#reconstructing" id="reconstructing">Reconstructing the Sequence Number and Epoch</a>
+</h3>
+<p id="rfc.section.4.2.2.p.1">When receiving protected DTLS records message, the recipient does not have a full epoch or sequence number value and so there is some opportunity for ambiguity.  Because the full epoch and sequence number are used to compute the per-record nonce, failure to reconstruct these values leads to failure to deprotect the record, and so implementations MAY use a mechanism of their choice to determine the full values.  This section provides an algorithm which is comparatively simple and which implementations are RECOMMENDED to follow.</p>
+<p id="rfc.section.4.2.2.p.2">If the epoch bits match those of the current epoch, then implementations SHOULD reconstruct the sequence number by computing the full sequence number which is numerically closest to one plus the sequence number of the highest successfully deprotected record.</p>
+<p id="rfc.section.4.2.2.p.3">During the handshake phase, the epoch bits unambiguously indicate the correct key to use. After the handshake is complete, if the epoch bits do not match those from the current epoch implementations SHOULD use the most recent past epoch which has matching bits, and then reconstruct the sequence number as described above.</p>
 <h2 id="rfc.section.4.3">
-<a href="#rfc.section.4.3">4.3.</a> <a href="#pmtu-issues" id="pmtu-issues">PMTU Issues</a>
+<a href="#rfc.section.4.3">4.3.</a> <a href="#transport-layer-mapping" id="transport-layer-mapping">Transport Layer Mapping</a>
 </h2>
-<p id="rfc.section.4.3.p.1">In general, DTLS&#8217;s philosophy is to leave PMTU discovery to the application.  However, DTLS cannot completely ignore PMTU for three reasons:</p>
+<p id="rfc.section.4.3.p.1">DTLS messages MAY be fragmentmented into multiple DTLS records.  Each DTLS record MUST fit within a single datagram.  In order to avoid IP fragmentation, clients of the DTLS record layer SHOULD attempt to size records so that they fit within any PMTU estimates obtained from the record layer.</p>
+<p id="rfc.section.4.3.p.2">Multiple DTLS records MAY be placed in a single datagram.  They are simply encoded consecutively.  The DTLS record framing is sufficient to determine the boundaries.  Note, however, that the first byte of the datagram payload MUST be the beginning of a record.  Records MUST NOT span datagrams.</p>
+<p id="rfc.section.4.3.p.3">DTLS records, as defined in this document, do not contain any association identifiers and applications must arrange to multiplex between associations.  With UDP, the host/port number is used to look up the appropriate security association for incoming records. However, the Connection ID extension defined in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a> adds an association identifier to DTLS records.</p>
+<p id="rfc.section.4.3.p.4">Some transports, such as DCCP <a href="#RFC4340" class="xref">[RFC4340]</a>, provide their own sequence numbers.  When carried over those transports, both the DTLS and the transport sequence numbers will be present.  Although this introduces a small amount of inefficiency, the transport layer and DTLS sequence numbers serve different purposes; therefore, for conceptual simplicity, it is superior to use both sequence numbers.</p>
+<p id="rfc.section.4.3.p.5">Some transports provide congestion control for traffic carried over them.  If the congestion window is sufficiently narrow, DTLS handshake retransmissions may be held rather than transmitted immediately, potentially leading to timeouts and spurious retransmission.  When DTLS is used over such transports, care should be taken not to overrun the likely congestion window. <a href="#RFC5238" class="xref">[RFC5238]</a> defines a mapping of DTLS to DCCP that takes these issues into account.</p>
+<h2 id="rfc.section.4.4">
+<a href="#rfc.section.4.4">4.4.</a> <a href="#pmtu-issues" id="pmtu-issues">PMTU Issues</a>
+</h2>
+<p id="rfc.section.4.4.p.1">In general, DTLS&#8217;s philosophy is to leave PMTU discovery to the application.  However, DTLS cannot completely ignore PMTU for three reasons:</p>
 <p></p>
 
 <ul>
@@ -684,8 +749,8 @@ address {
 <li>In some implementations, the application may not directly talk to the network, in which case the DTLS stack may absorb ICMP <a href="#RFC1191" class="xref">[RFC1191]</a> &#8220;Datagram Too Big&#8221; indications or ICMPv6 <a href="#RFC4443" class="xref">[RFC4443]</a> &#8220;Packet Too Big&#8221; indications.</li>
 <li>The DTLS handshake messages can exceed the PMTU.</li>
 </ul>
-<p id="rfc.section.4.3.p.3">In order to deal with the first two issues, the DTLS record layer SHOULD behave as described below.</p>
-<p id="rfc.section.4.3.p.4">If PMTU estimates are available from the underlying transport protocol, they should be made available to upper layer protocols. In particular:</p>
+<p id="rfc.section.4.4.p.3">In order to deal with the first two issues, the DTLS record layer SHOULD behave as described below.</p>
+<p id="rfc.section.4.4.p.4">If PMTU estimates are available from the underlying transport protocol, they should be made available to upper layer protocols. In particular:</p>
 <p></p>
 
 <ul>
@@ -693,39 +758,39 @@ address {
 <li>For DTLS over DCCP, the upper layer protocol SHOULD be allowed to obtain the current estimate of the PMTU.</li>
 <li>For DTLS over TCP or SCTP, which automatically fragment and reassemble datagrams, there is no PMTU limitation.  However, the upper layer protocol MUST NOT write any record that exceeds the maximum record size of 2^14 bytes.</li>
 </ul>
-<p id="rfc.section.4.3.p.6">The DTLS record layer SHOULD allow the upper layer protocol to discover the amount of record expansion expected by the DTLS processing.</p>
-<p id="rfc.section.4.3.p.7">If there is a transport protocol indication (either via ICMP or via a refusal to send the datagram as in Section 14 of <a href="#RFC4340" class="xref">[RFC4340]</a>), then the DTLS record layer MUST inform the upper layer protocol of the error.</p>
-<p id="rfc.section.4.3.p.8">The DTLS record layer SHOULD NOT interfere with upper layer protocols performing PMTU discovery, whether via <a href="#RFC1191" class="xref">[RFC1191]</a> or <a href="#RFC4821" class="xref">[RFC4821]</a> mechanisms.  In particular:</p>
+<p id="rfc.section.4.4.p.6">The DTLS record layer SHOULD allow the upper layer protocol to discover the amount of record expansion expected by the DTLS processing.</p>
+<p id="rfc.section.4.4.p.7">If there is a transport protocol indication (either via ICMP or via a refusal to send the datagram as in Section 14 of <a href="#RFC4340" class="xref">[RFC4340]</a>), then the DTLS record layer MUST inform the upper layer protocol of the error.</p>
+<p id="rfc.section.4.4.p.8">The DTLS record layer SHOULD NOT interfere with upper layer protocols performing PMTU discovery, whether via <a href="#RFC1191" class="xref">[RFC1191]</a> or <a href="#RFC4821" class="xref">[RFC4821]</a> mechanisms.  In particular:</p>
 <p></p>
 
 <ul>
 <li>Where allowed by the underlying transport protocol, the upper layer protocol SHOULD be allowed to set the state of the DF bit (in IPv4) or prohibit local fragmentation (in IPv6).</li>
 <li>If the underlying transport protocol allows the application to request PMTU probing (e.g., DCCP), the DTLS record layer SHOULD honor this request.</li>
 </ul>
-<p id="rfc.section.4.3.p.10">The final issue is the DTLS handshake protocol.  From the perspective of the DTLS record layer, this is merely another upper layer protocol.  However, DTLS handshakes occur infrequently and involve only a few round trips; therefore, the handshake protocol PMTU handling places a premium on rapid completion over accurate PMTU discovery.  In order to allow connections under these circumstances, DTLS implementations SHOULD follow the following rules:</p>
+<p id="rfc.section.4.4.p.10">The final issue is the DTLS handshake protocol.  From the perspective of the DTLS record layer, this is merely another upper layer protocol.  However, DTLS handshakes occur infrequently and involve only a few round trips; therefore, the handshake protocol PMTU handling places a premium on rapid completion over accurate PMTU discovery.  In order to allow connections under these circumstances, DTLS implementations SHOULD follow the following rules:</p>
 <p></p>
 
 <ul>
 <li>If the DTLS record layer informs the DTLS handshake layer that a message is too big, it SHOULD immediately attempt to fragment it, using any existing information about the PMTU.</li>
 <li>If repeated retransmissions do not result in a response, and the PMTU is unknown, subsequent retransmissions SHOULD back off to a smaller record size, fragmenting the handshake message as appropriate.  This standard does not specify an exact number of retransmits to attempt before backing off, but 2-3 seems appropriate.</li>
 </ul>
-<h2 id="rfc.section.4.4">
-<a href="#rfc.section.4.4">4.4.</a> <a href="#record-payload-protection" id="record-payload-protection">Record Payload Protection</a>
+<h2 id="rfc.section.4.5">
+<a href="#rfc.section.4.5">4.5.</a> <a href="#record-payload-protection" id="record-payload-protection">Record Payload Protection</a>
 </h2>
-<p id="rfc.section.4.4.p.1">Like TLS, DTLS transmits data as a series of protected records.  The rest of this section describes the details of that format.</p>
-<h3 id="rfc.section.4.4.1">
-<a href="#rfc.section.4.4.1">4.4.1.</a> <a href="#anti-replay" id="anti-replay">Anti-Replay</a>
+<p id="rfc.section.4.5.p.1">Like TLS, DTLS transmits data as a series of protected records.  The rest of this section describes the details of that format.</p>
+<h3 id="rfc.section.4.5.1">
+<a href="#rfc.section.4.5.1">4.5.1.</a> <a href="#anti-replay" id="anti-replay">Anti-Replay</a>
 </h3>
-<p id="rfc.section.4.4.1.p.1">Each DTLS record contains a sequence number to provide replay protection.  Sequence number verification SHOULD be performed using the following sliding window procedure, borrowed from Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
-<p id="rfc.section.4.4.1.p.2">The received packet counter for a session MUST be initialized to zero when that session is established. For each received record, the receiver MUST verify that the record contains a sequence number that does not duplicate the sequence number of any other record received during the lifetime of the session. This SHOULD be the first check applied to a packet after it has been matched to a session, to speed up the rejection of duplicate records.</p>
-<p id="rfc.section.4.4.1.p.3">Duplicates are rejected through the use of a sliding receive window.  (How the window is implemented is a local matter, but the following text describes the functionality that the implementation must exhibit.)  A minimum window size of 32 MUST be supported, but a window size of 64 is preferred and SHOULD be employed as the default.  Another window size (larger than the minimum) MAY be chosen by the receiver.  (The receiver does not notify the sender of the window size.)</p>
-<p id="rfc.section.4.4.1.p.4">The &#8220;right&#8221; edge of the window represents the highest validated sequence number value received on the session.  Records that contain sequence numbers lower than the &#8220;left&#8221; edge of the window are rejected.  Packets falling within the window are checked against a list of received packets within the window.  An efficient means for performing this check, based on the use of a bit mask, is described in Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
-<p id="rfc.section.4.4.1.p.5">If the received record falls within the window and is new, or if the packet is to the right of the window, then the receiver proceeds to MAC verification.  If the MAC validation fails, the receiver MUST discard the received record as invalid.  The receive window is updated only if the MAC verification succeeds.</p>
-<h3 id="rfc.section.4.4.2">
-<a href="#rfc.section.4.4.2">4.4.2.</a> <a href="#handling-invalid-records" id="handling-invalid-records">Handling Invalid Records</a>
+<p id="rfc.section.4.5.1.p.1">Each DTLS record contains a sequence number to provide replay protection.  Sequence number verification SHOULD be performed using the following sliding window procedure, borrowed from Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
+<p id="rfc.section.4.5.1.p.2">The received packet counter for a session MUST be initialized to zero when that session is established. For each received record, the receiver MUST verify that the record contains a sequence number that does not duplicate the sequence number of any other record received during the lifetime of the session. This SHOULD be the first check applied to a packet after it has been matched to a session, to speed up the rejection of duplicate records.</p>
+<p id="rfc.section.4.5.1.p.3">Duplicates are rejected through the use of a sliding receive window.  (How the window is implemented is a local matter, but the following text describes the functionality that the implementation must exhibit.)  A minimum window size of 32 MUST be supported, but a window size of 64 is preferred and SHOULD be employed as the default.  Another window size (larger than the minimum) MAY be chosen by the receiver.  (The receiver does not notify the sender of the window size.)</p>
+<p id="rfc.section.4.5.1.p.4">The &#8220;right&#8221; edge of the window represents the highest validated sequence number value received on the session.  Records that contain sequence numbers lower than the &#8220;left&#8221; edge of the window are rejected.  Packets falling within the window are checked against a list of received packets within the window.  An efficient means for performing this check, based on the use of a bit mask, is described in Section 3.4.3 of <a href="#RFC4303" class="xref">[RFC4303]</a>.</p>
+<p id="rfc.section.4.5.1.p.5">If the received record falls within the window and is new, or if the packet is to the right of the window, then the receiver proceeds to MAC verification.  If the MAC validation fails, the receiver MUST discard the received record as invalid.  The receive window is updated only if the MAC verification succeeds.</p>
+<h3 id="rfc.section.4.5.2">
+<a href="#rfc.section.4.5.2">4.5.2.</a> <a href="#handling-invalid-records" id="handling-invalid-records">Handling Invalid Records</a>
 </h3>
-<p id="rfc.section.4.4.2.p.1">Unlike TLS, DTLS is resilient in the face of invalid records (e.g., invalid formatting, length, MAC, etc.).  In general, invalid records SHOULD be silently discarded, thus preserving the association; however, an error MAY be logged for diagnostic purposes.  Implementations which choose to generate an alert instead, MUST generate error alerts to avoid attacks where the attacker repeatedly probes the implementation to see how it responds to various types of error.  Note that if DTLS is run over UDP, then any implementation which does this will be extremely susceptible to denial-of-service (DoS) attacks because UDP forgery is so easy.  Thus, this practice is NOT RECOMMENDED for such transports, both to increase the reliability of DTLS service and to avoid the risk of spoofing attacks sending traffic to unrelated third parties.</p>
-<p id="rfc.section.4.4.2.p.2">If DTLS is being carried over a transport that is resistant to forgery (e.g., SCTP with SCTP-AUTH), then it is safer to send alerts because an attacker will have difficulty forging a datagram that will not be rejected by the transport layer.</p>
+<p id="rfc.section.4.5.2.p.1">Unlike TLS, DTLS is resilient in the face of invalid records (e.g., invalid formatting, length, MAC, etc.).  In general, invalid records SHOULD be silently discarded, thus preserving the association; however, an error MAY be logged for diagnostic purposes.  Implementations which choose to generate an alert instead, MUST generate error alerts to avoid attacks where the attacker repeatedly probes the implementation to see how it responds to various types of error.  Note that if DTLS is run over UDP, then any implementation which does this will be extremely susceptible to denial-of-service (DoS) attacks because UDP forgery is so easy.  Thus, this practice is NOT RECOMMENDED for such transports, both to increase the reliability of DTLS service and to avoid the risk of spoofing attacks sending traffic to unrelated third parties.</p>
+<p id="rfc.section.4.5.2.p.2">If DTLS is being carried over a transport that is resistant to forgery (e.g., SCTP with SCTP-AUTH), then it is safer to send alerts because an attacker will have difficulty forging a datagram that will not be rejected by the transport layer.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#dtls" id="dtls">The DTLS Handshake Protocol</a>
 </h1>
@@ -751,8 +816,8 @@ address {
 </ol>
 <p id="rfc.section.5.1.p.3">In order to counter both of these attacks, DTLS borrows the stateless cookie technique used by Photuris <a href="#RFC2522" class="xref">[RFC2522]</a> and IKE <a href="#RFC7296" class="xref">[RFC7296]</a>.  When the client sends its ClientHello message to the server, the server MAY respond with a HelloRetryRequest message. The HelloRetryRequest message, as well as the cookie extension, is defined in TLS 1.3.  The HelloRetryRequest message contains a stateless cookie generated using the technique of <a href="#RFC2522" class="xref">[RFC2522]</a>. The client MUST retransmit the ClientHello with the cookie added as an extension.  The server then verifies the cookie and proceeds with the handshake only if it is valid.  This mechanism forces the attacker/client to be able to receive the cookie, which makes DoS attacks with spoofed IP addresses difficult.  This mechanism does not provide any defence against DoS attacks mounted from valid IP addresses.</p>
 <p id="rfc.section.5.1.p.4">The DTLS 1.3 specification changes the way how cookies are exchanged compared to DTLS 1.2. DTLS 1.3 re-uses the HelloRetryRequest message and conveys the cookie to the client via an extension. The client receiving the cookie uses the same extension to place the cookie subsequently into a ClientHello message.  DTLS 1.2 on the other hand used a separate message, namely the HelloVerifyRequest, to pass a cookie to the client and did not utilize the extension mechanism.  For backwards compatibility reason the cookie field in the ClientHello is present in DTLS 1.3 but is ignored by a DTLS 1.3 compliant server implementation.</p>
-<p id="rfc.section.5.1.p.5">The exchange is shown in <a href="#dtls-cookie-exchange" class="xref">Figure 2</a>. Note that the figure focuses on the cookie exchange; all other extensions are omitted.</p>
-<div id="rfc.figure.2"></div>
+<p id="rfc.section.5.1.p.5">The exchange is shown in <a href="#dtls-cookie-exchange" class="xref">Figure 5</a>. Note that the figure focuses on the cookie exchange; all other extensions are omitted.</p>
+<div id="rfc.figure.5"></div>
 <div id="dtls-cookie-exchange"></div>
 <pre>
       Client                                   Server
@@ -767,7 +832,7 @@ address {
 
       [Rest of handshake]
 </pre>
-<p class="figure">Figure 2: DTLS exchange with HelloRetryRequest containing the "cookie" extension</p>
+<p class="figure">Figure 5: DTLS exchange with HelloRetryRequest containing the "cookie" extension</p>
 <p id="rfc.section.5.1.p.6">The cookie extension is defined in Section 4.2.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>. When sending the initial ClientHello, the client does not have a cookie yet. In this case, the cookie extension is omitted and the legacy_cookie field in the ClientHello message SHOULD be set to a zero length vector (i.e., a single zero byte length field) and MUST be ignored by a server negotiating DTLS 1.3.</p>
 <p id="rfc.section.5.1.p.7">When responding to a HelloRetryRequest, the client MUST create a new ClientHello message following the description in Section 4.1.2 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
 <p id="rfc.section.5.1.p.8">If the HelloRetryRequest message is used, the initial ClientHello and the HelloRetryRequest are included in the calculation of the Transcript-Hash. The computation of the message hash for the HelloRetryRequest is done according to the description in Section 4.4.1 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
@@ -875,7 +940,7 @@ address {
 <a href="#rfc.section.5.5">5.5.</a> <a href="#dtls-handshake-flights" id="dtls-handshake-flights">DTLS Handshake Flights</a>
 </h2>
 <p id="rfc.section.5.5.p.1">DTLS messages are grouped into a series of message flights, according to the diagrams below.</p>
-<div id="rfc.figure.3"></div>
+<div id="rfc.figure.6"></div>
 <div id="dtls-full"></div>
 <pre>
 Client                                             Server
@@ -916,8 +981,8 @@ ClientHello                                                 +----------+
 
  [Application Data]     &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 3: Message flights for a full DTLS Handshake (with cookie exchange)</p>
-<div id="rfc.figure.4"></div>
+<p class="figure">Figure 6: Message flights for a full DTLS Handshake (with cookie exchange)</p>
+<div id="rfc.figure.7"></div>
 <div id="dtls-psk"></div>
 <pre>
  ClientHello                                              +----------+
@@ -941,8 +1006,8 @@ ClientHello                                                 +----------+
 
  [Application Data]    &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 4: Message flights for resumption and PSK handshake (without cookie exchange)</p>
-<div id="rfc.figure.5"></div>
+<p class="figure">Figure 7: Message flights for resumption and PSK handshake (without cookie exchange)</p>
+<div id="rfc.figure.8"></div>
 <div id="dtls-zero-rtt"></div>
 <pre>
 Client                                            Server
@@ -972,8 +1037,8 @@ Client                                            Server
 
  [Application Data]    &lt;-------&gt;      [Application Data]
 </pre>
-<p class="figure">Figure 5: Message flights for the Zero-RTT handshake</p>
-<div id="rfc.figure.6"></div>
+<p class="figure">Figure 8: Message flights for the Zero-RTT handshake</p>
+<div id="rfc.figure.9"></div>
 <div id="dtls-post-handshake-ticket"></div>
 <pre>
 Client                                            Server
@@ -986,7 +1051,7 @@ Client                                            Server
 [ACK]                  --------&gt;                          | Flight 2 |
                                                           +----------+
 </pre>
-<p class="figure">Figure 6: Message flights for the new session ticket message</p>
+<p class="figure">Figure 9: Message flights for the new session ticket message</p>
 <p id="rfc.section.5.5.p.2">Note: The application data sent by the client is not included in the timeout and retransmission calculation.</p>
 <h2 id="rfc.section.5.6">
 <a href="#rfc.section.5.6">5.6.</a> <a href="#timeout-and-retransmission" id="timeout-and-retransmission">Timeout and Retransmission</a>
@@ -994,8 +1059,8 @@ Client                                            Server
 <h3 id="rfc.section.5.6.1">
 <a href="#rfc.section.5.6.1">5.6.1.</a> <a href="#state-machine" id="state-machine">State Machine</a>
 </h3>
-<p id="rfc.section.5.6.1.p.1">DTLS uses a simple timeout and retransmission scheme with the state machine shown in <a href="#dtls-timeout-state-machine" class="xref">Figure 7</a>.  Because DTLS clients send the first message (ClientHello), they start in the PREPARING state.  DTLS servers start in the WAITING state, but with empty buffers and no retransmit timer.</p>
-<div id="rfc.figure.7"></div>
+<p id="rfc.section.5.6.1.p.1">DTLS uses a simple timeout and retransmission scheme with the state machine shown in <a href="#dtls-timeout-state-machine" class="xref">Figure 10</a>.  Because DTLS clients send the first message (ClientHello), they start in the PREPARING state.  DTLS servers start in the WAITING state, but with empty buffers and no retransmit timer.</p>
+<div id="rfc.figure.10"></div>
 <div id="dtls-timeout-state-machine"></div>
 <pre>
                              +-----------+
@@ -1046,7 +1111,7 @@ Client                                            Server
           Server read retransmit
               Retransmit ACK
 </pre>
-<p class="figure">Figure 7: DTLS timeout and retransmission state machine</p>
+<p class="figure">Figure 10: DTLS timeout and retransmission state machine</p>
 <p id="rfc.section.5.6.1.p.2">The state machine has four basic states: PREPARING, SENDING, WAITING, and FINISHED.</p>
 <p id="rfc.section.5.6.1.p.3">In the PREPARING state, the implementation does whatever computations are necessary to prepare the next flight of messages.  It then buffers them up for transmission (emptying the buffer first) and enters the SENDING state.</p>
 <p id="rfc.section.5.6.1.p.4">In the SENDING state, the implementation transmits the buffered flight of messages. If the implementation has received one or more ACKs (see <a href="#ack-msg" class="xref">Section 7</a>) from the peer, then it SHOULD omit any messages or message fragments which have already been ACKed. Once the messages have been sent, the implementation then enters the FINISHED state if this is the last flight in the handshake.  Or, if the implementation expects to receive more messages, it sets a retransmit timer and then enters the WAITING state.</p>
@@ -1084,7 +1149,7 @@ Client                                            Server
 <a href="#rfc.section.6">6.</a> <a href="#example-of-handshake-with-timeout-and-retransmission" id="example-of-handshake-with-timeout-and-retransmission">Example of Handshake with Timeout and Retransmission</a>
 </h1>
 <p id="rfc.section.6.p.1">The following is an example of a handshake with lost packets and retransmissions.</p>
-<div id="rfc.figure.8"></div>
+<div id="rfc.figure.11"></div>
 <div id="dtls-msg-loss"></div>
 <pre>
 Client                                                Server
@@ -1134,7 +1199,7 @@ Client                                                Server
                                                     ACK [2]
 
 </pre>
-<p class="figure">Figure 8: Example DTLS exchange illustrating message loss</p>
+<p class="figure">Figure 11: Example DTLS exchange illustrating message loss</p>
 <h2 id="rfc.section.6.1">
 <a href="#rfc.section.6.1">6.1.</a> <a href="#dtls-epoch" id="dtls-epoch">Epoch Values and Rekeying</a>
 </h2>
@@ -1152,8 +1217,8 @@ Client                                                Server
 <p id="rfc.section.6.1.p.4">Using these reserved epoch values a receiver knows what cipher state has been used to encrypt and integrity protect a message. Implementations that receive a payload with an epoch value for which no corresponding cipher state can be determined MUST generate a &#8220;unexpected_message&#8221; alert. For example, client incorrectly uses epoch value 5 when sending early application data in a 0-RTT exchange. A server will not be able to compute the appropriate keys and will therefore have to respond with an alert.</p>
 <p id="rfc.section.6.1.p.5">Note that epoch values do not wrap. If a DTLS implementation would need to wrap the epoch value, it MUST terminate the connection.</p>
 <p id="rfc.section.6.1.p.6">The traffic key calculation is described in Section 7.3 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
-<p><a href="#dtls-msg-epoch" class="xref">Figure 9</a> illustrates the epoch values in an example DTLS handshake.</p>
-<div id="rfc.figure.9"></div>
+<p><a href="#dtls-msg-epoch" class="xref">Figure 12</a> illustrates the epoch values in an example DTLS handshake.</p>
+<div id="rfc.figure.12"></div>
 <div id="dtls-msg-epoch"></div>
 <pre>
 Client                                             Server
@@ -1213,7 +1278,7 @@ Client                                             Server
  [Application Data]         --------&gt;
  (epoch=4)
 </pre>
-<p class="figure">Figure 9: Example DTLS exchange with epoch information</p>
+<p class="figure">Figure 12: Example DTLS exchange with epoch information</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#ack-msg" id="ack-msg">ACK Message</a>
 </h1>
@@ -1250,24 +1315,111 @@ struct {
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#key-updates" id="key-updates">Key Updates</a>
 </h1>
-<p id="rfc.section.8.p.1">As with TLS 1.3, DTLS 1.3 implementations send a KeyUpdate message to indicate that they are updating their sending keys.  As with other handshake messages with no built-in response, KeyUpdates MUST be acknowledged.  In order to facilitate epoch reconstruction <a href="#reconstructing" class="xref">Section 4.1.2</a> implementations MUST NOT send with the new keys or send a new KeyUpdate until the previous KeyUpdate has been acknowledged (this avoids having too many epochs in active use).</p>
-<p id="rfc.section.8.p.2">Due to loss and/or re-ordering, DTLS 1.3 implementations may receive a record with an older epoch than the current one (the requirements above preclude receiving a newer record). They SHOULD attempt to process those records with that epoch (see <a href="#reconstructing" class="xref">Section 4.1.2</a> for information on determining the correct epoch), but MAY opt to discard such out-of-epoch records.</p>
+<p id="rfc.section.8.p.1">As with TLS 1.3, DTLS 1.3 implementations send a KeyUpdate message to indicate that they are updating their sending keys.  As with other handshake messages with no built-in response, KeyUpdates MUST be acknowledged.  In order to facilitate epoch reconstruction <a href="#reconstructing" class="xref">Section 4.2.2</a> implementations MUST NOT send with the new keys or send a new KeyUpdate until the previous KeyUpdate has been acknowledged (this avoids having too many epochs in active use).</p>
+<p id="rfc.section.8.p.2">Due to loss and/or re-ordering, DTLS 1.3 implementations may receive a record with an older epoch than the current one (the requirements above preclude receiving a newer record). They SHOULD attempt to process those records with that epoch (see <a href="#reconstructing" class="xref">Section 4.2.2</a> for information on determining the correct epoch), but MAY opt to discard such out-of-epoch records.</p>
 <p id="rfc.section.8.p.3">Although KeyUpdate MUST be ACKed, it is possible for the ACK to be lost, in which case the sender of the KeyUpdate will retransmit it.  Implementations MUST retain the ability to ACK the KeyUpdate for up to 2MSL. It is RECOMMENDED that they do so by retaining the pre-update keying material, but they MAY do so by responding to messages which appear to be out-of-epoch with a canned ACK message; in this case, implementations SHOULD rate limit how often they send such ACKs.</p>
 <h1 id="rfc.section.9">
-<a href="#rfc.section.9">9.</a> <a href="#application-data-protocol" id="application-data-protocol">Application Data Protocol</a>
+<a href="#rfc.section.9">9.</a> <a href="#connection-id-updates" id="connection-id-updates">Connection ID Updates</a>
 </h1>
-<p id="rfc.section.9.p.1">Application data messages are carried by the record layer and are fragmented and encrypted based on the current connection state. The messages are treated as transparent data to the record layer.</p>
+<p id="rfc.section.9.p.1">If the client and server have negotiated the &#8220;connection_id&#8221; extension <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a>, either side can send a new connection ID which it wishes the other side to use in a NewConnectionId message.</p>
+<pre>
+   enum {
+       cid_immediate(0), cid_spare(1), (255)
+   } ConnectionIdUsage;
+
+   struct {
+       opaque cid&lt;0..2^8-1&gt;;
+       ConnectionIdUsage usage;
+   } NewConnectionId;
+</pre>
+<p></p>
+
+<dl>
+<dt>cid</dt>
+<dd style="margin-left: 8">Indicates the CID which the sender wishes the peer to use.</dd>
+<dt>usage</dt>
+<dd style="margin-left: 8">Indicates whether the new CID should be used immediately or is a spare.  If usage is set to &#8220;cid_immediate&#8221;, then the new CID MUST be used immediately for all future records. If it is set to &#8220;cid_spare&#8221;, then either CID MAY be used.</dd>
+</dl>
+<p id="rfc.section.9.p.3">If the client and server have negotiated the &#8220;connection_id&#8221; extension, either side can request a new CID using the RequestConnectionId message.</p>
+<pre>
+   struct {
+   } RequestConnectionId;
+</pre>
+<p id="rfc.section.9.p.4">Endpoints SHOULD respond to RequestConnectionId by sending a NewConnectionId with usage &#8220;cid_spare&#8221; as soon as possible. Note that an endpoint MAY ignore requests, which it considers excessive (though they MUST be ACKed as usual).</p>
+<p id="rfc.section.9.p.5">Endpoints MUST NOT send either of these messages if they did not negotiate a connection ID. If an implementation receives these messages when connection IDs were not negotiated, it MUST abort the connection with an unexpected_message alert.</p>
+<h2 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#connection-id-example" id="connection-id-example">ID Example</a>
+</h2>
+<p id="rfc.section.9.1.p.1">Below is an example exchange for DTLS 1.3 using a single connection id in each direction.</p>
+<p id="rfc.section.9.1.p.2">Note: The connection_id extension is defined in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a>, which is used in ClientHello and ServerHello messages.</p>
+<div id="rfc.figure.13"></div>
+<div id="dtls-example"></div>
+<pre>
+Client                                             Server
+------                                             ------
+
+ClientHello
+(connection_id=5)
+                            --------&gt;
+
+
+                            &lt;--------       HelloRetryRequest
+                                                     (cookie)
+
+ClientHello                 --------&gt;
+(connection_id=5)
+  +cookie
+
+                            &lt;--------             ServerHello
+                                          (connection_id=100)
+                                          EncryptedExtensions
+                                                      (cid=5)
+                                                  Certificate
+                                                      (cid=5)
+                                            CertificateVerify
+                                                      (cid=5)
+                                                     Finished
+                                                      (cid=5)
+
+Certificate                --------&gt;
+(cid=100)
+CertificateVerify
+(cid=100)
+Finished
+(cid=100)
+                           &lt;--------                      Ack
+                                                      (cid=5)
+
+Application Data           ========&gt;
+(cid=100)
+                           &lt;========         Application Data
+                                                      (cid=5)
+</pre>
+<p class="figure">Figure 13: Example DTLS 1.3 Exchange with Connection IDs</p>
 <h1 id="rfc.section.10">
-<a href="#rfc.section.10">10.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<a href="#rfc.section.10">10.</a> <a href="#application-data-protocol" id="application-data-protocol">Application Data Protocol</a>
 </h1>
-<p id="rfc.section.10.p.1">Security issues are discussed primarily in <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
-<p id="rfc.section.10.p.2">The primary additional security consideration raised by DTLS is that of denial of service.  DTLS includes a cookie exchange designed to protect against denial of service.  However, implementations that do not use this cookie exchange are still vulnerable to DoS.  In particular, DTLS servers that do not use the cookie exchange may be used as attack amplifiers even if they themselves are not experiencing DoS.  Therefore, DTLS servers SHOULD use the cookie exchange unless there is good reason to believe that amplification is not a threat in their environment.  Clients MUST be prepared to do a cookie exchange with every handshake.</p>
-<p id="rfc.section.10.p.3">Unlike TLS implementations, DTLS implementations SHOULD NOT respond to invalid records by terminating the connection.</p>
-<p id="rfc.section.10.p.4">If implementations process out-of-epoch records as recommended in <a href="#key-updates" class="xref">Section 8</a>, then this creates a denial of service risk since an adversary could inject packets with fake epoch values, forcing the recipient to compute the next-generation application_traffic_secret using the HKDF-Expand-Label construct to only find out that the message was does not pass the AEAD cipher processing. The impact of this attack is small since the HKDF-Expand-Label only performs symmetric key hashing operations. Implementations which are concerned about this form of attack can discard out-of-epoch records.</p>
+<p id="rfc.section.10.p.1">Application data messages are carried by the record layer and are fragmented and encrypted based on the current connection state. The messages are treated as transparent data to the record layer.</p>
 <h1 id="rfc.section.11">
-<a href="#rfc.section.11">11.</a> <a href="#changes-to-dtls-12" id="changes-to-dtls-12">Changes to DTLS 1.2</a>
+<a href="#rfc.section.11">11.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.11.p.1">Since TLS 1.3 introduces a large number of changes to TLS 1.2, the list of changes from DTLS 1.2 to DTLS 1.3 is equally large. For this reason this section focuses on the most important changes only.</p>
+<p id="rfc.section.11.p.1">Security issues are discussed primarily in <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>.</p>
+<p id="rfc.section.11.p.2">The primary additional security consideration raised by DTLS is that of denial of service.  DTLS includes a cookie exchange designed to protect against denial of service.  However, implementations that do not use this cookie exchange are still vulnerable to DoS.  In particular, DTLS servers that do not use the cookie exchange may be used as attack amplifiers even if they themselves are not experiencing DoS.  Therefore, DTLS servers SHOULD use the cookie exchange unless there is good reason to believe that amplification is not a threat in their environment.  Clients MUST be prepared to do a cookie exchange with every handshake.</p>
+<p id="rfc.section.11.p.3">Unlike TLS implementations, DTLS implementations SHOULD NOT respond to invalid records by terminating the connection.</p>
+<p id="rfc.section.11.p.4">If implementations process out-of-epoch records as recommended in <a href="#key-updates" class="xref">Section 8</a>, then this creates a denial of service risk since an adversary could inject packets with fake epoch values, forcing the recipient to compute the next-generation application_traffic_secret using the HKDF-Expand-Label construct to only find out that the message was does not pass the AEAD cipher processing. The impact of this attack is small since the HKDF-Expand-Label only performs symmetric key hashing operations. Implementations which are concerned about this form of attack can discard out-of-epoch records.</p>
+<p id="rfc.section.11.p.5">The security and privacy properties of the connection ID for DTLS 1.3 builds on top of what is described in <a href="#I-D.ietf-tls-dtls-connection-id" class="xref">[I-D.ietf-tls-dtls-connection-id]</a>. There are, however, several improvements:</p>
+<p></p>
+
+<ul>
+<li>The use of the Post-Handshake message allows the client and the server to update their connection IDs and those values are exchanged with confidentiality protection.</li>
+<li>With multi-homing, an adversary is able to correlate the communication interaction over the two paths, which adds further privacy concerns. In order to prevent this, implementations SHOULD attempt to use fresh connection IDs whenever they change local addresses or ports (though this is not always possible to detect). The RequestConnectionId message can be used to ask for new IDs in order to ensure that you have a pool of suitable IDs.</li>
+<li>Switching connection ID based on certain events, or even regularly, helps against tracking by onpath adversaries but the sequence numbers can still allow linkability. [[OPEN ISSUE: We need to update the document to offer sequence number encryption. ]]</li>
+<li>Since the DTLS 1.3 exchange encrypts handshake messages much earlier than in previous DTLS versions information identifying the DTLS client, such as the client certificate, less information is available to an on-path adversary.</li>
+</ul>
+<h1 id="rfc.section.12">
+<a href="#rfc.section.12">12.</a> <a href="#changes-to-dtls-12" id="changes-to-dtls-12">Changes to DTLS 1.2</a>
+</h1>
+<p id="rfc.section.12.p.1">Since TLS 1.3 introduces a large number of changes to TLS 1.2, the list of changes from DTLS 1.2 to DTLS 1.3 is equally large. For this reason this section focuses on the most important changes only.</p>
 <p></p>
 
 <ul>
@@ -1280,15 +1432,18 @@ struct {
 <li>New key derivation hierarchy utilizing a new key derivation construct</li>
 <li>Removed support for weaker and older cryptographic algorithms</li>
 <li>Improved version negotation</li>
+<li>Optimized record layer encoding and thereby its size</li>
+<li>Added connection ID functionality</li>
 </ul>
-<h1 id="rfc.section.12">
-<a href="#rfc.section.12">12.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<h1 id="rfc.section.13">
+<a href="#rfc.section.13">13.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.12.p.1">IANA is requested to allocate a new value in the TLS ContentType Registry for the ACK message defined in <a href="#ack-msg" class="xref">Section 7</a>, with content type 25.</p>
+<p id="rfc.section.13.p.1">IANA is requested to allocate a new value in the &#8220;TLS ContentType&#8221; registry for the ACK message, defined in <a href="#ack-msg" class="xref">Section 7</a>, with content type 25.</p>
+<p id="rfc.section.13.p.2">IANA is requested to allocate two values in the &#8220;TLS Handshake Type&#8221; registry, defined in <a href="#RFC5246" class="xref">[RFC5246]</a>, for RequestConnectionId (TBD), and NewConnectionId (TBD), as defined in this document.</p>
 <h1 id="rfc.references">
-<a href="#rfc.references">13.</a> References</h1>
+<a href="#rfc.references">14.</a> References</h1>
 <h2 id="rfc.references.1">
-<a href="#rfc.references.1">13.1.</a> Normative References</h2>
+<a href="#rfc.references.1">14.1.</a> Normative References</h2>
 <table><tbody>
 <tr>
 <td class="reference"><b id="I-D.ietf-tls-tls13">[I-D.ietf-tls-tls13]</b></td>
@@ -1337,7 +1492,7 @@ struct {
 </tr>
 </tbody></table>
 <h2 id="rfc.references.2">
-<a href="#rfc.references.2">13.2.</a> Informative References</h2>
+<a href="#rfc.references.2">14.2.</a> Informative References</h2>
 <table><tbody>
 <tr>
 <td class="reference"><b id="I-D.ietf-tls-dtls-connection-id">[I-D.ietf-tls-dtls-connection-id]</b></td>
@@ -1404,22 +1559,19 @@ struct {
 <td class="top">
 <a>Sheffer, Y.</a>, <a>Holz, R.</a> and <a>P. Saint-Andre</a>, "<a href="https://tools.ietf.org/html/rfc7525">Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)</a>", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May 2015.</td>
 </tr>
-<tr>
-<td class="reference"><b id="RFC7983">[RFC7983]</b></td>
-<td class="top">
-<a>Petit-Huguenin, M.</a> and <a>G. Salgueiro</a>, "<a href="https://tools.ietf.org/html/rfc7983">Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)</a>", RFC 7983, DOI 10.17487/RFC7983, September 2016.</td>
-</tr>
 </tbody></table>
 <h1 id="rfc.appendix.A">
 <a href="#rfc.appendix.A">Appendix A.</a> <a href="#history" id="history">History</a>
 </h1>
 <p id="rfc.section.A.p.1">RFC EDITOR: PLEASE REMOVE THE THIS SECTION</p>
-<p id="rfc.section.A.p.2">IETF Drafts draft-03 - Only update keys after KeyUpdate is ACKed.</p>
-<p id="rfc.section.A.p.3">draft-02 - Shorten the protected record header and introduce an ultra-short version of the record header.  - Reintroduce KeyUpdate, which works properly now that we have ACK.  - Clarify the ACK rules.</p>
-<p id="rfc.section.A.p.4">draft-01 - Restructured the ACK to contain a list of packets and also be a record rather than a handshake message.</p>
-<p id="rfc.section.A.p.5">draft-00 - First IETF Draft</p>
-<p id="rfc.section.A.p.6">Personal Drafts draft-01 - Alignment with version -19 of the TLS 1.3 specification</p>
-<p id="rfc.section.A.p.7">draft-00</p>
+<p id="rfc.section.A.p.2">IETF Drafts draft-27: - Incorporated unified header format.  - Added support for connection IDs.</p>
+<p id="rfc.section.A.p.3">draft-04 - 26: - Submissions to align with TLS 1.3 draft versions</p>
+<p id="rfc.section.A.p.4">draft-03 - Only update keys after KeyUpdate is ACKed.</p>
+<p id="rfc.section.A.p.5">draft-02 - Shorten the protected record header and introduce an ultra-short version of the record header.  - Reintroduce KeyUpdate, which works properly now that we have ACK.  - Clarify the ACK rules.</p>
+<p id="rfc.section.A.p.6">draft-01 - Restructured the ACK to contain a list of packets and also be a record rather than a handshake message.</p>
+<p id="rfc.section.A.p.7">draft-00 - First IETF Draft</p>
+<p id="rfc.section.A.p.8">Personal Drafts draft-01 - Alignment with version -19 of the TLS 1.3 specification</p>
+<p id="rfc.section.A.p.9">draft-00</p>
 <p></p>
 
 <ul>
@@ -1437,8 +1589,8 @@ struct {
 <h1 id="rfc.appendix.C">
 <a href="#rfc.appendix.C">Appendix C.</a> <a href="#contributors" id="contributors">Contributors</a>
 </h1>
-<p id="rfc.section.C.p.1">Many people have contributed to previous DTLS versions and they are acknowledged in prior versions of DTLS specifications.</p>
-<p id="rfc.section.C.p.2">For this version of the document we would like to thank:</p>
+<p id="rfc.section.C.p.1">Many people have contributed to previous DTLS versions and they are acknowledged in prior versions of DTLS specifications or in the referenced specifications.</p>
+<p id="rfc.section.C.p.2">In addition, we would like to thank:</p>
 <pre>
 * Ilari Liusvaara
   Independent
@@ -1448,6 +1600,21 @@ struct {
 * Martin Thomson
   Mozilla
   martin.thomson@gmail.com
+</pre>
+<pre>
+* Yin Xinxing
+  Huawei
+  yinxinxing@huawei.com
+</pre>
+<pre>
+* Thomas Fossati
+  Nokia
+  thomas.fossati@nokia.com
+</pre>
+<pre>
+* Tobias Gondrom
+  Huawei
+  tobias.gondrom@gondrom.org
 </pre>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">

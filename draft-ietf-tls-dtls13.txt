@@ -6,9 +6,9 @@ TLS                                                          E. Rescorla
 Internet-Draft                                                RTFM, Inc.
 Obsoletes: 6347 (if approved)                              H. Tschofenig
 Intended status: Standards Track                             Arm Limited
-Expires: September 5, 2018                                   N. Modadugu
+Expires: January 3, 2019                                     N. Modadugu
                                                             Google, Inc.
-                                                          March 04, 2018
+                                                           July 02, 2018
 
 
    The Datagram Transport Layer Security (DTLS) Protocol Version 1.3
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 5, 2018.
+   This Internet-Draft will expire on January 3, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Rescorla, et al.        Expires September 5, 2018               [Page 1]
+Rescorla, et al.         Expires January 3, 2019                [Page 1]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    (https://trustee.ietf.org/license-info) in effect on the date of
@@ -88,51 +88,54 @@ Table of Contents
        3.1.2.  Message Size  . . . . . . . . . . . . . . . . . . . .   7
      3.2.  Replay Detection  . . . . . . . . . . . . . . . . . . . .   7
    4.  The DTLS Record Layer . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Sequence Number Handling  . . . . . . . . . . . . . . . .   9
-       4.1.1.  Determining the Header Format . . . . . . . . . . . .  10
-       4.1.2.  Reconstructing the Sequence Number and Epoch  . . . .  11
-     4.2.  Transport Layer Mapping . . . . . . . . . . . . . . . . .  11
-     4.3.  PMTU Issues . . . . . . . . . . . . . . . . . . . . . . .  12
-     4.4.  Record Payload Protection . . . . . . . . . . . . . . . .  14
-       4.4.1.  Anti-Replay . . . . . . . . . . . . . . . . . . . . .  14
-       4.4.2.  Handling Invalid Records  . . . . . . . . . . . . . .  14
-   5.  The DTLS Handshake Protocol . . . . . . . . . . . . . . . . .  15
-     5.1.  Denial-of-Service Countermeasures . . . . . . . . . . . .  16
-     5.2.  DTLS Handshake Message Format . . . . . . . . . . . . . .  18
-     5.3.  ClientHello Message . . . . . . . . . . . . . . . . . . .  20
-     5.4.  Handshake Message Fragmentation and Reassembly  . . . . .  21
-     5.5.  DTLS Handshake Flights  . . . . . . . . . . . . . . . . .  22
-     5.6.  Timeout and Retransmission  . . . . . . . . . . . . . . .  25
-       5.6.1.  State Machine . . . . . . . . . . . . . . . . . . . .  25
-       5.6.2.  Timer Values  . . . . . . . . . . . . . . . . . . . .  27
-     5.7.  CertificateVerify and Finished Messages . . . . . . . . .  28
+     4.1.  Determining the Header Format . . . . . . . . . . . . . .  10
+     4.2.  Sequence Number and Epoch . . . . . . . . . . . . . . . .  11
+       4.2.1.  Processing Guidlines  . . . . . . . . . . . . . . . .  11
+       4.2.2.  Reconstructing the Sequence Number and Epoch  . . . .  12
+     4.3.  Transport Layer Mapping . . . . . . . . . . . . . . . . .  12
+     4.4.  PMTU Issues . . . . . . . . . . . . . . . . . . . . . . .  13
+     4.5.  Record Payload Protection . . . . . . . . . . . . . . . .  15
+       4.5.1.  Anti-Replay . . . . . . . . . . . . . . . . . . . . .  15
+       4.5.2.  Handling Invalid Records  . . . . . . . . . . . . . .  15
+   5.  The DTLS Handshake Protocol . . . . . . . . . . . . . . . . .  16
+     5.1.  Denial-of-Service Countermeasures . . . . . . . . . . . .  17
+     5.2.  DTLS Handshake Message Format . . . . . . . . . . . . . .  19
+     5.3.  ClientHello Message . . . . . . . . . . . . . . . . . . .  21
+     5.4.  Handshake Message Fragmentation and Reassembly  . . . . .  22
+     5.5.  DTLS Handshake Flights  . . . . . . . . . . . . . . . . .  23
+     5.6.  Timeout and Retransmission  . . . . . . . . . . . . . . .  26
+       5.6.1.  State Machine . . . . . . . . . . . . . . . . . . . .  26
+       5.6.2.  Timer Values  . . . . . . . . . . . . . . . . . . . .  28
 
 
 
-Rescorla, et al.        Expires September 5, 2018               [Page 2]
+Rescorla, et al.         Expires January 3, 2019                [Page 2]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
-     5.8.  Alert Messages  . . . . . . . . . . . . . . . . . . . . .  28
-     5.9.  Establishing New Associations with Existing Parameters  .  28
-   6.  Example of Handshake with Timeout and Retransmission  . . . .  29
-     6.1.  Epoch Values and Rekeying . . . . . . . . . . . . . . . .  31
-   7.  ACK Message . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     7.1.  Sending ACKs  . . . . . . . . . . . . . . . . . . . . . .  34
-     7.2.  Receiving ACKs  . . . . . . . . . . . . . . . . . . . . .  35
-   8.  Key Updates . . . . . . . . . . . . . . . . . . . . . . . . .  35
-   9.  Application Data Protocol . . . . . . . . . . . . . . . . . .  35
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  36
-   11. Changes to DTLS 1.2 . . . . . . . . . . . . . . . . . . . . .  36
-   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  37
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  37
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  38
-   Appendix A.  History  . . . . . . . . . . . . . . . . . . . . . .  40
-   Appendix B.  Working Group Information  . . . . . . . . . . . . .  40
-   Appendix C.  Contributors . . . . . . . . . . . . . . . . . . . .  40
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  41
+     5.7.  CertificateVerify and Finished Messages . . . . . . . . .  29
+     5.8.  Alert Messages  . . . . . . . . . . . . . . . . . . . . .  29
+     5.9.  Establishing New Associations with Existing Parameters  .  29
+   6.  Example of Handshake with Timeout and Retransmission  . . . .  30
+     6.1.  Epoch Values and Rekeying . . . . . . . . . . . . . . . .  32
+   7.  ACK Message . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     7.1.  Sending ACKs  . . . . . . . . . . . . . . . . . . . . . .  35
+     7.2.  Receiving ACKs  . . . . . . . . . . . . . . . . . . . . .  36
+   8.  Key Updates . . . . . . . . . . . . . . . . . . . . . . . . .  36
+   9.  Connection ID Updates . . . . . . . . . . . . . . . . . . . .  36
+     9.1.  ID Example  . . . . . . . . . . . . . . . . . . . . . . .  37
+   10. Application Data Protocol . . . . . . . . . . . . . . . . . .  38
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  39
+   12. Changes to DTLS 1.2 . . . . . . . . . . . . . . . . . . . . .  40
+   13. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  40
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  41
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  41
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  42
+   Appendix A.  History  . . . . . . . . . . . . . . . . . . . . . .  44
+   Appendix B.  Working Group Information  . . . . . . . . . . . . .  44
+   Appendix C.  Contributors . . . . . . . . . . . . . . . . . . . .  45
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
 
 1.  Introduction
 
@@ -159,17 +162,16 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
    DTLS 1.0 [RFC4347] was originally defined as a delta from TLS 1.1
    [RFC4346] and DTLS 1.2 [RFC6347] was defined as a series of deltas to
+
+
+
+Rescorla, et al.         Expires January 3, 2019                [Page 3]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
    TLS 1.2 [RFC5246].  There is no DTLS 1.1; that version number was
    skipped in order to harmonize version numbers with TLS.  This
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018               [Page 3]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
    specification describes the most current version of the DTLS protocol
    aligning with the efforts around TLS 1.3 [I-D.ietf-tls-tls13].
 
@@ -216,15 +218,16 @@ Internet-Draft                  DTLS 1.3                      March 2018
    The reader is assumed to be familiar with the TLS 1.3 specification
    since this document is defined as a delta from TLS 1.3.  As in TLS
    1.3 the HelloRetryRequest has the same format as a ServerHello
+
+
+
+Rescorla, et al.         Expires January 3, 2019                [Page 4]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
    message but for convenience we use the term HelloRetryRequest
    throughout this document as if it were a distinct message.
-
-
-
-Rescorla, et al.        Expires September 5, 2018               [Page 4]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
 
    Figures in this document illustrate various combinations of the DTLS
    protocol exchanges and the symbols have the following meaning:
@@ -269,18 +272,19 @@ Internet-Draft                  DTLS 1.3                      March 2018
        other order is an error.  This is incompatible with reordering
        and message loss.
 
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019                [Page 5]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
    3.  Not all TLS 1.3 handshake messages (such as the NewSessionTicket
        message) are acknowledged.  Hence, a new acknowledgement message
        has to be added to detect message loss.
-
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018               [Page 5]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
 
    4.  Handshake messages are potentially larger than any given
        datagram, thus creating the problem of IP fragmentation.
@@ -329,13 +333,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018               [Page 6]
+Rescorla, et al.         Expires January 3, 2019                [Page 6]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 3.1.1.  Reordering
@@ -373,30 +373,36 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 4.  The DTLS Record Layer
 
-   The DTLS record layer is similar to that of TLS 1.3.  There are three
-   major changes:
+   The DTLS record layer is different from the TLS 1.3 record layer.
 
    1.  The DTLSCiphertext structure omits the superfluous version number
-       field.
+       and type fields.
 
-   2.  DTLS adds an explicit epoch and sequence number in the record
+   2.  DTLS adds an explicit epoch and sequence number to the TLS record
        header.  This sequence number allows the recipient to correctly
-       verify the DTLS MAC.
+       verify the DTLS MAC.  However, the number of bits used for the
+       epoch and sequence number fields in the DTLSCiphertext structure
+       have been reduced.
 
-   3.  DTLS adds a short header format (DTLSShortCiphertext) that can be
-       used to reduce overhead once the handshake is complete.
+   3.  The DTLSCiphertext structure has a variable length header.
 
 
 
 
-Rescorla, et al.        Expires September 5, 2018               [Page 7]
+Rescorla, et al.         Expires January 3, 2019                [Page 7]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
-   The DTLS record formats are shown below.  DTLSPlaintext records are
-   used to send unprotected records and DTLSCiphertext or
-   DTLSShortCiphertext are used to send protected records.
+   Note that the DTLS 1.3 record layer is different from the DTLS 1.2
+   record layer.
+
+   DTLSPlaintext records are used to send unprotected records and
+   DTLSCiphertext records are used to send protected records.
+
+   The DTLS record formats are shown below.  Unless explicitly stated
+   the meaning of the fields is unchanged from previous TLS / DTLS
+   versions.
 
      struct {
          ContentType type;
@@ -414,30 +420,71 @@ Internet-Draft                  DTLS 1.3                      March 2018
      } DTLSInnerPlaintext;
 
      struct {
-         ContentType opaque_type = 23; /* application_data */
-         uint32 epoch_and_sequence;
-         uint16 length;
+         opaque unified_hdr[variable];
          opaque encrypted_record[length];
      } DTLSCiphertext;
+     [[OPEN ISSUE: Should we try to find some way to render this?]]
 
-   opaque_type:  Identical to the opaque_type field in a TLS 1.3 record.
+                     Figure 2: DTLS 1.3 Record Format
 
-   epoch_and_sequence:  The low order two bits of the epoch and the low
-      order 30 bits of the sequence number, laid out as a 32 bit
-      integer.  The first 2 bits hold the low order bits from the epoch
-      and the remaining 30 bits hold the low order bits from the
-      sequence number (see Section 4.1.2 for how to use this value).
-
-   length:  Identical to the length field in a TLS 1.3 record.
+   unified_hdr:  The unified_hdr is a field of variable length, as shown
+      in Figure 3.
 
    encrypted_record:  Identical to the encrypted_record field in a TLS
       1.3 record.
+
+   The DTLSCiphertext header is tightly bit-packed, as shown below:
+
+
+
+
+
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019                [Page 8]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+     0 1 2 3 4 5 6 7
+    +-+-+-+-+-+-+-+-+
+    |0|0|1|C|L|X|X|X|
+    +-+-+-+-+-+-+-+-+
+    |Ep.| 14 bit    |   Legend:
+    +-+-+           |
+    |Sequence Number|   Ep. - Epoch
+    +-+-+-+-+-+-+-+-+   C   - CID present
+    | Connection ID |   L   - Length present
+    | (if any,      |   X   - Reserved
+    /  length as    /
+    |  negotiated)  |
+    +-+-+-+-+-+-+-+-+
+    | 16 bit Length |
+    | (if present)  |
+    +-+-+-+-+-+-+-+-+
+
+                   Figure 3: DTLS 1.3 CipherText Header
+
+   Ep.  The low order two bits of the epoch.
+
+   sequence number:  The low order 14 bits of the record sequence
+      number.
+
+   length:  Identical to the length field in a TLS 1.3 record.
+
+   connection ID:  Variable length connection ID.  The connection ID
+      concept is described in [I-D.ietf-tls-dtls-connection-id].  An
+      example can be found in Section 9.1.
 
    As with previous versions of DTLS, multiple DTLSPlaintext and
    DTLSCiphertext records can be included in the same underlying
    transport datagram.
 
-   The short DTLS header format is:
+   Figure 4 illustrates different record layer header types.
 
 
 
@@ -445,76 +492,111 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018               [Page 8]
+
+
+
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019                [Page 9]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
-       struct {
-         uint16 short_epoch_and_sequence;  // 001ESSSS SSSSSSSS
-         opaque encrypted_record[remainder_of_datagram];
-       } DTLSShortCiphertext;
+    0 1 2 3 4 5 6 7       0 1 2 3 4 5 6 7        0 1 2 3 4 5 6 7
+   +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+   | Content Type  |     |0|0|1|C|L|X|X|X|     |0|0|1|0|0|X|X|X|
+   +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+   |   16 bit      |     |E|E| 14 bit    |     |E|E| 14 bit    |
+   |   Version     |     +-+-+           |     +-+-+           |
+   +-+-+-+-+-+-+-+-+     |Sequence Number|     |Sequence Number|
+   |   16 bit      |     +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+   |    Epoch      |     |               |     |               |
+   +-+-+-+-+-+-+-+-+     / Connection ID /     |   Encrypted   |
+   |               |     |               |     /   Record      /
+   |               |     +-+-+-+-+-+-+-+-+     |               |
+   |   48 bit      |     |   16 bit      |     +-+-+-+-+-+-+-+-+
+   |Sequence Number|     |   Length      |
+   |               |     +-+-+-+-+-+-+-+-+       DTLSCiphertext
+   |               |     |               |         Structure
+   +-+-+-+-+-+-+-+-+     |  Encrypted    |         (minimal)
+   |    16 bit     |     /  Record       /
+   |    Length     |     |               |
+   +-+-+-+-+-+-+-+-+     +-+-+-+-+-+-+-+-+
+   |               |
+   |               |      DTLSCiphertext
+   /   Fragment    /        Structure
+   |               |          (full)
+   +-+-+-+-+-+-+-+-+
 
-   The short_epoch_and_sequence document contains the epoch and sequence
-   packed into a 16 bit integer as follows:
+    DTLSPlaintext
+      Structure
 
-   -  The first three bits are set to 001 in order to allow multiplexing
-      between DTLS and VoIP protocols (STUN, RTP/RTCP, etc.)  [RFC7983]
-      and distinguish the short from long header formats.
+                         Figure 4: Header Examples
 
-   -  The fourth bit is the low order bit of the epoch value.
+   The length field may be omitted and therefore the record consumes the
+   entire rest of the datagram in the lower level transport.  In this
+   case it is not possible to have multiple DTLSCiphertext format
+   records without length fields in the same datagram.
 
-   -  The remaining bits contain the low order 12 bits of the sequence
-      number.
-
-   In this format, the length field is omitted and therefore the record
-   consumes the entire rest of the datagram in the lower level
-   transport.  It is not possible to have multiple DTLSShortCiphertext
-   format records in the same datagram.
-
-   DTLSShortCiphertext MUST only be used for data which is protected
-   with one of the application_traffic_secret values, and not for
-   messages protected with either [sender]_handshake_traffic_sercret or
-   [sender]_early_traffic_secret values.  When using an
+   Omitting the length field MUST only be used for data which is
+   protected with one of the application_traffic_secret values, and not
+   for messages protected with either [sender]_handshake_traffic_sercret
+   or [sender]_early_traffic_secret values.  When using an
    [sender]_application_traffic_secret for message protection,
-   Implementations MAY use either DTLSCiphertext or DTLSShortCiphertext
-   at their discretion.
+   Implementations MAY include the length field at their discretion.
 
-4.1.  Sequence Number Handling
+4.1.  Determining the Header Format
+
+   Implementations can distinguish the two header formats by examining
+   the first byte:
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 10]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+   -  If the first byte is alert(21), handshake(22), or ack(proposed,
+      25), the record MUST be interpreted as a DTLSPlaintext record.
+
+   -  If the first byte is any other other value, then receivers MUST
+      check to see if the leading bits of the first byte are 001.  If
+      so, the implementation MUST process the record as DTLSCiphertext;
+      the true content type will be inside the protected portion.
+
+   -  Otherwise, the record MUST be rejected as if it had failed
+      deprotection, as described in Section 4.5.2.
+
+4.2.  Sequence Number and Epoch
+
+4.2.1.  Processing Guidlines
 
    DTLS uses an explicit sequence number, rather than an implicit one,
    carried in the sequence_number field of the record.  Sequence numbers
    are maintained separately for each epoch, with each sequence_number
-   initially being 0 for each epoch.  For instance, if a handshake
-   message from epoch 0 is retransmitted, it might have a sequence
-   number after a message from epoch 1, even if the message from epoch 1
-   was transmitted first.  Note that some care needs to be taken during
-   the handshake to ensure that retransmitted messages use the right
-   epoch and keying material.
+   initially being 0 for each epoch.
 
    The epoch number is initially zero and is incremented each time
    keying material changes and a sender aims to rekey.  More details are
    provided in Section 6.1.
 
-   Note that because DTLS records may be reordered, a record from epoch
-   1 may be received after epoch 2 has begun.  In general,
-
-
-
-Rescorla, et al.        Expires September 5, 2018               [Page 9]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
-   implementations SHOULD discard packets from earlier epochs, but if
-   packet loss causes noticeable problems implementations MAY choose to
-   retain keying material from previous epochs for up to the default MSL
-   specified for TCP [RFC0793] to allow for packet reordering.  (Note
-   that the intention here is that implementers use the current guidance
-   from the IETF for MSL, as specified in [RFC0793] or successors not
-   that they attempt to interrogate the MSL that the system TCP stack is
-   using.)  Until the handshake has completed, implementations MUST
-   accept packets from the old epoch.
+   Because DTLS records may be reordered, a record from epoch 1 may be
+   received after epoch 2 has begun.  In general, implementations SHOULD
+   discard packets from earlier epochs, but if packet loss causes
+   noticeable problems implementations MAY choose to retain keying
+   material from previous epochs for up to the default MSL specified for
+   TCP [RFC0793] to allow for packet reordering.  (Note that the
+   intention here is that implementers use the current guidance from the
+   IETF for MSL, as specified in [RFC0793] or successors not that they
+   attempt to interrogate the MSL that the system TCP stack is using.)
+   Until the handshake has completed, implementations MUST accept
+   packets from the old epoch.
 
    Conversely, it is possible for records that are protected with the
    new epoch to be received prior to the completion of a handshake.  For
@@ -528,41 +610,24 @@ Internet-Draft                  DTLS 1.3                      March 2018
    impermissible to send data prior to completion of the first
    handshake.
 
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 11]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+   Note that some care needs to be taken during the handshake to ensure
+   that retransmitted messages use the right epoch and keying material.
+
    Implementations MUST either abandon an association or re-key prior to
    allowing the sequence number to wrap.
 
    Implementations MUST NOT allow the epoch to wrap, but instead MUST
    establish a new association, terminating the old association.
 
-4.1.1.  Determining the Header Format
-
-   Implementations can distinguish the three header formats by examining
-   the first byte, which in the DTLSPlaintext and DTLSCiphertext header
-   represents the content type.  If the first byte is alert(21),
-   handshake(22), or ack(proposed, 25), the record MUST be interpreted
-   as a DTLSPlaintext record.  If the first byte is application_data(23)
-   then the record MUST be interpreted handled as DTLSCiphertext; the
-   true content type will be inside the protected portion.
-
-   If the first byte is any other other value, then receivers MUST check
-   to see if the leading bits of the first byte are 001.  If so, they
-   MUST process the record as DTLSShortCiphertext.  Otherwise, the
-   record MUST be rejected as if it had failed deprotection, as
-   described in Section 4.4.2.
-
-
-
-
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 10]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
-4.1.2.  Reconstructing the Sequence Number and Epoch
+4.2.2.  Reconstructing the Sequence Number and Epoch
 
    When receiving protected DTLS records message, the recipient does not
    have a full epoch or sequence number value and so there is some
@@ -585,12 +650,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    use the most recent past epoch which has matching bits, and then
    reconstruct the sequence number as described above.
 
-   Note: the DTLSShortCiphertext format does not allow for easy
-   reconstruction of sequence numbers if ~2000 datagrams in sequence are
-   lost.  Implementations which may encounter this situation SHOULD use
-   the DTLSCiphertext format.
-
-4.2.  Transport Layer Mapping
+4.3.  Transport Layer Mapping
 
    DTLS messages MAY be fragmentmented into multiple DTLS records.  Each
    DTLS record MUST fit within a single datagram.  In order to avoid IP
@@ -606,18 +666,17 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
    DTLS records, as defined in this document, do not contain any
    association identifiers and applications must arrange to multiplex
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 12]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
    between associations.  With UDP, the host/port number is used to look
    up the appropriate security association for incoming records.
    However, the Connection ID extension defined in
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 11]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
    [I-D.ietf-tls-dtls-connection-id] adds an association identifier to
    DTLS records.
 
@@ -637,7 +696,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    defines a mapping of DTLS to DCCP that takes these issues into
    account.
 
-4.3.  PMTU Issues
+4.4.  PMTU Issues
 
    In general, DTLS's philosophy is to leave PMTU discovery to the
    application.  However, DTLS cannot completely ignore PMTU for three
@@ -663,16 +722,16 @@ Internet-Draft                  DTLS 1.3                      March 2018
    -  For DTLS over UDP, the upper layer protocol SHOULD be allowed to
       obtain the PMTU estimate maintained in the IP layer.
 
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 13]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
    -  For DTLS over DCCP, the upper layer protocol SHOULD be allowed to
       obtain the current estimate of the PMTU.
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 12]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
 
    -  For DTLS over TCP or SCTP, which automatically fragment and
       reassemble datagrams, there is no PMTU limitation.  However, the
@@ -722,20 +781,17 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 13]
+Rescorla, et al.         Expires January 3, 2019               [Page 14]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
-4.4.  Record Payload Protection
+4.5.  Record Payload Protection
 
    Like TLS, DTLS transmits data as a series of protected records.  The
    rest of this section describes the details of that format.
 
-4.4.1.  Anti-Replay
+4.5.1.  Anti-Replay
 
    Each DTLS record contains a sequence number to provide replay
    protection.  Sequence number verification SHOULD be performed using
@@ -773,7 +829,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    discard the received record as invalid.  The receive window is
    updated only if the MAC verification succeeds.
 
-4.4.2.  Handling Invalid Records
+4.5.2.  Handling Invalid Records
 
    Unlike TLS, DTLS is resilient in the face of invalid records (e.g.,
    invalid formatting, length, MAC, etc.).  In general, invalid records
@@ -781,9 +837,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 14]
+Rescorla, et al.         Expires January 3, 2019               [Page 15]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    however, an error MAY be logged for diagnostic purposes.
@@ -837,9 +893,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 15]
+Rescorla, et al.         Expires January 3, 2019               [Page 16]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 5.1.  Denial-of-Service Countermeasures
@@ -884,7 +940,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    ClientHello is present in DTLS 1.3 but is ignored by a DTLS 1.3
    compliant server implementation.
 
-   The exchange is shown in Figure 2.  Note that the figure focuses on
+   The exchange is shown in Figure 5.  Note that the figure focuses on
    the cookie exchange; all other extensions are omitted.
 
 
@@ -893,9 +949,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 16]
+Rescorla, et al.         Expires January 3, 2019               [Page 17]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
          Client                                   Server
@@ -910,7 +966,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
          [Rest of handshake]
 
-       Figure 2: DTLS exchange with HelloRetryRequest containing the
+       Figure 5: DTLS exchange with HelloRetryRequest containing the
                             "cookie" extension
 
    The cookie extension is defined in Section 4.2.2 of
@@ -949,9 +1005,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 17]
+Rescorla, et al.         Expires January 3, 2019               [Page 18]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    defend against this attack by changing the secret value frequently,
@@ -1005,9 +1061,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 18]
+Rescorla, et al.         Expires January 3, 2019               [Page 19]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
      enum {
@@ -1061,9 +1117,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 19]
+Rescorla, et al.         Expires January 3, 2019               [Page 20]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    DTLS implementations maintain (at least notionally) a
@@ -1117,9 +1173,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 20]
+Rescorla, et al.         Expires January 3, 2019               [Page 21]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    random:  Same as for TLS 1.3.
@@ -1173,9 +1229,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 21]
+Rescorla, et al.         Expires January 3, 2019               [Page 22]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 5.5.  DTLS Handshake Flights
@@ -1221,7 +1277,7 @@ ClientHello                                                 +----------+
 
  [Application Data]     <------->      [Application Data]
 
-     Figure 3: Message flights for a full DTLS Handshake (with cookie
+     Figure 6: Message flights for a full DTLS Handshake (with cookie
                                  exchange)
 
 
@@ -1229,9 +1285,9 @@ ClientHello                                                 +----------+
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 22]
+Rescorla, et al.         Expires January 3, 2019               [Page 23]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    ClientHello                                              +----------+
@@ -1255,7 +1311,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
    [Application Data]    <------->      [Application Data]
 
-    Figure 4: Message flights for resumption and PSK handshake (without
+    Figure 7: Message flights for resumption and PSK handshake (without
                              cookie exchange)
 
 
@@ -1285,9 +1341,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 23]
+Rescorla, et al.         Expires January 3, 2019               [Page 24]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
   Client                                            Server
@@ -1317,7 +1373,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
    [Application Data]    <------->      [Application Data]
 
-           Figure 5: Message flights for the Zero-RTT handshake
+           Figure 8: Message flights for the Zero-RTT handshake
 
   Client                                            Server
 
@@ -1329,7 +1385,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
   [ACK]                  -------->                          | Flight 2 |
                                                             +----------+
 
-       Figure 6: Message flights for the new session ticket message
+       Figure 9: Message flights for the new session ticket message
 
    Note: The application data sent by the client is not included in the
    timeout and retransmission calculation.
@@ -1341,9 +1397,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 24]
+Rescorla, et al.         Expires January 3, 2019               [Page 25]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 5.6.  Timeout and Retransmission
@@ -1351,7 +1407,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
 5.6.1.  State Machine
 
    DTLS uses a simple timeout and retransmission scheme with the state
-   machine shown in Figure 7.  Because DTLS clients send the first
+   machine shown in Figure 10.  Because DTLS clients send the first
    message (ClientHello), they start in the PREPARING state.  DTLS
    servers start in the WAITING state, but with empty buffers and no
    retransmit timer.
@@ -1397,9 +1453,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 25]
+Rescorla, et al.         Expires January 3, 2019               [Page 26]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
                |           |
@@ -1412,7 +1468,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
              Server read retransmit
                  Retransmit ACK
 
-          Figure 7: DTLS timeout and retransmission state machine
+         Figure 10: DTLS timeout and retransmission state machine
 
    The state machine has four basic states: PREPARING, SENDING, WAITING,
    and FINISHED.
@@ -1453,9 +1509,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 26]
+Rescorla, et al.         Expires January 3, 2019               [Page 27]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
        a duplicate message is the likely result of timer expiry on the
@@ -1509,9 +1565,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 27]
+Rescorla, et al.         Expires January 3, 2019               [Page 28]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    Implementations SHOULD retain the current timer value until a
@@ -1565,9 +1621,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 28]
+Rescorla, et al.         Expires January 3, 2019               [Page 29]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    Note: it is not always possible to distinguish which association a
@@ -1621,9 +1677,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 29]
+Rescorla, et al.         Expires January 3, 2019               [Page 30]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    Client                                                Server
@@ -1673,13 +1729,13 @@ Internet-Draft                  DTLS 1.3                      March 2018
                                                        ACK [2]
 
 
-         Figure 8: Example DTLS exchange illustrating message loss
+        Figure 11: Example DTLS exchange illustrating message loss
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 30]
+Rescorla, et al.         Expires January 3, 2019               [Page 31]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 6.1.  Epoch Values and Rekeying
@@ -1733,9 +1789,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 31]
+Rescorla, et al.         Expires January 3, 2019               [Page 32]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
    exchange.  A server will not be able to compute the appropriate keys
@@ -1747,7 +1803,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
    The traffic key calculation is described in Section 7.3 of
    [I-D.ietf-tls-tls13].
 
-   Figure 9 illustrates the epoch values in an example DTLS handshake.
+   Figure 12 illustrates the epoch values in an example DTLS handshake.
 
    Client                                             Server
    ------                                             ------
@@ -1789,9 +1845,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 32]
+Rescorla, et al.         Expires January 3, 2019               [Page 33]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
                                <--------      [Application Data]
@@ -1814,7 +1870,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
     [Application Data]         -------->
     (epoch=4)
 
-          Figure 9: Example DTLS exchange with epoch information
+          Figure 12: Example DTLS exchange with epoch information
 
 7.  ACK Message
 
@@ -1845,9 +1901,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 33]
+Rescorla, et al.         Expires January 3, 2019               [Page 34]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 7.1.  Sending ACKs
@@ -1901,9 +1957,9 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 34]
+Rescorla, et al.         Expires January 3, 2019               [Page 35]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 7.2.  Receiving ACKs
@@ -1925,14 +1981,14 @@ Internet-Draft                  DTLS 1.3                      March 2018
    indicate that they are updating their sending keys.  As with other
    handshake messages with no built-in response, KeyUpdates MUST be
    acknowledged.  In order to facilitate epoch reconstruction
-   Section 4.1.2 implementations MUST NOT send with the new keys or send
+   Section 4.2.2 implementations MUST NOT send with the new keys or send
    a new KeyUpdate until the previous KeyUpdate has been acknowledged
    (this avoids having too many epochs in active use).
 
    Due to loss and/or re-ordering, DTLS 1.3 implementations may receive
    a record with an older epoch than the current one (the requirements
    above preclude receiving a newer record).  They SHOULD attempt to
-   process those records with that epoch (see Section 4.1.2 for
+   process those records with that epoch (see Section 4.2.2 for
    information on determining the correct epoch), but MAY opt to discard
    such out-of-epoch records.
 
@@ -1945,7 +2001,122 @@ Internet-Draft                  DTLS 1.3                      March 2018
    case, implementations SHOULD rate limit how often they send such
    ACKs.
 
-9.  Application Data Protocol
+9.  Connection ID Updates
+
+   If the client and server have negotiated the "connection_id"
+   extension [I-D.ietf-tls-dtls-connection-id], either side can send a
+   new connection ID which it wishes the other side to use in a
+   NewConnectionId message.
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 36]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+      enum {
+          cid_immediate(0), cid_spare(1), (255)
+      } ConnectionIdUsage;
+
+      struct {
+          opaque cid<0..2^8-1>;
+          ConnectionIdUsage usage;
+      } NewConnectionId;
+
+   cid  Indicates the CID which the sender wishes the peer to use.
+
+   usage  Indicates whether the new CID should be used immediately or is
+      a spare.  If usage is set to "cid_immediate", then the new CID
+      MUST be used immediately for all future records.  If it is set to
+      "cid_spare", then either CID MAY be used.
+
+   If the client and server have negotiated the "connection_id"
+   extension, either side can request a new CID using the
+   RequestConnectionId message.
+
+      struct {
+      } RequestConnectionId;
+
+   Endpoints SHOULD respond to RequestConnectionId by sending a
+   NewConnectionId with usage "cid_spare" as soon as possible.  Note
+   that an endpoint MAY ignore requests, which it considers excessive
+   (though they MUST be ACKed as usual).
+
+   Endpoints MUST NOT send either of these messages if they did not
+   negotiate a connection ID.  If an implementation receives these
+   messages when connection IDs were not negotiated, it MUST abort the
+   connection with an unexpected_message alert.
+
+9.1.  ID Example
+
+   Below is an example exchange for DTLS 1.3 using a single connection
+   id in each direction.
+
+   Note: The connection_id extension is defined in
+   [I-D.ietf-tls-dtls-connection-id], which is used in ClientHello and
+   ServerHello messages.
+
+
+
+
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 37]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+   Client                                             Server
+   ------                                             ------
+
+   ClientHello
+   (connection_id=5)
+                               -------->
+
+
+                               <--------       HelloRetryRequest
+                                                        (cookie)
+
+   ClientHello                 -------->
+   (connection_id=5)
+     +cookie
+
+                               <--------             ServerHello
+                                             (connection_id=100)
+                                             EncryptedExtensions
+                                                         (cid=5)
+                                                     Certificate
+                                                         (cid=5)
+                                               CertificateVerify
+                                                         (cid=5)
+                                                        Finished
+                                                         (cid=5)
+
+   Certificate                -------->
+   (cid=100)
+   CertificateVerify
+   (cid=100)
+   Finished
+   (cid=100)
+                              <--------                      Ack
+                                                         (cid=5)
+
+   Application Data           ========>
+   (cid=100)
+                              <========         Application Data
+                                                         (cid=5)
+
+         Figure 13: Example DTLS 1.3 Exchange with Connection IDs
+
+10.  Application Data Protocol
 
    Application data messages are carried by the record layer and are
    fragmented and encrypted based on the current connection state.  The
@@ -1954,15 +2125,12 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 35]
+Rescorla, et al.         Expires January 3, 2019               [Page 38]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
-10.  Security Considerations
+11.  Security Considerations
 
    Security issues are discussed primarily in [I-D.ietf-tls-tls13].
 
@@ -1990,7 +2158,43 @@ Internet-Draft                  DTLS 1.3                      March 2018
    symmetric key hashing operations.  Implementations which are
    concerned about this form of attack can discard out-of-epoch records.
 
-11.  Changes to DTLS 1.2
+   The security and privacy properties of the connection ID for DTLS 1.3
+   builds on top of what is described in
+   [I-D.ietf-tls-dtls-connection-id].  There are, however, several
+   improvements:
+
+   -  The use of the Post-Handshake message allows the client and the
+      server to update their connection IDs and those values are
+      exchanged with confidentiality protection.
+
+   -  With multi-homing, an adversary is able to correlate the
+      communication interaction over the two paths, which adds further
+      privacy concerns.  In order to prevent this, implementations
+      SHOULD attempt to use fresh connection IDs whenever they change
+      local addresses or ports (though this is not always possible to
+      detect).  The RequestConnectionId message can be used to ask for
+      new IDs in order to ensure that you have a pool of suitable IDs.
+
+   -  Switching connection ID based on certain events, or even
+      regularly, helps against tracking by onpath adversaries but the
+      sequence numbers can still allow linkability.  [[OPEN ISSUE: We
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 39]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+      need to update the document to offer sequence number encryption.
+      ]]
+
+   -  Since the DTLS 1.3 exchange encrypts handshake messages much
+      earlier than in previous DTLS versions information identifying the
+      DTLS client, such as the client certificate, less information is
+      available to an on-path adversary.
+
+12.  Changes to DTLS 1.2
 
    Since TLS 1.3 introduces a large number of changes to TLS 1.2, the
    list of changes from DTLS 1.2 to DTLS 1.3 is equally large.  For this
@@ -2011,26 +2215,36 @@ Internet-Draft                  DTLS 1.3                      March 2018
    -  New key derivation hierarchy utilizing a new key derivation
       construct
 
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 36]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
    -  Removed support for weaker and older cryptographic algorithms
 
    -  Improved version negotation
 
-12.  IANA Considerations
+   -  Optimized record layer encoding and thereby its size
 
-   IANA is requested to allocate a new value in the TLS ContentType
-   Registry for the ACK message defined in Section 7, with content type
+   -  Added connection ID functionality
+
+13.  IANA Considerations
+
+   IANA is requested to allocate a new value in the "TLS ContentType"
+   registry for the ACK message, defined in Section 7, with content type
    25.
 
-13.  References
+   IANA is requested to allocate two values in the "TLS Handshake Type"
+   registry, defined in [RFC5246], for RequestConnectionId (TBD), and
+   NewConnectionId (TBD), as defined in this document.
 
-13.1.  Normative References
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 40]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+14.  References
+
+14.1.  Normative References
 
    [I-D.ietf-tls-tls13]
               Rescorla, E., "The Transport Layer Security (TLS) Protocol
@@ -2064,16 +2278,6 @@ Internet-Draft                  DTLS 1.3                      March 2018
               Discovery", RFC 4821, DOI 10.17487/RFC4821, March 2007,
               <https://www.rfc-editor.org/info/rfc4821>.
 
-
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 37]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
    [RFC6298]  Paxson, V., Allman, M., Chu, J., and M. Sargent,
               "Computing TCP's Retransmission Timer", RFC 6298,
               DOI 10.17487/RFC6298, June 2011,
@@ -2083,7 +2287,18 @@ Internet-Draft                  DTLS 1.3                      March 2018
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-13.2.  Informative References
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 41]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
+14.2.  Informative References
 
    [I-D.ietf-tls-dtls-connection-id]
               Rescorla, E., Tschofenig, H., Fossati, T., and T. Gondrom,
@@ -2123,17 +2338,21 @@ Internet-Draft                  DTLS 1.3                      March 2018
               RFC 4960, DOI 10.17487/RFC4960, September 2007,
               <https://www.rfc-editor.org/info/rfc4960>.
 
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 38]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
-
    [RFC5238]  Phelan, T., "Datagram Transport Layer Security (DTLS) over
               the Datagram Congestion Control Protocol (DCCP)",
               RFC 5238, DOI 10.17487/RFC5238, May 2008,
               <https://www.rfc-editor.org/info/rfc5238>.
+
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 42]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
@@ -2155,13 +2374,7 @@ Internet-Draft                  DTLS 1.3                      March 2018
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <https://www.rfc-editor.org/info/rfc7525>.
 
-   [RFC7983]  Petit-Huguenin, M. and G. Salgueiro, "Multiplexing Scheme
-              Updates for Secure Real-time Transport Protocol (SRTP)
-              Extension for Datagram Transport Layer Security (DTLS)",
-              RFC 7983, DOI 10.17487/RFC7983, September 2016,
-              <https://www.rfc-editor.org/info/rfc7983>.
-
-13.3.  URIs
+14.3.  URIs
 
    [1] mailto:tls@ietf.org
 
@@ -2181,16 +2394,32 @@ Internet-Draft                  DTLS 1.3                      March 2018
 
 
 
-Rescorla, et al.        Expires September 5, 2018              [Page 39]
+
+
+
+
+
+
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 43]
 
-Internet-Draft                  DTLS 1.3                      March 2018
+Internet-Draft                  DTLS 1.3                       July 2018
 
 
 Appendix A.  History
 
    RFC EDITOR: PLEASE REMOVE THE THIS SECTION
 
-   IETF Drafts draft-03 - Only update keys after KeyUpdate is ACKed.
+   IETF Drafts draft-27: - Incorporated unified header format.  - Added
+   support for connection IDs.
+
+   draft-04 - 26: - Submissions to align with TLS 1.3 draft versions
+
+   draft-03 - Only update keys after KeyUpdate is ACKed.
 
    draft-02 - Shorten the protected record header and introduce an
    ultra-short version of the record header.  - Reintroduce KeyUpdate,
@@ -2227,20 +2456,23 @@ Appendix B.  Working Group Information
    Archives of the list can be found at: https://www.ietf.org/mail-
    archive/web/tls/current/index.html [3]
 
+
+
+
+
+
+Rescorla, et al.         Expires January 3, 2019               [Page 44]
+
+Internet-Draft                  DTLS 1.3                       July 2018
+
+
 Appendix C.  Contributors
 
    Many people have contributed to previous DTLS versions and they are
-   acknowledged in prior versions of DTLS specifications.
+   acknowledged in prior versions of DTLS specifications or in the
+   referenced specifications.
 
-   For this version of the document we would like to thank:
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 40]
-
-Internet-Draft                  DTLS 1.3                      March 2018
-
+   In addition, we would like to thank:
 
    * Ilari Liusvaara
      Independent
@@ -2249,6 +2481,18 @@ Internet-Draft                  DTLS 1.3                      March 2018
    * Martin Thomson
      Mozilla
      martin.thomson@gmail.com
+
+   * Yin Xinxing
+     Huawei
+     yinxinxing@huawei.com
+
+   * Thomas Fossati
+     Nokia
+     thomas.fossati@nokia.com
+
+   * Tobias Gondrom
+     Huawei
+     tobias.gondrom@gondrom.org
 
 Authors' Addresses
 
@@ -2273,24 +2517,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Rescorla, et al.        Expires September 5, 2018              [Page 41]
+Rescorla, et al.         Expires January 3, 2019               [Page 45]
