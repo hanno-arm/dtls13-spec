@@ -2414,8 +2414,11 @@ Appendix A.  History
 
    RFC EDITOR: PLEASE REMOVE THE THIS SECTION
 
-   IETF Drafts draft-27: - Incorporated unified header format.  - Added
-   support for connection IDs.
+   IETF Drafts draft-28: - Version bump to align with TLS 1.3 pre-RFC
+   version.
+
+   draft-27: - Incorporated unified header format.  - Added support for
+   connection IDs.
 
    draft-04 - 26: - Submissions to align with TLS 1.3 draft versions
 
@@ -2455,9 +2458,6 @@ Appendix B.  Working Group Information
 
    Archives of the list can be found at: https://www.ietf.org/mail-
    archive/web/tls/current/index.html [3]
-
-
-
 
 
 
